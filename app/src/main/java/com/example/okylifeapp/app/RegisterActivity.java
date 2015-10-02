@@ -10,7 +10,8 @@ import rest.AsyncResponse;
 public class RegisterActivity extends Activity implements AsyncResponse {
     @Override
     public void onCreate(Bundle savedInstance) {
-
+        super.onCreate(savedInstance);
+        setContentView(R.layout.registrarse);
     }
 
     @Override
