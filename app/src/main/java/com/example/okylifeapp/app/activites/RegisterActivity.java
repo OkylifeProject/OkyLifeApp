@@ -1,8 +1,9 @@
-package com.example.okylifeapp.app;
+package com.example.okylifeapp.app.activites;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import com.example.okylifeapp.app.R;
 import rest.AsyncResponse;
 
 /**
