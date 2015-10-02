@@ -39,6 +39,6 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         params.add(new BasicNameValuePair("email", "savelascod@gmail.com"));
         params.add(new BasicNameValuePair("birthDate", "5/3/1994"));
 
-        requestCaller.postData("User/rgisterUser", this, params);
+        requestCaller.postData("User/registerUser", this, params);
     }
 }
