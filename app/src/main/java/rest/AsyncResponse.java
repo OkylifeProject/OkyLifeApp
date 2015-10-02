@@ -1,4 +1,4 @@
-package com.example.okylifeapp.app.rest;
+package rest;
 
 /**
  * Created by mordreth on 10/2/15.

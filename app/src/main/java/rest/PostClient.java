@@ -1,4 +1,4 @@
-package com.example.okylifeapp.app.rest;
+package rest;
 
 import android.content.Context;
 import android.os.AsyncTask;

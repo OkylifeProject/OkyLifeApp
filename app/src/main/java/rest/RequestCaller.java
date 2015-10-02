@@ -1,4 +1,4 @@
-package com.example.okylifeapp.app.rest;
+package rest;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
