@@ -1,4 +1,4 @@
-package com.example.okylifeapp.app.activites;
+package com.example.okylifeapp.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +8,13 @@ import android.view.Window;
 import com.example.okylifeapp.app.R;
 
 
-public class OkyLifeActivity extends ActionBarActivity {
+public class OkyLifeStartActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.register);
+        setContentView(R.layout.initial_view);
     }
 
     public void renderRegisterView(View view) {

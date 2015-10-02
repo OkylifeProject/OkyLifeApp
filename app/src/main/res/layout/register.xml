@@ -87,7 +87,7 @@
             android:text="¡Registrarse!"
             style="@style/DefaultButtonText"
             android:background="@drawable/button_default_bg"
-            android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:enabled="false"
+            android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:enabled="true"
             android:onClick="register"/>
     <EditText
             android:layout_width="wrap_content"

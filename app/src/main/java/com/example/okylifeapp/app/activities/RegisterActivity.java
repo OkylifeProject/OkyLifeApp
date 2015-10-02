@@ -1,4 +1,4 @@
-package com.example.okylifeapp.app.activites;
+package com.example.okylifeapp.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
