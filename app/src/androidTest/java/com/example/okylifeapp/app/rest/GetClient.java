@@ -2,13 +2,12 @@ package com.example.okylifeapp.app.rest;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import org.apache.http.HttpResponse;
+import android.util.Log;
+import android.widget.Toast;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import org.apache.http.util.EntityUtils;
 
 /**
  * Created by mordreth on 10/2/15.
@@ -47,31 +46,22 @@ public class GetClient extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-
-        StringBuffer bufferCadena = new StringBuffer("");
+        HttpClient client = new DefaultHttpClient();
+        HttpGet request = new HttpGet(this.url);
+        String response = null;
+        request.addHeader("Accept", "application/json");
         try {
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(this.url);
-            request.setHeader("Accept", "application/json");
-            HttpResponse response = client.execute(request);
-            BufferedReader stream = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent()));
-
-            String separator = "";
-            String NL = System.getProperty("line.separator");
-            while ((separator = stream.readLine()) != null) {
-                bufferCadena.append(separator + NL);
-            }
-            stream.close();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            response = EntityUtils.toString(client.execute(request).getEntity());
+        } catch (Exception ex) {
+            Log.e("ServicioRestGET", "Error!", ex);
+            Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show();
         }
-        return bufferCadena.toString();
+
+        return response;
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        this.delegate.processFinish(s);
+    protected void onPostExecute(String response) {
+        this.delegate.processFinish(response);
     }
 }
