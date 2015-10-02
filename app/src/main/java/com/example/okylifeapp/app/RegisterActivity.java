@@ -2,6 +2,7 @@ package com.example.okylifeapp.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import rest.AsyncResponse;
 
 /**
@@ -17,5 +18,8 @@ public class RegisterActivity extends Activity implements AsyncResponse {
     @Override
     public void processFinish(String result) {
 
+    }
+
+    public void register(View view) {
     }
 }
