@@ -1,7 +1,9 @@
 package com.example.okylifeapp.app.activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.view.Window;
 import com.example.okylifeapp.app.R;
 
@@ -15,6 +17,11 @@ public class OkyLifeActivity extends ActionBarActivity {
         setContentView(R.layout.register);
     }
 
+    public void renderRegisterView(View view) {
+        Intent registerIntent = new Intent(this, RegisterActivity.class);
+        finish();
+        startActivity(registerIntent);
+    }
 
    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
