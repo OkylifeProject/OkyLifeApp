@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by mordreth on 10/2/15.
  */
-public class PeticionCaller {
+public class RequestCaller {
     String hostUrl = "https://okylifeapi.herokuapp.com";
     HttpParams parameters;
 
