@@ -8,8 +8,8 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity"
-
                 android:background="#ffffff">
+
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +41,11 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="#000"
                 android:textAlignment="center"/>
+
+        <com.google.android.gms.common.SignUpButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -128,7 +133,6 @@
             android:entries="@array/genderList"
             android:layout_toLeftOf="@+id/imageView"
             android:spinnerMode="dialog"/>
-
 
 
 </RelativeLayout>
