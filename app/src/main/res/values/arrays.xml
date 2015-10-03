@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="generoList">
-        <item>@string/genero1</item>
-        <item>@string/genero2</item>
+    <string-array name="genderList">
+        <item>@string/gender1</item>
+        <item>@string/gender2</item>
     </string-array>
 </resources>

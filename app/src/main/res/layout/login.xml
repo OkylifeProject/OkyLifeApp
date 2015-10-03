@@ -27,36 +27,44 @@
             android:padding="10dp"
             android:id="@+id/linearLayout"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp" android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/etUserName" android:layout_alignStart="@+id/etUserName">
+            android:layout_marginTop="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/etUserName"
+            android:layout_alignStart="@+id/etUserName">
         <TextView
-            android:layout_width="140dp"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:text="¡Bienvenido!"
-            android:id="@+id/textView3"
-            android:textSize="25dp"
-            android:layout_centerVertical="true" android:layout_gravity="center_horizontal"
-            android:textColor="#000" android:textAlignment="center"/>
-        <TextView
-                android:layout_width="170dp"
+                android:layout_width="110dp"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:text="Iniciar Sesion con:"
+                android:text="@string/welcom"
+                android:id="@+id/textView3"
+                android:textSize="25dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000"
+                android:textAlignment="center"/>
+        <TextView
+                android:layout_width="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:text="@string/logInWith"
                 android:id="@+id/textView5"
                 android:textSize="20dp"
-                android:layout_centerVertical="true" android:layout_gravity="center_horizontal"
-                android:textColor="#000" android:textAlignment="center"/>
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000"
+                android:textAlignment="center"/>
     </LinearLayout>
     <TextView
-            android:layout_width="20dp"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:text="ó:"
+            android:text="or:"
             android:id="@+id/textView4"
             android:textSize="20dp"
             android:layout_gravity="center_horizontal"
-            android:textColor="#000" android:textAlignment="center"
-            android:layout_marginBottom="54dp" android:layout_alignBottom="@+id/etUserName"
+            android:textColor="#000"
+            android:textAlignment="center"
+            android:layout_marginBottom="54dp"
+            android:layout_alignBottom="@+id/etUserName"
             android:layout_centerHorizontal="true"/>
 
     <EditText
@@ -65,39 +73,51 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_default_bg"
             android:padding="10dp"
-            android:hint=" Usuario"
+            android:hint="@string/user"
             android:textColorHint="#bbbbbb"
             android:drawableLeft="@drawable/email"
-            android:layout_below="@+id/imageView" android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="114dp"/>
     <EditText
-            android:id="@+id/etPass"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_bottom_bg"
             android:padding="10dp"
-            android:hint=" Contraseña"
+            android:hint="@string/password"
             android:textColorHint="#bbbbbb"
             android:password="true"
             android:drawableLeft="@drawable/password"
-            android:layout_below="@+id/etUserName" android:layout_centerHorizontal="true"/>
+            android:layout_below="@+id/etUserName"
+            android:layout_centerHorizontal="true"/>
     <Button
-            android:id="@+id/btnSingIn"
+            android:id="@+id/btnLogIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Inicir Sesion"
+            android:text="@string/logIn"
             style="@style/DefaultButtonText"
             android:background="@drawable/button_default_bg"
-            android:layout_below="@+id/etPass" android:layout_centerHorizontal="true"/>
-    <TextView android:id="@+id/restaurarContraseña"
+            android:layout_above="@+id/passwordRestore"
+            android:layout_alignLeft="@+id/passwordRestore"
+            android:layout_alignStart="@+id/passwordRestore"/>
+
+    <TextView android:id="@+id/passwordRestore"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="¿Olvidaste tu Contraseña?"
+              android:text="@string/forgetPassword"
               android:gravity="center"
               android:textSize="16dip"
               style="@style/DefaultButtonText"
-              android:layout_below="@+id/btnSingIn" android:layout_centerHorizontal="true" android:textColor="#000"
-              android:textColorHighlight="#000" android:textColorLink="#00F" android:singleLine="false"
-              android:linksClickable="true" android:clickable="true" android:textIsSelectable="false"/>
+              android:textColor="#000"
+              android:textColorHighlight="#000"
+              android:textColorLink="#00F"
+              android:singleLine="false"
+              android:linksClickable="true"
+              android:clickable="true"
+              android:textIsSelectable="false"
+              android:layout_alignParentBottom="true"
+              android:layout_alignRight="@+id/etPassword"
+              android:layout_alignEnd="@+id/etPassword"/>
 </RelativeLayout>
