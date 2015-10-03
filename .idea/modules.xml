@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OkyLifeApp.iml" filepath="$PROJECT_DIR$/OkyLifeApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file:///Library/Android-sdk-macosx/extras/google/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" filepath="/Library/Android-sdk-macosx/extras/google/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" />
     </modules>
   </component>
 </project>
