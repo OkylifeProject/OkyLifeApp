@@ -10,12 +10,13 @@
     <string name="gender2">Female</string>
     <string name="logIn">LogIn</string>
     <string name="logInWith">LogIn with:</string>
-    <string name="password"> Password</string>
+    <string name="password">Password</string>
     <string name="signUp">SignUp</string>
     <string name="signUpWith">SignUp With:</string>
-    <string name="user"> User</string>
-    <string name="years"> Years Old</string>
+    <string name="user">User</string>
+    <string name="years">Years Old</string>
     <string name="welcom">¡Welcom!</string>
+    <string name="signUpGoogle">Sign Up with Google</string>
 
 
     <style name="DefaultButtonText">

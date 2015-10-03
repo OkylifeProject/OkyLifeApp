@@ -15,17 +15,24 @@ repositories {
 }
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'alejoKey'
+            keyPassword 'Lanzarote222'
+            storeFile file('/Users/mordreth/Repository/Moviles/OkyLifeApp/app/keys/AlejoKey.jks')
+            storePassword 'Lanzarote222'
+        }
+    }
     compileSdkVersion 19
     buildToolsVersion "23.0.0"
-
     defaultConfig {
         applicationId "com.example.okylifeapp.app"
         minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.config
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
@@ -34,8 +41,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            
+            signingConfig signingConfigs.config
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
     }
 }
 

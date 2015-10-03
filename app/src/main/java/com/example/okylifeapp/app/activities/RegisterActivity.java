@@ -1,6 +1,7 @@
 package com.example.okylifeapp.app.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,11 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         Log.v("response", response);
     }
 
+    public void registerWithGoogle(View view) {
+        Intent intent = new Intent(this, RegisterWithGoogleActivity.class);
+        startActivity(intent);
+    }
+
     public void register(View view) {
         /*Prueba para POST*/
 
@@ -49,7 +55,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
 
         /*Preba para GET*/
-        ((OkyLife) getApplication()).getMasterCaller().getById("User", 1, this);
+        //((OkyLife) getApplication()).getMasterCaller().getById("User", 1, this);
     }
 
 }
