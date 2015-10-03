@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
@@ -16,6 +17,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.register);
     }
 

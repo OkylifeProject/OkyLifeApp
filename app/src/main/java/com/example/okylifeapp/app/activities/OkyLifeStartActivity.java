@@ -22,6 +22,11 @@ public class OkyLifeStartActivity extends ActionBarActivity {
         finish();
         startActivity(registerIntent);
     }
+    public void renderLoginView(View view) {
+        Intent registerIntent = new Intent(this, LoginActivity.class);
+        finish();
+        startActivity(registerIntent);
+    }
 
    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {

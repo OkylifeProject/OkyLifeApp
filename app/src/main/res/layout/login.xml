@@ -101,7 +101,8 @@
             android:background="@drawable/button_default_bg"
             android:layout_above="@+id/passwordRestore"
             android:layout_alignLeft="@+id/passwordRestore"
-            android:layout_alignStart="@+id/passwordRestore"/>
+            android:layout_alignStart="@+id/passwordRestore"
+            android:onClick="login"/>
 
     <TextView android:id="@+id/passwordRestore"
               android:layout_width="fill_parent"

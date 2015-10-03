@@ -54,6 +54,7 @@
                 android:text="@string/logIn"
                 style="@style/DefaultButtonText"
                 android:background="@drawable/button_default_bg"
+                android:onClick="renderLoginView"
                 />
     </LinearLayout>
 
