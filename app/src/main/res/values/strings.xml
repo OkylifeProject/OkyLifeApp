@@ -3,6 +3,7 @@
     <string name="app_name">OkyLifeApp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">827486817363982</string>
     <string name="forgetPassword">Did you forget your password?</string>
     <string name="gender">Gender</string>
     <string name="gender1">Male</string>
