@@ -31,26 +31,27 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_margin="4dp"
-                android:text="Registrarse"
+                android:text="@string/signUp"
                 android:background="@drawable/button_default_bg"
                 style="@style/DefaultButtonText"
-                android:onClick="renderRegisterView"/>
+                />
         <TextView
                 android:layout_width="30dp"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:text="ó"
+                android:text="or"
                 android:id="@+id/textView3"
                 android:textSize="25dp"
-                android:layout_centerVertical="true" android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
                 android:textColor="#FFF"/>
         <Button
-                android:id="@+id/btnSingIn"
+                android:id="@+id/btnLogIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_margin="4dp"
-                android:text="Iniciar Sesion"
+                android:text="@string/logIn"
                 style="@style/DefaultButtonText"
                 android:background="@drawable/button_default_bg"
                 />
