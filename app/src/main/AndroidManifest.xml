@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".activities.LoginWithGoogleActivity">
         </activity>
+        <activity android:name=".activities.MainActivity">
+        </activity>
         <activity android:name="com.facebook.FacebookActivity"
                   android:configChanges=
                           "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

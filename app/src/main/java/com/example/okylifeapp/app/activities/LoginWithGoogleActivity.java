@@ -148,14 +148,16 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
                 jsonObject = new JSONObject(response);
                 this.registerAccount(jsonObject);
                 Log.v("response", "success register");
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
             Toast.makeText(this, response, Toast.LENGTH_LONG).show();
             Log.v("response", "error");
+            finish();
         }
-        finish();
     }
 
     private void registerAccount(JSONObject jsonObject) {
@@ -171,6 +173,7 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
             sessioninfo.putString("email", email);
             sessioninfo.putString("id", id);
             accountManager.addAccountExplicitly(account, password, sessioninfo);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

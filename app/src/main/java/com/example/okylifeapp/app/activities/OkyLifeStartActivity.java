@@ -7,10 +7,16 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
+import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import rest.AsyncResponse;
+
+import java.util.ArrayList;
 
 
-public class OkyLifeStartActivity extends ActionBarActivity {
+public class OkyLifeStartActivity extends ActionBarActivity implements AsyncResponse {
     AccountManager accountManager;
     Account okyLifeAccount;
 
@@ -19,6 +25,10 @@ public class OkyLifeStartActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.initial_view);
+
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
+
     }
 
     public void renderRegisterView(View view) {
@@ -36,17 +46,34 @@ public class OkyLifeStartActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        /**ACCOUNT MANAGER **/
-        accountManager = AccountManager.get(getApplicationContext());
+
+        /**VERIFY REGISTERED ACCOUNT**/
         Account[] accounts = accountManager.getAccountsByType("com.example.okylifeapp.app");
         okyLifeAccount = null;
+
         //verify if exist any registered account
         if (accounts.length > 0) {
             okyLifeAccount = accounts[0];
         }
         if (okyLifeAccount != null) {
+            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("email", okyLifeAccount.name));
+            params.add(new BasicNameValuePair("password", accountManager.getPassword(okyLifeAccount)));
+            this.loginUserRequest(params);
 
         }
+
     }
 
+    private void loginUserRequest(ArrayList<NameValuePair> params) {
+        ((OkyLife) getApplication()).getMasterCaller().postData("User/loginUser", this, params);
+    }
+
+    @Override
+    public void processFinish(String result) {
+        if (OkyLife.isJSON(result)) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 }
