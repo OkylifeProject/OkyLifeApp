@@ -1,11 +1,13 @@
 package aplication;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,6 +90,26 @@ public class OkyLife extends Application {
         }
 
         return null;
+    }
+
+    public static void createAccountFirstTime(AccountManager accountManager, JSONObject jsonObject) {
+        Bundle sessioninfo = new Bundle();
+        try {
+            String email = jsonObject.getString("email");
+            String password = jsonObject.getString("password");
+            String id = jsonObject.getString("id");
+            String imageHash = "";
+
+            Account account = new Account(email, "com.example.okylifeapp.app");
+            sessioninfo.putString("imageHash", imageHash);
+            sessioninfo.putString("email", email);
+            sessioninfo.putString("id", id);
+            accountManager.addAccountExplicitly(account, password, sessioninfo);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {

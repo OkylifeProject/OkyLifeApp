@@ -1,6 +1,5 @@
 package com.example.okylifeapp.app.activities;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -103,7 +102,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
         if (OkyLife.isJSON(response)) {
             try {
                 JSONObject jsonObject = new JSONObject(response);
-                createAccountFirstTime(jsonObject);
+                OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -116,32 +115,13 @@ public class LoginActivity extends Activity implements AsyncResponse {
     }
 
 
-    public void createAccountFirstTime(JSONObject jsonObject) {
-        Bundle sessioninfo = new Bundle();
-        try {
-            String email = jsonObject.getString("email");
-            String password = jsonObject.getString("password");
-            String id = jsonObject.getString("id");
-            String imageHash = "";
-
-            Account account = new Account(email, "com.example.okylifeapp.app");
-            sessioninfo.putString("imageHash", imageHash);
-            sessioninfo.putString("email", email);
-            sessioninfo.putString("id", id);
-            accountManager.addAccountExplicitly(account, password, sessioninfo);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void login(View view) {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         TextView emailText = (TextView) findViewById(R.id.etUserName);
         TextView passwordText = (TextView) findViewById(R.id.etPassword);
 
-        String email = (String) emailText.getText();
-        String password = (String) passwordText.getText();
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
 
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("password", password));

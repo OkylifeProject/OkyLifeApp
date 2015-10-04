@@ -146,7 +146,7 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
             try {
                 Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
                 jsonObject = new JSONObject(response);
-                this.registerAccount(jsonObject);
+                OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -160,23 +160,4 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
         }
     }
 
-    private void registerAccount(JSONObject jsonObject) {
-        Bundle sessioninfo = new Bundle();
-        try {
-            String email = jsonObject.getString("email");
-            String password = jsonObject.getString("password");
-            String id = jsonObject.getString("id");
-            String imageHash = "";
-
-            Account account = new Account(email, "com.example.okylifeapp.app");
-            sessioninfo.putString("imageHash", imageHash);
-            sessioninfo.putString("email", email);
-            sessioninfo.putString("id", id);
-            accountManager.addAccountExplicitly(account, password, sessioninfo);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 }
