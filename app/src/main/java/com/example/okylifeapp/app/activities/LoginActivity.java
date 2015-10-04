@@ -20,7 +20,13 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 import rest.AsyncResponse;
+
+import java.util.ArrayList;
 
 /**
  * Created by Cristian Parada on 03/10/2015.
@@ -93,24 +99,54 @@ public class LoginActivity extends Activity implements AsyncResponse {
 
     @Override
     public void processFinish(String response) {
-        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         Log.v("response", response);
+        if (OkyLife.isJSON(response)) {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                createAccountFirstTime(jsonObject);
+                Log.v("response", "success register");
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
+        }
     }
 
 
-    public void createAccountFirstTime() {
+    public void createAccountFirstTime(JSONObject jsonObject) {
         Bundle sessioninfo = new Bundle();
-        Account account = new Account("cuentaEjemplo", "com.example.okylifeapp.app");
+        try {
+            String email = jsonObject.getString("email");
+            String password = jsonObject.getString("password");
+            String id = jsonObject.getString("id");
+            String imageHash = "";
 
-        sessioninfo.putString("authEmail", "asdasdasdasd");
-        sessioninfo.putString("user", "asdasdasdasdsd");
-        sessioninfo.putString("id", "asdasdasdasd");
+            Account account = new Account(email, "com.example.okylifeapp.app");
+            sessioninfo.putString("imageHash", imageHash);
+            sessioninfo.putString("email", email);
+            sessioninfo.putString("id", id);
+            accountManager.addAccountExplicitly(account, password, sessioninfo);
 
-        accountManager.addAccountExplicitly(account, OkyLife.md5("Lanzarote222"), sessioninfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void login(View view) {
-        createAccountFirstTime();
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        TextView emailText = (TextView) findViewById(R.id.etUserName);
+        TextView passwordText = (TextView) findViewById(R.id.etPassword);
+
+        String email = (String) emailText.getText();
+        String password = (String) passwordText.getText();
+
+        params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("password", password));
+
+        ((OkyLife) getApplication()).getMasterCaller().postData("User/loginUser", this, params);
     }
 
     @Override
