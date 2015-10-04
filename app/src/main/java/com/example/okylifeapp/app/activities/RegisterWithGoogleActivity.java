@@ -136,6 +136,7 @@ public class RegisterWithGoogleActivity extends Activity implements AsyncRespons
     public void processFinish(String response) {
         Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         Log.v("response", response);
+        finish();
     }
 }
 

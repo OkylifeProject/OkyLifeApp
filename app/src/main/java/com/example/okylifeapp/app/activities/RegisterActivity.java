@@ -26,6 +26,13 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.register);
 
+        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerWithGoogle(v);
+            }
+        });
+
     }
 
     @Override
