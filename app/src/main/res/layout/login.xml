@@ -53,20 +53,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="#000"
                 android:textAlignment="center"/>
-        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-            <com.google.android.gms.common.SignInButton
-                    android:id="@+id/sign_in_button_google"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            <com.facebook.login.widget.LoginButton
-                    android:id="@+id/login_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imageView" android:layout_centerHorizontal="true"/>
-        </LinearLayout>
     </LinearLayout>
-
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +62,12 @@
             android:layout_alignParentTop="true"
             android:textSize="18sp"
             />
+
+    <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView" android:layout_centerHorizontal="true"/>
 
     <TextView
             android:layout_width="25dp"

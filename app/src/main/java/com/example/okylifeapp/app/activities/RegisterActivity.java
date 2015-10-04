@@ -26,10 +26,10 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.register);
 
-        findViewById(R.id.sign_up_button_google).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerWithGoogle();
+                registerWithGoogle(v);
             }
         });
 
@@ -41,7 +41,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         Log.v("response", response);
     }
 
-    public void registerWithGoogle() {
+    public void registerWithGoogle(View view) {
         Intent intent = new Intent(this, RegisterWithGoogleActivity.class);
         startActivity(intent);
     }
