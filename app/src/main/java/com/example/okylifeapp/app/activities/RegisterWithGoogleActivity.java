@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
+import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 
 /**
@@ -38,9 +40,12 @@ public class RegisterWithGoogleActivity extends Activity implements GoogleApiCli
         Log.v("google", "created");
         super.onCreate(savedInstance);
 
+        setContentView(R.layout.register);
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .addScope(Plus.SCOPE_PLUS_PROFILE)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
@@ -63,6 +68,13 @@ public class RegisterWithGoogleActivity extends Activity implements GoogleApiCli
     @Override
     public void onConnected(Bundle bundle) {
         Log.v("google", "connected");
+        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+            String personName = currentPerson.getDisplayName();
+            String personPhoto = currentPerson.getImage().getUrl();
+            String personGooglePlusProfile = currentPerson.getUrl();
+            String personEmail = Plus.AccountApi.getAccountName(mGoogleApiClient);
+        }
     }
 
     @Override
