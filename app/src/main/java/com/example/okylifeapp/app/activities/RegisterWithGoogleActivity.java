@@ -5,17 +5,23 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
-import com.example.okylifeapp.app.R;
+import android.widget.Toast;
+import aplication.OkyLife;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import rest.AsyncResponse;
+
+import java.util.ArrayList;
 
 
 /**
  * Created by mordreth on 10/3/15.
  */
-public class RegisterWithGoogleActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class RegisterWithGoogleActivity extends Activity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
 
@@ -40,7 +46,6 @@ public class RegisterWithGoogleActivity extends Activity implements GoogleApiCli
         Log.v("google", "created");
         super.onCreate(savedInstance);
 
-        setContentView(R.layout.register);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
@@ -70,11 +75,19 @@ public class RegisterWithGoogleActivity extends Activity implements GoogleApiCli
         Log.v("google", "connected");
         if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-            String personName = currentPerson.getDisplayName();
-            String personPhoto = currentPerson.getImage().getUrl();
-            String personGooglePlusProfile = currentPerson.getUrl();
-            String personEmail = Plus.AccountApi.getAccountName(mGoogleApiClient);
+
+
+            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+
+
+            params.add(new BasicNameValuePair("registerType", "Google"));
+            params.add(new BasicNameValuePair("sex", "Male"));
+            params.add(new BasicNameValuePair("firstName", String.valueOf(currentPerson.getDisplayName())));
+            params.add(new BasicNameValuePair("email", String.valueOf(Plus.AccountApi.getAccountName(mGoogleApiClient))));
+            
+            ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
         }
+
     }
 
     @Override
@@ -119,6 +132,11 @@ public class RegisterWithGoogleActivity extends Activity implements GoogleApiCli
         }
     }
 
+    @Override
+    public void processFinish(String response) {
+        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+        Log.v("response", response);
+    }
 }
 
 
