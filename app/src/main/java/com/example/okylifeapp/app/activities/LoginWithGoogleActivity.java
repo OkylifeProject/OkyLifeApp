@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 import aplication.OkyLife;
@@ -20,10 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import rest.AsyncResponse;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -57,7 +52,6 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
     public void onCreate(Bundle savedInstance) {
         Log.v("google", "created");
         super.onCreate(savedInstance);
-
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
@@ -148,53 +142,35 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
     public void processFinish(String response) {
         Log.v("response", "proccess finished");
         JSONObject jsonObject = new JSONObject();
-        if (response != "User doesnt exists" || response != "Incorrect email or password. Please try again") {
-            if (((OkyLife) getApplication()).isJSON(response)) {
-                try {
-                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
-                    jsonObject = new JSONObject(response);
-                    this.registerAccountFirstTime(jsonObject);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        if (((OkyLife) getApplication()).isJSON(response)) {
+            try {
+                Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+                jsonObject = new JSONObject(response);
+                this.registerAccount(jsonObject);
+                Log.v("response", "success register");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         } else {
             Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+            Log.v("response", "error");
         }
         finish();
     }
 
-    private void registerAccountFirstTime(JSONObject jsonObject) {
+    private void registerAccount(JSONObject jsonObject) {
         Bundle sessioninfo = new Bundle();
         try {
             String email = jsonObject.getString("email");
             String password = jsonObject.getString("password");
             String id = jsonObject.getString("id");
-
-            File image = new File(Environment.getExternalStorageDirectory()
-                    + File.separator + "okylifedata", email + ".jpg");
-
             String imageHash = "";
-
-            if (image.exists()) {
-                FileInputStream a = null;
-                byte[] imageBytes = new byte[(int) image.length()];
-                try {
-                    a = new FileInputStream(image);
-                    a.read(imageBytes);
-                    imageHash = OkyLife.SHA1(imageBytes.toString());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
             Account account = new Account(email, "com.example.okylifeapp.app");
             sessioninfo.putString("imageHash", imageHash);
             sessioninfo.putString("email", email);
             sessioninfo.putString("id", id);
-            accountManager.addAccountExplicitly(account, OkyLife.md5(password), sessioninfo);
+            accountManager.addAccountExplicitly(account, password, sessioninfo);
 
         } catch (JSONException e) {
             e.printStackTrace();
