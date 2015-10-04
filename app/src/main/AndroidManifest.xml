@@ -9,6 +9,7 @@
             android:theme="@style/AppTheme"
             android:name="aplication.OkyLife">
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
         <activity
                 android:name=".activities.OkyLifeStartActivity">
             <intent-filter>
@@ -20,13 +21,17 @@
 
         <activity android:name=".activities.RegisterActivity">
         </activity>
+        <activity android:name=".activities.RegisterWithGoogleActivity">
+        </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
         <activity android:name="com.facebook.FacebookActivity"
                   android:configChanges=
                           "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
-                  android:label="@string/app_name" />
+                  android:label="@string/app_name"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
 </manifest>
