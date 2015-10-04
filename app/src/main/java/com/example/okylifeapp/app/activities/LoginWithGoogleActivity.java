@@ -74,13 +74,14 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
         Log.v("google", "connected");
         if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-
+            String password = ((OkyLife) getApplication()).SHA1(currentPerson.getId());
 
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
             params.add(new BasicNameValuePair("email", String.valueOf(Plus.AccountApi.getAccountName(mGoogleApiClient))));
+            params.add(new BasicNameValuePair("password", String.valueOf(password)));
 
-            ((OkyLife) getApplication()).getMasterCaller().postData("User/getUserByEmail", this, params);
+            ((OkyLife) getApplication()).getMasterCaller().postData("User/loginUser", this, params);
         }
 
     }
@@ -131,9 +132,9 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
     public void processFinish(String response) {
         Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         Log.v("response", response);
-        if (response != "User doesnt exists"){
+        if (response != "User doesnt exists") {
 
         }
-            finish();
+        finish();
     }
 }
