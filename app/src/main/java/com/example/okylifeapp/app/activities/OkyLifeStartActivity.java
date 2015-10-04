@@ -1,5 +1,7 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +11,8 @@ import com.example.okylifeapp.app.R;
 
 
 public class OkyLifeStartActivity extends ActionBarActivity {
+    AccountManager accountManager;
+    Account okyLifeAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,31 +26,27 @@ public class OkyLifeStartActivity extends ActionBarActivity {
         finish();
         startActivity(registerIntent);
     }
+
     public void renderLoginView(View view) {
         Intent registerIntent = new Intent(this, LoginActivity.class);
         finish();
         startActivity(registerIntent);
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_oky_life, menu);
-        return true;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
+        Account[] accounts = accountManager.getAccountsByType("com.example.okylifeapp.app");
+        okyLifeAccount = null;
+        //verify if exist any registered account
+        if (accounts.length > 0) {
+            okyLifeAccount = accounts[0];
+        }
+        if (okyLifeAccount != null) {
+
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }

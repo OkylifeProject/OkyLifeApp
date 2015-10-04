@@ -29,16 +29,12 @@ public class LoginActivity extends Activity implements AsyncResponse {
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+
     AccountManager accountManager;
-    Account okyLifeAccount;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-
-        /**ACCOUNT MANAGER **/
-        accountManager = AccountManager.get(getApplicationContext());
-        Account[] accounts = accountManager.getAccountsByType("com.example.okylifeapp.app");
 
         /**FACEBOOK**/
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -79,8 +75,11 @@ public class LoginActivity extends Activity implements AsyncResponse {
             }
         });
 
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
 
     }
+
 
     public void loginWithGoogle() {
         Intent intent = new Intent(this, LoginWithGoogleActivity.class);
