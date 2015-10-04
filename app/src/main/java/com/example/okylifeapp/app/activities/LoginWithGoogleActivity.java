@@ -131,6 +131,9 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
     public void processFinish(String response) {
         Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         Log.v("response", response);
-        finish();
+        if (response != "User doesnt exists"){
+
+        }
+            finish();
     }
 }

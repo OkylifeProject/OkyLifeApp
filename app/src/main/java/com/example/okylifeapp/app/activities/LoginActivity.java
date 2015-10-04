@@ -1,5 +1,7 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
+import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -17,6 +20,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.plus.Plus;
 import rest.AsyncResponse;
 
 /**
@@ -26,6 +30,8 @@ public class LoginActivity extends Activity implements AsyncResponse {
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    AccountManager accountManager;
+    Account okyLifeAccount;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -68,6 +74,8 @@ public class LoginActivity extends Activity implements AsyncResponse {
             }
         });
 
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
     }
 
     public void loginWithGoogle() {
@@ -86,8 +94,20 @@ public class LoginActivity extends Activity implements AsyncResponse {
         Log.v("response", response);
     }
 
+
+    public void createAccountFirstTime() {
+        Bundle sessioninfo = new Bundle();
+        Account account = new Account("cuentaEjemplo", "com.example.okylifeapp.app");
+
+        sessioninfo.putString("authEmail", "asdasdasdasd");
+        sessioninfo.putString("user", "asdasdasdasdsd");
+        sessioninfo.putString("id", "asdasdasdasd");
+
+        accountManager.addAccountExplicitly(account, OkyLife.md5("Lanzarote222"), sessioninfo);
+    }
+
     public void login(View view) {
-        showDialog(0);
+        createAccountFirstTime();
     }
 
     @Override

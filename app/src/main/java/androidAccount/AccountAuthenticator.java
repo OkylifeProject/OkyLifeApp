@@ -10,11 +10,11 @@ import com.example.okylifeapp.app.activities.LoginActivity;
  * Created by Camilo on 08/06/2015.
  */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
-    Context contexto;
+    Context context;
 
     public AccountAuthenticator(Context context) {
         super(context);
-        this.contexto = context;
+        this.context = context;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         final Bundle result;
         final Intent intent;
 
-        intent = new Intent(this.contexto, LoginActivity.class);
+        intent = new Intent(this.context, LoginActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
 
         result = new Bundle();
