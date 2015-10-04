@@ -1,9 +1,12 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 import aplication.OkyLife;
@@ -13,14 +16,24 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 import rest.AsyncResponse;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by mordreth on 10/4/15.
  */
 public class LoginWithGoogleActivity extends Activity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    AccountManager accountManager;
+    Account okyLifeAccount;
+
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
 
@@ -53,6 +66,9 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
     }
 
     @Override
@@ -130,11 +146,58 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
 
     @Override
     public void processFinish(String response) {
-        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
-        Log.v("response", response);
-        if (response != "User doesnt exists") {
-
+        Log.v("response", "proccess finished");
+        JSONObject jsonObject = new JSONObject();
+        if (response != "User doesnt exists" || response != "Incorrect email or password. Please try again") {
+            if (((OkyLife) getApplication()).isJSON(response)) {
+                try {
+                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+                    jsonObject = new JSONObject(response);
+                    this.registerAccountFirstTime(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         }
         finish();
+    }
+
+    private void registerAccountFirstTime(JSONObject jsonObject) {
+        Bundle sessioninfo = new Bundle();
+        try {
+            String email = jsonObject.getString("email");
+            String password = jsonObject.getString("password");
+            String id = jsonObject.getString("id");
+
+            File image = new File(Environment.getExternalStorageDirectory()
+                    + File.separator + "okylifedata", email + ".jpg");
+
+            String imageHash = "";
+
+            if (image.exists()) {
+                FileInputStream a = null;
+                byte[] imageBytes = new byte[(int) image.length()];
+                try {
+                    a = new FileInputStream(image);
+                    a.read(imageBytes);
+                    imageHash = OkyLife.SHA1(imageBytes.toString());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Account account = new Account(email, "com.example.okylifeapp.app");
+            sessioninfo.putString("imageHash", imageHash);
+            sessioninfo.putString("email", email);
+            sessioninfo.putString("id", id);
+            accountManager.addAccountExplicitly(account, OkyLife.md5(password), sessioninfo);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

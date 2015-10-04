@@ -20,7 +20,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.plus.Plus;
 import rest.AsyncResponse;
 
 /**
@@ -36,6 +35,12 @@ public class LoginActivity extends Activity implements AsyncResponse {
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
+
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
+        Account[] accounts = accountManager.getAccountsByType("com.example.okylifeapp.app");
+
+        /**FACEBOOK**/
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -74,8 +79,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
             }
         });
 
-        /**ACCOUNT MANAGER **/
-        accountManager = AccountManager.get(getApplicationContext());
+
     }
 
     public void loginWithGoogle() {
