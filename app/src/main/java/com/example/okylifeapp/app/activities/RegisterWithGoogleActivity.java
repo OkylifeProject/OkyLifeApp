@@ -79,12 +79,14 @@ public class RegisterWithGoogleActivity extends Activity implements AsyncRespons
 
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
+            String password = ((OkyLife) getApplication()).SHA1(currentPerson.getId());
 
             params.add(new BasicNameValuePair("registerType", "Google"));
             params.add(new BasicNameValuePair("sex", "Male"));
             params.add(new BasicNameValuePair("firstName", String.valueOf(currentPerson.getDisplayName())));
             params.add(new BasicNameValuePair("email", String.valueOf(Plus.AccountApi.getAccountName(mGoogleApiClient))));
-            
+            params.add(new BasicNameValuePair("password", String.valueOf(password)));
+
             ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
         }
 
