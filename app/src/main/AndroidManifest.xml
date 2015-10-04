@@ -32,6 +32,14 @@
                           "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:label="@string/app_name"/>
+
+        <service android:name="androidAccount.AuthenticationService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data android:name="android.accounts.AccountAuthenticator"
+                       android:resource="@xml/authenticator"/>
+        </service>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
