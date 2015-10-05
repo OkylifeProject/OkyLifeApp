@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
@@ -48,16 +51,19 @@ public class RegisterActivity extends Activity implements AsyncResponse {
 
     public void register(View view) {
         /*Prueba para POST*/
+        TextView emailText = (TextView) findViewById(R.id.etEmail);
+        TextView passwordText = (TextView) findViewById(R.id.etPass);
+        TextView userName = (TextView) findViewById(R.id.etUserName);
+        Spinner sexSpinner = (Spinner) findViewById(R.id.spinner);
+        EditText ageText = (EditText) findViewById(R.id.editText);
 
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
-        params.add(new BasicNameValuePair("registerType", "Api"));
-        params.add(new BasicNameValuePair("sex", "Male"));
-        params.add(new BasicNameValuePair("firstName", "Alejo"));
-        params.add(new BasicNameValuePair("lastName", "Velasco"));
-        params.add(new BasicNameValuePair("password", "Lanzarote222"));
-        params.add(new BasicNameValuePair("email", "savelascod@gmail.com"));
-        params.add(new BasicNameValuePair("birthDate", "5/3/1994"));
+        params.add(new BasicNameValuePair("email", emailText.getText().toString()));
+        params.add(new BasicNameValuePair("password", passwordText.getText().toString()));
+        params.add(new BasicNameValuePair("sex", sexSpinner.getSelectedItem().toString()));
+        params.add(new BasicNameValuePair("age", ageText.getText().toString()));
+        params.add(new BasicNameValuePair("firstName", userName.getText().toString()));
 
         ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
 
