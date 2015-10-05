@@ -64,6 +64,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         params.add(new BasicNameValuePair("sex", sexSpinner.getSelectedItem().toString()));
         params.add(new BasicNameValuePair("age", ageText.getText().toString()));
         params.add(new BasicNameValuePair("firstName", userName.getText().toString()));
+        params.add(new BasicNameValuePair("registerType", "Api"));
 
         ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
 
