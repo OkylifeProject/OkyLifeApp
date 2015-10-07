@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
+        <activity android:name=".activities.LoginWithFacebookActivity">
+        </activity>
         <activity android:name=".activities.LoginWithGoogleActivity">
         </activity>
         <activity android:name=".activities.MainActivity">
