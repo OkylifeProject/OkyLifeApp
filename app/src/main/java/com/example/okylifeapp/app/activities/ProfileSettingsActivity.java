@@ -61,13 +61,11 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
         if (user != null) {
             nameText.setText(user.getFirstName());
-            lastText.setText(user.getLastName());
-            if (user.getRegisterType() == "Google" || user.getRegisterType() == "Facebook") {
-                passwordText.setVisibility(View.INVISIBLE);
-                password2Text.setVisibility(View.INVISIBLE);
+            if (user.getRegisterType().equals("Google") || user.getRegisterType().equals("Facebook")) {
+                passwordText.setVisibility(View.GONE);
+                password2Text.setVisibility(View.GONE);
             }
         }
-
     }
 
     @Override
@@ -76,16 +74,21 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
         if (OkyLife.isJSON(result)) {
             try {
                 JSONObject jsonObject = new JSONObject(result);
-                user = new User(jsonObject.getString("age"),
-                        jsonObject.getString("registerType"),
-                        jsonObject.getString("password"),
+                user = new User(jsonObject.getString("firstName"),
                         jsonObject.getString("email"),
-                        jsonObject.getString("imageBytes"),
-                        jsonObject.getString("sex"),
-                        jsonObject.getString("lastName"),
-                        jsonObject.getString("firstName"),
+                        jsonObject.getString("registerType"),
                         jsonObject.getString("id"));
-                Log.v("user", "Succes");
+
+                if (jsonObject.has("age") && !jsonObject.isNull("age")) {
+                    user.setAge(jsonObject.getString("age"));
+                }
+                if (jsonObject.has("imageBytes") && !jsonObject.isNull("imageBytes")) {
+                    user.setImageBytes(jsonObject.getString("imageBytes"));
+                }
+                if (jsonObject.has("sex") && !jsonObject.isNull("sex")) {
+                    user.setSex(jsonObject.getString("sex"));
+                }
+                Log.v("user", "Success");
                 setFields();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -110,7 +113,6 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
 
     public void saveProfile(View view) {
         EditText nameText = (EditText) findViewById(R.id.firstNameText);
-        EditText lastText = (EditText) findViewById(R.id.firstNameText);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
         String email = okyLifeAccount.name;
