@@ -72,6 +72,7 @@ public class OkyLifeStartActivity extends ActionBarActivity implements AsyncResp
     @Override
     public void processFinish(String result) {
         if (OkyLife.isJSON(result)) {
+            ((OkyLife) getApplication()).setOkyLifeAccount(okyLifeAccount);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

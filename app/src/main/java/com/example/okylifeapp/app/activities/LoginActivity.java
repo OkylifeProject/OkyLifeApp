@@ -65,7 +65,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
     }
 
     public void loginWithFacebook() {
-        facebookButtomPresed=true;
+        facebookButtomPresed = true;
         loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -78,14 +78,14 @@ public class LoginActivity extends Activity implements AsyncResponse {
                         HttpMethod.GET,
                         new GraphRequest.Callback() {
                             public void onCompleted(GraphResponse response) {
-                                 try {
+                                try {
                                     JSONObject jobj = new JSONObject(response.getRawResponse());
                                     String email = jobj.getString("email");
-                                    Log.v("LoginActivity",email);
+                                    Log.v("LoginActivity", email);
                                     String user = jobj.getString("name");
-                                    Log.v("LoginActivity",user);
+                                    Log.v("LoginActivity", user);
                                     String id = jobj.getString("id");
-                                    Log.v("LoginActivity",id);
+                                    Log.v("LoginActivity", id);
                                     String password = ((OkyLife) getApplication()).SHA1(id);
                                     Log.v("LoginActivity", password);
                                     verifyLoggin(email, password);
@@ -112,12 +112,14 @@ public class LoginActivity extends Activity implements AsyncResponse {
             }
         });
     }
-    public void verifyLoggin(String email, String password){
+
+    public void verifyLoggin(String email, String password) {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("password", password));
         ((OkyLife) getApplication()).getMasterCaller().postData("User/loginUser", this, params);
     }
+
     public void loginWithGoogle() {
         Intent intent = new Intent(this, LoginWithGoogleActivity.class);
         startActivity(intent);
@@ -136,15 +138,15 @@ public class LoginActivity extends Activity implements AsyncResponse {
                 JSONObject jsonObject = new JSONObject(response);
                 OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, OkyLifeStartActivity.class);
                 startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
-             if(facebookButtomPresed){
-                 LoginManager.getInstance().logOut();
-             }
+            if (facebookButtomPresed) {
+                LoginManager.getInstance().logOut();
+            }
             Toast.makeText(this, response, Toast.LENGTH_LONG).show();
 
         }

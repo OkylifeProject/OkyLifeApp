@@ -105,8 +105,6 @@ public class OkyLife extends Application {
             sessioninfo.putString("email", email);
             sessioninfo.putString("id", id);
             accountManager.addAccountExplicitly(account, password, sessioninfo);
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

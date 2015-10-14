@@ -148,7 +148,7 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
                 jsonObject = new JSONObject(response);
                 OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, OkyLifeStartActivity.class);
                 startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();
