@@ -25,14 +25,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/nombreText" android:layout_column="1" android:gravity="center_horizontal"
+                android:id="@+id/firstNameText" android:layout_column="1" android:gravity="center_horizontal"
                 android:hint="Nombre" android:textColorHint="#ff000000"
                 android:background="@drawable/apptheme_textfield_activated_holo_light" android:textColor="#ff000000"
                 android:textColorHighlight="#ff000000"/>
 
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:inputType="textPersonName" android:ems="10"
-                  android:id="@+id/apellidoText"
+                  android:id="@+id/lastNameText"
                   android:layout_column="1" android:gravity="center_horizontal" android:hint="Apellido"
                   android:textColorHint="#ff000000"
                   android:background="@drawable/apptheme_textfield_activated_holo_light"
@@ -58,13 +58,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Guardar"
-                android:id="@+id/saveProfileButtons"
+                android:id="@+id/saveProfileButton"
                 android:background="@drawable/roundedbutton"
                 android:layout_alignWithParentIfMissing="false"
                 android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true" android:layout_below="@+id/photoSelectorButton"
                 android:layout_marginBottom="30dp"
                 android:textColor="#ffffffff"
-                android:paddingLeft="10dp" android:paddingRight="10dp"/>
+                android:paddingLeft="10dp" android:paddingRight="10dp" android:onClick="saveProfile"/>
     </LinearLayout>
 </RelativeLayout>
