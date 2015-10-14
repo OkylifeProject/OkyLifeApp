@@ -2,8 +2,6 @@ package com.example.okylifeapp.app.activities;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +12,7 @@ import android.widget.Toast;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import com.facebook.*;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import org.apache.http.NameValuePair;
@@ -32,7 +31,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-
+    private boolean facebookButtomPresed = false;
     AccountManager accountManager;
 
     @Override
@@ -66,6 +65,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
     }
 
     public void loginWithFacebook() {
+        facebookButtomPresed=true;
         loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -142,8 +142,11 @@ public class LoginActivity extends Activity implements AsyncResponse {
                 e.printStackTrace();
             }
         } else {
+             if(facebookButtomPresed){
+                 LoginManager.getInstance().logOut();
+             }
+            Toast.makeText(this, response, Toast.LENGTH_LONG).show();
 
-            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
         }
     }
 

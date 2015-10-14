@@ -32,5 +32,19 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">1</item>
     </style>
+    <style name="SigninFacebookButtonStyle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:layout_marginTop">29dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:paddingTop">11dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingBottom">11dp</item>
+        </style>
+    <style name="SigninGooglekButtonStyle">
+        <item name="android:layout_marginTop">26dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+
+    </style>
 </resources>
 

@@ -55,15 +55,21 @@
                 android:textAlignment="center"/>
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
             <com.google.android.gms.common.SignInButton
+                    xmlns:fb="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/sign_in_button_google"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    style="@style/SigninGooglekButtonStyle"/>
             <com.facebook.login.widget.LoginButton
+                    xmlns:fb="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/login_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/imageView"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true"
+                    fb:login_text="Facebook"
+                    fb:logout_text="Logout"
+                    style="@style/SigninFacebookButtonStyle"/>
         </LinearLayout>
     </LinearLayout>
     <TextView
