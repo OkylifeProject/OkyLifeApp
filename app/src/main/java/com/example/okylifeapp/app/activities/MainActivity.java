@@ -18,5 +18,6 @@ public class MainActivity extends Activity {
     public void editProfile() {
         Intent intent = new Intent(this, ProfileSettingsActivity.class);
         startActivity(intent);
+
     }
 }
