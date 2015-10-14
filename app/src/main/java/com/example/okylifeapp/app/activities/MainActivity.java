@@ -3,6 +3,7 @@ package com.example.okylifeapp.app.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import com.example.okylifeapp.app.R;
 
 /**
@@ -15,9 +16,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main_view);
     }
 
-    public void editProfile() {
+    public void editProfile(View view) {
         Intent intent = new Intent(this, ProfileSettingsActivity.class);
         startActivity(intent);
-
     }
 }

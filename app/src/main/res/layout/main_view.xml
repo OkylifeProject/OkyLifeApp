@@ -11,6 +11,7 @@
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Enviar Mensaje"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Editar Perfil"
+                android:id="@+id/editProfileButton" android:onClick="editProfile"/>
     </LinearLayout>
 </RelativeLayout>

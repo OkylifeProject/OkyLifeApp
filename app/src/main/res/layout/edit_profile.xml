@@ -1,0 +1,69 @@
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" android:rowCount="9"
+                  android:columnCount="4" android:orientation="vertical"
+                  android:gravity="center_vertical|center_horizontal"
+                  android:background="#ffffff" android:id="@+id/registerMainLayout">
+
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="200dp"
+                android:maxWidth="200dp"
+                android:id="@+id/photoSelectorButton" android:src="@drawable/default_image"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" android:layout_row="0" android:layout_columnSpan="4"
+                android:layout_gravity="center_horizontal" android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false" android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+                android:onClick="selectImage"
+                android:background="@null"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/nombreText" android:layout_column="1" android:gravity="center_horizontal"
+                android:hint="Nombre" android:textColorHint="#ff000000"
+                android:background="@drawable/apptheme_textfield_activated_holo_light" android:textColor="#ff000000"
+                android:textColorHighlight="#ff000000"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:inputType="textPersonName" android:ems="10"
+                  android:id="@+id/apellidoText"
+                  android:layout_column="1" android:gravity="center_horizontal" android:hint="Apellido"
+                  android:textColorHint="#ff000000"
+                  android:background="@drawable/apptheme_textfield_activated_holo_light"
+                  android:textColor="#ff000000"
+                  android:textColorHighlight="#ff000000"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10"
+                  android:id="@+id/passwordText"
+                  android:layout_column="1" android:gravity="center_horizontal" android:hint="Contraseña"
+                  android:inputType="textPassword"
+                  android:textColorHint="#ff000000"
+                  android:background="@drawable/apptheme_textfield_activated_holo_light"
+                  android:textColor="#ff000000"
+                  android:textColorHighlight="#ff000000"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:inputType="textPassword" android:ems="10" android:id="@+id/password2Text"
+                  android:layout_column="1" android:gravity="center_horizontal" android:hint="Confirmar Contraseña"
+                  android:textColorHint="#ff000000"
+                  android:background="@drawable/apptheme_textfield_activated_holo_light"
+                  android:textColor="#ff000000"
+                  android:textColorHighlight="#ff000000"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:id="@+id/saveProfileButtons"
+                android:background="@drawable/roundedbutton"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true" android:layout_below="@+id/photoSelectorButton"
+                android:layout_marginBottom="30dp"
+                android:textColor="#ffffffff" android:paddingTop="5dp" android:paddingBottom="5dp"
+                android:paddingLeft="10dp" android:paddingRight="10dp"/>
+    </LinearLayout>
+</RelativeLayout>
