@@ -10,14 +10,14 @@
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxHeight="200dp"
-                android:maxWidth="200dp"
+                android:maxHeight="150dp"
+                android:maxWidth="150dp"
                 android:id="@+id/photoSelectorButton" android:src="@drawable/default_image"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" android:layout_row="0" android:layout_columnSpan="4"
                 android:layout_gravity="center_horizontal" android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false" android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:onClick="selectImage"
                 android:background="@null"/>
         <EditText
@@ -29,6 +29,7 @@
                 android:hint="Nombre" android:textColorHint="#ff000000"
                 android:background="@drawable/apptheme_textfield_activated_holo_light" android:textColor="#ff000000"
                 android:textColorHighlight="#ff000000"/>
+
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:inputType="textPersonName" android:ems="10"
                   android:id="@+id/apellidoText"
@@ -60,10 +61,10 @@
                 android:id="@+id/saveProfileButtons"
                 android:background="@drawable/roundedbutton"
                 android:layout_alignWithParentIfMissing="false"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true" android:layout_below="@+id/photoSelectorButton"
                 android:layout_marginBottom="30dp"
-                android:textColor="#ffffffff" android:paddingTop="5dp" android:paddingBottom="5dp"
+                android:textColor="#ffffffff"
                 android:paddingLeft="10dp" android:paddingRight="10dp"/>
     </LinearLayout>
 </RelativeLayout>
