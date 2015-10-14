@@ -72,4 +72,11 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         //((OkyLife) getApplication()).getMasterCaller().getById("User", 1, this);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

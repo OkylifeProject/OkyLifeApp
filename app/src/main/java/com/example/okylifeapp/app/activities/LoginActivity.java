@@ -165,7 +165,10 @@ public class LoginActivity extends Activity implements AsyncResponse {
         ((OkyLife) getApplication()).getMasterCaller().postData("User/loginUser", this, params);
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
