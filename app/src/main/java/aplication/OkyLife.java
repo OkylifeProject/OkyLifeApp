@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import data.User;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
 public class OkyLife extends Application {
     private RequestCaller masterCaller;
     private Account OkyLifeAccount;
-
+    private User user;
 
     public OkyLife() {
         this.masterCaller = new RequestCaller();
@@ -198,5 +199,12 @@ public class OkyLife extends Application {
         this.OkyLifeAccount = tasteThisAccount;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
 

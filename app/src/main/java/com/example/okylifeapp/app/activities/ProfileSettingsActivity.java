@@ -19,8 +19,6 @@ import com.example.okylifeapp.app.R;
 import data.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 import rest.AsyncResponse;
 
 import java.io.ByteArrayOutputStream;
@@ -30,25 +28,25 @@ import java.util.ArrayList;
  * Created by mordreth on 10/14/15.
  */
 public class ProfileSettingsActivity extends Activity implements AsyncResponse {
-    OkyLife app;
-    private Account okyLifeAccount;
     private static final int SELECT_PICTURE = 1;
-    private User user;
+    OkyLife app;
     byte[] imageBytes;
+    private Account okyLifeAccount;
+    private User user;
+    private Bitmap selectedImage;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.edit_profile);
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
+        user = ((OkyLife) getApplication()).getUser();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("email", String.valueOf(okyLifeAccount.name)));
-        ((OkyLife) getApplication()).getMasterCaller().postData("User/getUserByEmail", this, params);
+        setFields();
     }
 
     public void selectImage(View view) {
@@ -64,6 +62,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
         EditText ageText = (EditText) findViewById(R.id.ageText);
         EditText passwordText = (EditText) findViewById(R.id.password1Text);
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
+        ImageButton photoSelectorButton = (ImageButton) findViewById(R.id.photoSelectorButton);
         if (user != null) {
             ageText.setText(user.getAge());
             nameText.setText(user.getFirstName());
@@ -72,37 +71,17 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
                 password2Text.setVisibility(View.GONE);
             }
         }
+        if (selectedImage != null) {
+            photoSelectorButton.setImageBitmap(selectedImage);
+        } else if (user.getImageBytes() != null) {
+            setProfileImage();
+        }
     }
 
     @Override
     public void processFinish(String result) {
-        Log.v("user", "arrived response");
-        if (OkyLife.isJSON(result)) {
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                user = new User(jsonObject.getString("firstName"),
-                        jsonObject.getString("email"),
-                        jsonObject.getString("registerType"),
-                        jsonObject.getString("id"));
-
-                if (jsonObject.has("age") && !jsonObject.isNull("age")) {
-                    user.setAge(jsonObject.getString("age"));
-                }
-                if (jsonObject.has("imageBytes") && !jsonObject.isNull("imageBytes")) {
-                    user.setImageBytes(jsonObject.getString("imageBytes"));
-                    setProfileImage();
-                }
-                if (jsonObject.has("sex") && !jsonObject.isNull("sex")) {
-                    user.setSex(jsonObject.getString("sex"));
-                }
-                Log.v("user", "Success");
-                setFields();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG).show();
-        }
+        Log.v("update", "arrived response");
+        Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG).show();
     }
 
     public void setProfileImage() {
@@ -115,12 +94,8 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
-                Bitmap yourSelectedImage = null;
                 Uri selectedImageStream = data.getData();
-                yourSelectedImage = app.decodeSampledBitmapFromUri(selectedImageStream, getContentResolver(), 200, 200);
-
-                ImageButton photoSelectorButton = (ImageButton) findViewById(R.id.photoSelectorButton);
-                photoSelectorButton.setImageBitmap(yourSelectedImage);
+                selectedImage = app.decodeSampledBitmapFromUri(selectedImageStream, getContentResolver(), 200, 200);
             }
         }
     }

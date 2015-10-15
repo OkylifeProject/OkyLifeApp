@@ -26,25 +26,20 @@ import java.util.ArrayList;
  */
 public class LoginWithGoogleActivity extends Activity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    AccountManager accountManager;
-    Account okyLifeAccount;
-
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
-
-    /* Client used to interact with Google APIs. */
-    private GoogleApiClient mGoogleApiClient;
-
-    /* Is there a ConnectionResult resolution in progress? */
-    private boolean mIsResolving = false;
-
-    /* Should we automatically resolve ConnectionResults when possible? */
-    private boolean mShouldResolve = false;
-
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     // Unique tag for the error dialog fragment
     private static final String DIALOG_ERROR = "dialog_error";
+    AccountManager accountManager;
+    Account okyLifeAccount;
+    /* Client used to interact with Google APIs. */
+    private GoogleApiClient mGoogleApiClient;
+    /* Is there a ConnectionResult resolution in progress? */
+    private boolean mIsResolving = false;
+    /* Should we automatically resolve ConnectionResults when possible? */
+    private boolean mShouldResolve = false;
     // Bool to track whether the app is already resolving an error
     private boolean mResolvingError = false;
 
@@ -149,6 +144,7 @@ public class LoginWithGoogleActivity extends Activity implements AsyncResponse, 
                 OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
                 Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                finish();
                 startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();

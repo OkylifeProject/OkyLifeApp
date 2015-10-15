@@ -28,11 +28,11 @@ import java.util.Arrays;
  * Created by Cristian Parada on 03/10/2015.
  */
 public class LoginActivity extends Activity implements AsyncResponse {
+    AccountManager accountManager;
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private boolean facebookButtomPresed = false;
-    AccountManager accountManager;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -139,6 +139,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
                 OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
                 Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                finish();
                 startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();
