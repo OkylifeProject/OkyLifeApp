@@ -31,7 +31,7 @@
                 android:textColorHighlight="#ff000000"/>
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:ems="15"
-                  android:id="@+id/passwordText"
+                  android:id="@+id/password1Text"
                   android:layout_column="1" android:gravity="center_horizontal" android:hint="Contraseña"
                   android:inputType="textPassword"
                   android:textColorHint="#ff000000"
@@ -41,6 +41,13 @@
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:inputType="textPassword" android:ems="15" android:id="@+id/password2Text"
                   android:layout_column="1" android:gravity="center_horizontal" android:hint="Confirmar Contraseña"
+                  android:textColorHint="#ff000000"
+                  android:background="@drawable/apptheme_textfield_activated_holo_light"
+                  android:textColor="#ff000000"
+                  android:textColorHighlight="#ff000000"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:inputType="number" android:ems="5" android:id="@+id/ageText"
+                  android:layout_column="1" android:gravity="center_horizontal" android:hint="Edad"
                   android:textColorHint="#ff000000"
                   android:background="@drawable/apptheme_textfield_activated_holo_light"
                   android:textColor="#ff000000"

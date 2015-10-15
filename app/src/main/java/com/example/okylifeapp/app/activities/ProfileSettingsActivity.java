@@ -4,8 +4,11 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import rest.AsyncResponse;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +34,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
     private Account okyLifeAccount;
     private static final int SELECT_PICTURE = 1;
     private User user;
+    byte[] imageBytes;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -56,10 +61,11 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
 
     public void setFields() {
         EditText nameText = (EditText) findViewById(R.id.firstNameText);
-        EditText lastText = (EditText) findViewById(R.id.firstNameText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        EditText ageText = (EditText) findViewById(R.id.ageText);
+        EditText passwordText = (EditText) findViewById(R.id.password1Text);
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
         if (user != null) {
+            ageText.setText(user.getAge());
             nameText.setText(user.getFirstName());
             if (user.getRegisterType().equals("Google") || user.getRegisterType().equals("Facebook")) {
                 passwordText.setVisibility(View.GONE);
@@ -84,6 +90,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
                 }
                 if (jsonObject.has("imageBytes") && !jsonObject.isNull("imageBytes")) {
                     user.setImageBytes(jsonObject.getString("imageBytes"));
+                    setProfileImage();
                 }
                 if (jsonObject.has("sex") && !jsonObject.isNull("sex")) {
                     user.setSex(jsonObject.getString("sex"));
@@ -94,8 +101,15 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
                 e.printStackTrace();
             }
         } else {
-            Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void setProfileImage() {
+        byte[] imageBytes = Base64.decode(user.getImageBytes(), Base64.DEFAULT);
+        ImageButton myImageButton = (ImageButton) findViewById(R.id.photoSelectorButton);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        myImageButton.setImageBitmap(bitmap);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,10 +126,28 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
     }
 
     public void saveProfile(View view) {
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        ImageButton myImageButton = (ImageButton) findViewById(R.id.photoSelectorButton);
         EditText nameText = (EditText) findViewById(R.id.firstNameText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        EditText password1Text = (EditText) findViewById(R.id.password1Text);
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
+        EditText ageText = (EditText) findViewById(R.id.ageText);
         String email = okyLifeAccount.name;
 
+
+        /** IMAGE **/
+        Bitmap myImage = ((BitmapDrawable) myImageButton.getDrawable()).getBitmap();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        myImage.compress(Bitmap.CompressFormat.JPEG, 95, bao);
+        imageBytes = bao.toByteArray();
+
+        params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("image", Base64.encodeToString(imageBytes, Base64.DEFAULT)));
+        params.add(new BasicNameValuePair("firstName", nameText.getText().toString()));
+        params.add(new BasicNameValuePair("password1", password1Text.getText().toString()));
+        params.add(new BasicNameValuePair("password2", password2Text.getText().toString()));
+        params.add(new BasicNameValuePair("age", ageText.getText().toString()));
+
+        ((OkyLife) getApplication()).getMasterCaller().postData("User/updateUserByEmail", this, params);
     }
 }
