@@ -60,8 +60,6 @@ public class SplashScreenActivity extends Activity {
                 } catch (InterruptedException ex) {
                 }
 
-                finish();
-
                 // Run next activity
                 Intent intent = new Intent();
                 intent.setClass(sPlashScreen, OkyLifeStartActivity.class);
