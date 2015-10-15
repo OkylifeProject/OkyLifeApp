@@ -185,7 +185,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
 
         /*Preba para GET*/
-        //((OkyLife) getApplication()).getMasterCaller().getById("User", 1, this);
+        //((okylife) getApplication()).getMasterCaller().getById("User", 1, this);
     }
 
     @Override
