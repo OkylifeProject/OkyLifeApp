@@ -1,6 +1,5 @@
 package com.example.okylifeapp.app.activities;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +36,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private boolean facebookButtomPresed = false;
+
     //AccountManager accountManager;
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -81,11 +81,10 @@ public class RegisterActivity extends Activity implements AsyncResponse {
                                     JSONObject jobj = new JSONObject(response.getRawResponse());
                                     String sex = jobj.getString("gender");
 
-                                    if(sex == "male"){
-                                        sex="Male";
-                                    }
-                                    else{
-                                        sex="Female";
+                                    if (sex.equals("male")) {
+                                        sex = "Male";
+                                    } else {
+                                        sex = "Female";
                                     }
                                     Log.v("RegisterActivity", sex);
                                     String firstName = jobj.getString("name");
@@ -105,13 +104,13 @@ public class RegisterActivity extends Activity implements AsyncResponse {
                                     int mili = 315569;
                                     try {
                                         startDate = df.parse(startDateString);
-                                        age = String.valueOf(((int)(startDate.getTime()/mili)/100000)-1);
+                                        age = String.valueOf(((int) (startDate.getTime() / mili) / 100000) - 1);
 
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
                                     Log.v("RegisterActivity", age);
-                                    registerUser(sex,firstName,email,password,age);
+                                    registerUser(sex, firstName, email, password, age);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -136,7 +135,7 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         });
     }
 
-    public void registerUser(String sex, String firstName,String email, String password,String age) {
+    public void registerUser(String sex, String firstName, String email, String password, String age) {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("registerType", "Google"));
         params.add(new BasicNameValuePair("sex", sex));
@@ -146,15 +145,17 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         params.add(new BasicNameValuePair("age", age));
         ((OkyLife) getApplication()).getMasterCaller().postData("User/registerUser", this, params);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     public void processFinish(String response) {
         Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         Log.v("response", response);
-        if (facebookButtomPresed){
+        if (facebookButtomPresed) {
             LoginManager.getInstance().logOut();
         }
 
