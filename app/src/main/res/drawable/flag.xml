@@ -4,55 +4,57 @@
         android:id="@+id/flaganim"
         android:oneshot="false"
         >
-    <item android:drawable="@drawable/oki1" android:duration="100" />
-    <item android:drawable="@drawable/oki2" android:duration="100" />
-    <item android:drawable="@drawable/oki3" android:duration="100" />
-    <item android:drawable="@drawable/oki4" android:duration="100" />
-    <item android:drawable="@drawable/oki5" android:duration="100" />
-    <item android:drawable="@drawable/oki6" android:duration="100" />
-    <item android:drawable="@drawable/oki7" android:duration="100" />
-    <item android:drawable="@drawable/oki8" android:duration="100" />
-    <item android:drawable="@drawable/oki9" android:duration="100" />
-    <item android:drawable="@drawable/oki10" android:duration="100" />
-    <item android:drawable="@drawable/oki11" android:duration="100" />
-    <item android:drawable="@drawable/oki12" android:duration="100" />
-    <item android:drawable="@drawable/oki13" android:duration="100" />
-    <item android:drawable="@drawable/oki14" android:duration="100" />
-    <item android:drawable="@drawable/oki15" android:duration="100" />
-    <item android:drawable="@drawable/oki16" android:duration="100" />
-    <item android:drawable="@drawable/oki17" android:duration="100" />
-    <item android:drawable="@drawable/oki18" android:duration="100" />
-    <item android:drawable="@drawable/oki19" android:duration="100" />
-    <item android:drawable="@drawable/oki20" android:duration="100" />
-    <item android:drawable="@drawable/oki21" android:duration="100" />
-    <item android:drawable="@drawable/oki22" android:duration="100" />
-    <item android:drawable="@drawable/oki23" android:duration="100" />
-    <item android:drawable="@drawable/oki24" android:duration="100" />
-    <item android:drawable="@drawable/oki25" android:duration="100" />
-    <item android:drawable="@drawable/oki26" android:duration="100" />
-    <item android:drawable="@drawable/oki27" android:duration="100" />
-    <item android:drawable="@drawable/oki28" android:duration="100" />
-    <item android:drawable="@drawable/oki29" android:duration="100" />
-    <item android:drawable="@drawable/oki30" android:duration="100" />
-    <item android:drawable="@drawable/oki31" android:duration="100" />
-    <item android:drawable="@drawable/oki32" android:duration="100" />
-    <item android:drawable="@drawable/oki33" android:duration="100" />
-    <item android:drawable="@drawable/oki34" android:duration="100" />
-    <item android:drawable="@drawable/oki35" android:duration="100" />
-    <item android:drawable="@drawable/oki36" android:duration="100" />
-    <item android:drawable="@drawable/oki37" android:duration="100" />
-    <item android:drawable="@drawable/oki38" android:duration="100" />
-    <item android:drawable="@drawable/oki39" android:duration="100" />
-    <item android:drawable="@drawable/oki40" android:duration="100" />
-    <item android:drawable="@drawable/oki41" android:duration="100" />
-    <item android:drawable="@drawable/oki42" android:duration="100" />
-    <item android:drawable="@drawable/oki43" android:duration="100" />
-    <item android:drawable="@drawable/oki44" android:duration="100" />
-    <item android:drawable="@drawable/oki45" android:duration="100" />
-    <item android:drawable="@drawable/oki46" android:duration="100" />
-    <item android:drawable="@drawable/oki47" android:duration="100" />
-    <item android:drawable="@drawable/oki48" android:duration="100" />
-    <item android:drawable="@drawable/oki49" android:duration="100" />
-    <item android:drawable="@drawable/oki50" android:duration="2100" />
+
+    <item android:drawable="@drawable/oki1" android:duration="100"/>
+    <item android:drawable="@drawable/oki2" android:duration="100"/>
+    <item android:drawable="@drawable/oki3" android:duration="100"/>
+    <item android:drawable="@drawable/oki4" android:duration="100"/>
+    <item android:drawable="@drawable/oki5" android:duration="100"/>
+    <item android:drawable="@drawable/oki6" android:duration="100"/>
+    <item android:drawable="@drawable/oki7" android:duration="100"/>
+    <item android:drawable="@drawable/oki8" android:duration="100"/>
+    <item android:drawable="@drawable/oki9" android:duration="100"/>
+    <item android:drawable="@drawable/oki10" android:duration="100"/>
+    <item android:drawable="@drawable/oki11" android:duration="100"/>
+    <item android:drawable="@drawable/oki12" android:duration="100"/>
+    <item android:drawable="@drawable/oki13" android:duration="100"/>
+    <item android:drawable="@drawable/oki14" android:duration="100"/>
+    <item android:drawable="@drawable/oki15" android:duration="100"/>
+    <item android:drawable="@drawable/oki16" android:duration="100"/>
+    <item android:drawable="@drawable/oki17" android:duration="100"/>
+    <item android:drawable="@drawable/oki18" android:duration="100"/>
+    <item android:drawable="@drawable/oki19" android:duration="100"/>
+    <item android:drawable="@drawable/oki20" android:duration="100"/>
+    <item android:drawable="@drawable/oki21" android:duration="100"/>
+    <item android:drawable="@drawable/oki22" android:duration="100"/>
+    <item android:drawable="@drawable/oki23" android:duration="100"/>
+    <item android:drawable="@drawable/oki24" android:duration="100"/>
+    <item android:drawable="@drawable/oki25" android:duration="100"/>
+    <item android:drawable="@drawable/oki26" android:duration="100"/>
+    <item android:drawable="@drawable/oki27" android:duration="100"/>
+    <item android:drawable="@drawable/oki28" android:duration="100"/>
+    <item android:drawable="@drawable/oki29" android:duration="100"/>
+    <item android:drawable="@drawable/oki30" android:duration="100"/>
+    <item android:drawable="@drawable/oki31" android:duration="100"/>
+    <item android:drawable="@drawable/oki32" android:duration="100"/>
+    <item android:drawable="@drawable/oki33" android:duration="100"/>
+    <item android:drawable="@drawable/oki34" android:duration="100"/>
+    <item android:drawable="@drawable/oki35" android:duration="100"/>
+    <item android:drawable="@drawable/oki36" android:duration="100"/>
+    <item android:drawable="@drawable/oki37" android:duration="100"/>
+    <item android:drawable="@drawable/oki38" android:duration="100"/>
+    <item android:drawable="@drawable/oki39" android:duration="100"/>
+    <item android:drawable="@drawable/oki40" android:duration="100"/>
+    <item android:drawable="@drawable/oki41" android:duration="100"/>
+    <item android:drawable="@drawable/oki42" android:duration="100"/>
+    <item android:drawable="@drawable/oki43" android:duration="100"/>
+    <item android:drawable="@drawable/oki44" android:duration="100"/>
+    <item android:drawable="@drawable/oki45" android:duration="100"/>
+    <item android:drawable="@drawable/oki46" android:duration="100"/>
+    <item android:drawable="@drawable/oki47" android:duration="100"/>
+    <item android:drawable="@drawable/oki48" android:duration="100"/>
+    <item android:drawable="@drawable/oki49" android:duration="100"/>
+
+    <item android:drawable="@drawable/oki50" android:duration="2100"/>
 </animation-list>
 
