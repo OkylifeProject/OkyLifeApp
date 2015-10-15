@@ -89,10 +89,6 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.liberarMemoria();
-    }
-
-    public void liberarMemoria() {
         frameAnimation = null;
     }
 }
