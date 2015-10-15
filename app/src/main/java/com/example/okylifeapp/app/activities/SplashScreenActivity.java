@@ -3,8 +3,6 @@ package com.example.okylifeapp.app.activities;
 /**
  * Created by Cristian Parada on 15/10/2015.
  */
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,8 +20,12 @@ public class SplashScreenActivity extends Activity {
      * The thread to process splash screen events
      */
     private Thread mSplashThread;
+    private ImageView splashImageView;
+    private AnimationDrawable frameAnimation;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +35,9 @@ public class SplashScreenActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Splash screen view
         setContentView(R.layout.splash_screen);
-        final ImageView splashImageView = (ImageView) findViewById(R.id.SplashImageView);
+        splashImageView = (ImageView) findViewById(R.id.SplashImageView);
         splashImageView.setBackgroundResource(R.drawable.flag);
-        final AnimationDrawable frameAnimation = (AnimationDrawable)splashImageView.getBackground();
+        frameAnimation = (AnimationDrawable) splashImageView.getBackground();
         splashImageView.post(new Runnable() {
             @Override
             public void run() {
@@ -47,16 +49,15 @@ public class SplashScreenActivity extends Activity {
         final SplashScreenActivity sPlashScreen = this;
 
         // The thread to wait for splash screen events
-        mSplashThread =  new Thread(){
+        mSplashThread = new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 try {
-                    synchronized(this){
+                    synchronized (this) {
                         // Wait given period of time or exit on touch
-                        wait(6900);
+                        wait(3000);
                     }
-                }
-                catch(InterruptedException ex){
+                } catch (InterruptedException ex) {
                 }
 
                 finish();
@@ -76,15 +77,22 @@ public class SplashScreenActivity extends Activity {
      * Processes splash screen touch events
      */
     @Override
-    public boolean onTouchEvent(MotionEvent evt)
-    {
-        if(evt.getAction() == MotionEvent.ACTION_DOWN)
-        {
-            synchronized(mSplashThread){
+    public boolean onTouchEvent(MotionEvent evt) {
+        if (evt.getAction() == MotionEvent.ACTION_DOWN) {
+            synchronized (mSplashThread) {
                 mSplashThread.notifyAll();
             }
         }
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.liberarMemoria();
+    }
+
+    public void liberarMemoria() {
+        frameAnimation = null;
+    }
 }
