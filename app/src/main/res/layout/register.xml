@@ -24,7 +24,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="5dp"
             android:id="@+id/linearLayout"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
@@ -162,7 +162,6 @@
             android:entries="@array/genderList"
             android:layout_toLeftOf="@+id/imageView"
             android:spinnerMode="dialog"/>
-
 
 
 </RelativeLayout>

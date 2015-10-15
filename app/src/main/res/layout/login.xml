@@ -24,7 +24,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="5dp"
             android:id="@+id/linearLayout"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
@@ -58,7 +58,8 @@
                     android:id="@+id/sign_in_button_google"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/SigninGooglekButtonStyle"/>
+                    style="@style/SigninGooglekButtonStyle"
+                    android:text="Login"/>
             <com.facebook.login.widget.LoginButton
                     xmlns:fb="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/login_button"
