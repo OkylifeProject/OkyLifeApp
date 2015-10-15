@@ -32,10 +32,10 @@
             android:layout_alignLeft="@+id/etUserName"
             android:layout_alignStart="@+id/etUserName">
         <TextView
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:text="@string/welcom"
+                android:text="@string/welcome"
                 android:id="@+id/textView3"
                 android:textSize="25dp"
                 android:layout_centerVertical="true"
@@ -57,7 +57,8 @@
             <com.google.android.gms.common.SignInButton
                     android:id="@+id/sign_in_button_google"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    style="@style/SigninGooglekButtonStyle"/>
             <com.facebook.login.widget.LoginButton
                     xmlns:fb="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/login_button"
