@@ -8,8 +8,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity"
-
-                android:background="#ffffff">
+                >
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,8 +124,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/logIn"
-            style="@style/DefaultButtonText"
-            android:background="@drawable/button_default_bg"
+            style="@style/btnStyleGenoa"
             android:layout_above="@+id/passwordRestore"
             android:layout_alignLeft="@+id/passwordRestore"
             android:layout_alignStart="@+id/passwordRestore"

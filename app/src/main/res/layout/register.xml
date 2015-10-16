@@ -120,8 +120,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/signUp"
-            style="@style/DefaultButtonText"
-            android:background="@drawable/button_default_bg"
+            style="@style/btnStyleGenoa"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" android:onClick="register"/>
     <EditText
