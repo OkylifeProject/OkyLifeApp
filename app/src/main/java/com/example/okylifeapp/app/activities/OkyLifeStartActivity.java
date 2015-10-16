@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import org.apache.http.NameValuePair;
@@ -59,7 +60,7 @@ public class OkyLifeStartActivity extends ActionBarActivity implements AsyncResp
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("email", okyLifeAccount.name));
             params.add(new BasicNameValuePair("password", accountManager.getPassword(okyLifeAccount)));
-            this.loginUserRequest(params);
+            loginUserRequest(params);
 
         }
 
@@ -75,6 +76,8 @@ public class OkyLifeStartActivity extends ActionBarActivity implements AsyncResp
             ((OkyLife) getApplication()).setOkyLifeAccount(okyLifeAccount);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
         }
     }
 }
