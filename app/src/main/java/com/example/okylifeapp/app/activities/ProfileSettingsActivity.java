@@ -1,6 +1,7 @@
 package com.example.okylifeapp.app.activities;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
     private static final int SELECT_PICTURE = 1;
     OkyLife app;
     byte[] imageBytes;
+    AccountManager accountManager;
     private Account okyLifeAccount;
     private User user;
     private Bitmap selectedImage;
@@ -47,6 +49,9 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
     public void onStart() {
         super.onStart();
         setFields();
+
+        /**ACCOUNT MANAGER **/
+        accountManager = AccountManager.get(getApplicationContext());
     }
 
     public void selectImage(View view) {
@@ -82,6 +87,9 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
     public void processFinish(String result) {
         Log.v("update", "arrived response");
         Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG).show();
+        if (result.equals("Success, password changed")) {
+            OkyLife.deleteAccount(accountManager, okyLifeAccount);
+        }
     }
 
     public void setProfileImage() {

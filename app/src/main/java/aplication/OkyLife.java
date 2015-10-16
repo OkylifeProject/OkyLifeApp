@@ -111,6 +111,10 @@ public class OkyLife extends Application {
         }
     }
 
+    public static void deleteAccount(AccountManager accountManager, Account okyLifeAccount) {
+        accountManager.removeAccount(okyLifeAccount, null, null);
+    }
+
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;

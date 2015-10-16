@@ -80,4 +80,9 @@ public class OkyLifeStartActivity extends ActionBarActivity implements AsyncResp
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
