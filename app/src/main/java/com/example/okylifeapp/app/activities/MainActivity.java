@@ -47,7 +47,10 @@ public class MainActivity extends Activity implements AsyncResponse {
         Intent intent = new Intent(this, ProfileSettingsActivity.class);
         startActivity(intent);
     }
-
+    public void startActivity(View view) {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onBackPressed() {
 
