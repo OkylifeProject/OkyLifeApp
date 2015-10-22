@@ -17,6 +17,7 @@
     <string name="years">Years Old</string>
     <string name="welcome">¡Welcome!</string>
     <string name="signUpGoogle">Sign Up with Google</string>
+    <string name="prompt">  Select your Favourite  </string>
 
 
     <style name="DefaultButtonText">
