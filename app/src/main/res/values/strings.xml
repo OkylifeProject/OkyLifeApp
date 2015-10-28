@@ -19,6 +19,7 @@
     <string name="welcome">¡Welcome!</string>
     <string name="signUpGoogle">Sign Up with Google</string>
     <string name="prompt">  Select your Favourite  </string>
+    <string name="promptTypePlace">  Que Tipo de Lugar Es?:  </string>
 
 
     <style name="DefaultButtonText">

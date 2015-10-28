@@ -161,8 +161,9 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
         values.putString("objective", objective);
         values.putString("hydration", hydration);
         saveActivityIntent.putExtras(values);
-        startActivity(saveActivityIntent);
         finish();
+        startActivity(saveActivityIntent);
+
     }
     public class MyAdapter extends ArrayAdapter<String> {
 
