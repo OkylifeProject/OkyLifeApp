@@ -2,6 +2,7 @@ package com.example.okylifeapp.app.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
@@ -17,8 +18,15 @@ import rest.AsyncResponse;
 public class DoingSportActivity extends Activity implements AsyncResponse {
     Button btnPlay;
     Button btnStop;
+    Button btnSave;
     Chronometer chronometer;
+    Spinner sport;
+    EditText distanceObjective;
     String currenTime="";
+    //Valores a Guardar//
+    String  calories="0 cal", duration="00:00", distance="0 Km",
+            velocity="0 km/h",rate="0 min/Km",objective="0 Km",hydration ="0.00 Lt";
+
     long elapsedTime = 0;
     boolean isPlaying = false,init=true;
     String[] strings = {"Correr", "Ciclismo", "Caminar"};
@@ -37,20 +45,25 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+        sport = (Spinner) findViewById(R.id.spinner);
         btnPlay = (Button)findViewById(R.id.btnPlay);
         btnStop = (Button)findViewById(R.id.btnStop);
+        btnSave = (Button)findViewById(R.id.btnSaveActivity);
         chronometer = (Chronometer)findViewById(R.id.chronometer);
-
+        distanceObjective = (EditText)findViewById(R.id.inputObjective);
         btnStop.setEnabled(false);
+        btnSave.setEnabled(false);
 
-        mySpinner.setAdapter(new MyAdapter(this, R.layout.row, strings));
+        sport.setAdapter(new MyAdapter(this, R.layout.row, strings));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                sport.setEnabled(false);
                 btnStop.setEnabled(true);
+                btnSave.setEnabled(false);
+                distanceObjective.setEnabled(false);
                 isPlaying = !isPlaying;
                 if (isPlaying) {
-                    if(init==true){
+                    if (init == true) {
                         chronometer.setBase(SystemClock.elapsedRealtime());
                     }
                     chronometer.start();
@@ -59,6 +72,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
                     init = false;
                     chronometer.stop();
                     chronometer.setText(currenTime);
+                    btnSave.setEnabled(true);
                     play();
                 }
             }
@@ -73,8 +87,12 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
                 btnPlay.setEnabled(true);
                 play();
                 btnStop.setEnabled(false);
+                btnSave.setEnabled(false);
+                sport.setEnabled(true);
+                distanceObjective.setEnabled(true);
             }
         });
+
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
@@ -130,7 +148,22 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
             }
         });
     }
-
+    public void renderSaveSportActivityView(View view) {
+        objective = distanceObjective.getText().toString()+" Km";
+        duration=chronometer.getText().toString();
+        Intent saveActivityIntent = new Intent(this, SaveSportActivity.class);
+        Bundle values = new Bundle();
+        values.putString("calories", calories);
+        values.putString("duration", duration);
+        values.putString("distance", distance);
+        values.putString("velocity", velocity);
+        values.putString("rate", rate);
+        values.putString("objective", objective);
+        values.putString("hydration", hydration);
+        saveActivityIntent.putExtras(values);
+        startActivity(saveActivityIntent);
+        finish();
+    }
     public class MyAdapter extends ArrayAdapter<String> {
 
         public MyAdapter(Context context, int textViewResourceId,String [] objects) {
@@ -167,8 +200,6 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
     @Override
     public void onStart() {
         super.onStart();
-
-
 
     }
 
