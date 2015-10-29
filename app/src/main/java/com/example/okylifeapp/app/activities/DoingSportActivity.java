@@ -1,38 +1,43 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.*;
 import android.widget.*;
+import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import dialogs.LogoutDialog;
 import rest.AsyncResponse;
+
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class DoingSportActivity extends Activity implements AsyncResponse {
+public class DoingSportActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
     Button btnPlay;
     Button btnStop;
     Button btnSave;
     Chronometer chronometer;
     Spinner sport;
     EditText distanceObjective;
-    String currenTime="";
+    String currenTime = "";
     //Valores a Guardar//
-    String  calories="0 cal", duration="00:00", distance="0 Km",
-            velocity="0 km/h",rate="0 min/Km",objective="0 Km",hydration ="0.00 Lt";
+    String calories = "0 cal", duration = "00:00", distance = "0 Km",
+            velocity = "0 km/h", rate = "0 min/Km", objective = "0 Km", hydration = "0.00 Lt";
 
     long elapsedTime = 0;
-    boolean isPlaying = false,init=true;
+    boolean isPlaying = false, init = true;
     String[] strings = {"Correr", "Ciclismo", "Caminar"};
 
     String[] subs = {"\"Hay gente que corre mas rapido que tu, pero no lo disfruta tanto\"",
-                    "\"No se deja de pedalear cuando se envejece. Se envejece cuando se deja de pedalear\"",
-                    "\"Cuando salgas a caminar, hazlo despacio, descubriras tantas cosas hermosas.\""};
+            "\"No se deja de pedalear cuando se envejece. Se envejece cuando se deja de pedalear\"",
+            "\"Cuando salgas a caminar, hazlo despacio, descubriras tantas cosas hermosas.\""};
 
-    int arr_images[] = { R.drawable.run,
+    int arr_images[] = {R.drawable.run,
             R.drawable.cycling,
             R.drawable.walk};
 
@@ -43,11 +48,11 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
         sport = (Spinner) findViewById(R.id.spinner);
-        btnPlay = (Button)findViewById(R.id.btnPlay);
-        btnStop = (Button)findViewById(R.id.btnStop);
-        btnSave = (Button)findViewById(R.id.btnSaveActivity);
-        chronometer = (Chronometer)findViewById(R.id.chronometer);
-        distanceObjective = (EditText)findViewById(R.id.inputObjective);
+        btnPlay = (Button) findViewById(R.id.btnPlay);
+        btnStop = (Button) findViewById(R.id.btnStop);
+        btnSave = (Button) findViewById(R.id.btnSaveActivity);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        distanceObjective = (EditText) findViewById(R.id.inputObjective);
         btnStop.setEnabled(false);
         btnSave.setEnabled(false);
 
@@ -100,25 +105,25 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
                         String min = "" + minutes;
                         long seconds = ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000) % 60;
                         String seg = "" + seconds;
-                        if(minutes<10){
-                            min="0"+min;
+                        if (minutes < 10) {
+                            min = "0" + min;
                         }
-                        if(seconds<10){
-                            seg="0"+seg;
+                        if (seconds < 10) {
+                            seg = "0" + seg;
                         }
                         currenTime = min + ":" + seg;
                         chronometer.setText(currenTime);
                         elapsedTime = SystemClock.elapsedRealtime();
                     } else {
                         long minutes = ((elapsedTime - chronometer.getBase()) / 1000) / 60;
-                        String min = ""+minutes;
+                        String min = "" + minutes;
                         long seconds = ((elapsedTime - chronometer.getBase()) / 1000) % 60;
-                        String seg = ""+seconds;
-                        if(minutes<10){
-                            min="0"+min;
+                        String seg = "" + seconds;
+                        if (minutes < 10) {
+                            min = "0" + min;
                         }
-                        if(seconds<10){
-                            seg="0"+seg;
+                        if (seconds < 10) {
+                            seg = "0" + seg;
                         }
 
                         currenTime = min + ":" + seg;
@@ -127,16 +132,16 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
                     }
 
 
-                } else if (isPlaying == false&&init==false) {
+                } else if (isPlaying == false && init == false) {
                     long minutes = ((elapsedTime - chronometer.getBase()) / 1000) / 60;
-                    String min = ""+minutes;
+                    String min = "" + minutes;
                     long seconds = ((elapsedTime - chronometer.getBase()) / 1000) % 60;
                     String seg = "" + seconds;
-                    if(minutes<10){
-                        min="0"+min;
+                    if (minutes < 10) {
+                        min = "0" + min;
                     }
-                    if(seconds<10){
-                        seg="0"+seg;
+                    if (seconds < 10) {
+                        seg = "0" + seg;
                     }
                     currenTime = min + ":" + seg;
                     chronometer.setText(currenTime);
@@ -145,9 +150,10 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
             }
         });
     }
+
     public void renderSaveSportActivityView(View view) {
-        objective = distanceObjective.getText().toString()+" Km";
-        duration=chronometer.getText().toString();
+        objective = distanceObjective.getText().toString() + " Km";
+        duration = chronometer.getText().toString();
         Intent saveActivityIntent = new Intent(this, SaveSportActivity.class);
         Bundle values = new Bundle();
         values.putString("calories", calories);
@@ -181,7 +187,33 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
         return true;
     }
 
-    public  void pause (){
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                showLogoutDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void showLogoutDialog() {
+        FragmentManager manager = getFragmentManager();
+        LogoutDialog logoutDialog = new LogoutDialog();
+        logoutDialog.show(manager, "Logout");
+    }
+
+    @Override
+    public void onPositiveLogoutClick(boolean logout) {
+        OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void pause() {
         btnPlay.setBackgroundResource(R.drawable.pause);
     }
 

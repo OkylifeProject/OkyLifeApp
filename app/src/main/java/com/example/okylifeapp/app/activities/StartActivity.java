@@ -2,6 +2,7 @@ package com.example.okylifeapp.app.activities;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
@@ -9,19 +10,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import dialogs.LogoutDialog;
 import rest.AsyncResponse;
 
 
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class StartActivity extends Activity implements AsyncResponse {
+public class StartActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
     ListView list;
     String[] typeActivities = {
             "Comer",
             "Hacer Deporte",
             "Visitar Un lugar"
-    } ;
+    };
     Integer[] imageId = {
             R.drawable.eat,
             R.drawable.doing_sports,
@@ -33,8 +35,8 @@ public class StartActivity extends Activity implements AsyncResponse {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.select_type_activity);
-        TypeActivity adapter = new TypeActivity (this, typeActivities, imageId);
-        list=(ListView)findViewById(R.id.listTypeActivity);
+        TypeActivity adapter = new TypeActivity(this, typeActivities, imageId);
+        list = (ListView) findViewById(R.id.listTypeActivity);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -59,15 +61,13 @@ public class StartActivity extends Activity implements AsyncResponse {
 
     }
 
-    public void selectActivity(int itemSelect){
+    public void selectActivity(int itemSelect) {
         Intent intent;
-        if(itemSelect==0){
+        if (itemSelect == 0) {
             intent = new Intent(this, EatActivity.class);
-        }
-        else if(itemSelect==1){
+        } else if (itemSelect == 1) {
             intent = new Intent(this, DoingSportActivity.class);
-        }
-        else{
+        } else {
             intent = new Intent(this, VisitPlaceActivity.class);
         }
         startActivity(intent);
@@ -84,14 +84,25 @@ public class StartActivity extends Activity implements AsyncResponse {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
-                Intent intent = new Intent(this, OkyLifeStartActivity.class);
-                startActivity(intent);
-                finish();
+                showLogoutDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void showLogoutDialog() {
+        FragmentManager manager = getFragmentManager();
+        LogoutDialog logoutDialog = new LogoutDialog();
+        logoutDialog.show(manager, "Logout");
+    }
+
+    @Override
+    public void onPositiveLogoutClick(boolean logout) {
+        OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

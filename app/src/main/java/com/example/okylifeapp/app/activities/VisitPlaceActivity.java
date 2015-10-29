@@ -3,6 +3,7 @@ package com.example.okylifeapp.app.activities;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,23 +15,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import dialogs.LogoutDialog;
 import rest.AsyncResponse;
 
 
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class VisitPlaceActivity extends Activity implements AsyncResponse {
+public class VisitPlaceActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
     Spinner typePlace;
-    String[] strings = {"Parque", "Museo", "Centro Comercial","Hospital","Restaurante"};
+    String[] strings = {"Parque", "Museo", "Centro Comercial", "Hospital", "Restaurante"};
 
-    String[] subs = {"","","","",""};
+    String[] subs = {"", "", "", "", ""};
 
-    int arr_images[] = { R.drawable.park,
+    int arr_images[] = {R.drawable.park,
             R.drawable.museum,
             R.drawable.mall,
             R.drawable.hospital,
             R.drawable.restaurant};
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -70,7 +73,6 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
         super.onStart();
 
 
-
     }
 
     @Override
@@ -89,14 +91,25 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
-                Intent intent = new Intent(this, OkyLifeStartActivity.class);
-                startActivity(intent);
-                finish();
+                showLogoutDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void showLogoutDialog() {
+        FragmentManager manager = getFragmentManager();
+        LogoutDialog logoutDialog = new LogoutDialog();
+        logoutDialog.show(manager, "Logout");
+    }
+
+    @Override
+    public void onPositiveLogoutClick(boolean logout) {
+        OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public class MyAdapter extends ArrayAdapter<String> {

@@ -2,6 +2,7 @@ package com.example.okylifeapp.app.activities;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,13 +11,14 @@ import android.view.MenuItem;
 import android.view.Window;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import dialogs.LogoutDialog;
 import rest.AsyncResponse;
 
 
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class EatActivity extends Activity implements AsyncResponse {
+public class EatActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -49,14 +51,25 @@ public class EatActivity extends Activity implements AsyncResponse {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
-                Intent intent = new Intent(this, OkyLifeStartActivity.class);
-                startActivity(intent);
-                finish();
+                showLogoutDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void showLogoutDialog() {
+        FragmentManager manager = getFragmentManager();
+        LogoutDialog logoutDialog = new LogoutDialog();
+        logoutDialog.show(manager, "Logout");
+    }
+
+    @Override
+    public void onPositiveLogoutClick(boolean logout) {
+        OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
