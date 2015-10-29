@@ -3,6 +3,7 @@ package com.example.okylifeapp.app.activities;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import data.User;
+import dialogs.LogoutDialog;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 /**
  * Created by mordreth on 10/4/15.
  */
-public class MainActivity extends Activity implements AsyncResponse {
+public class MainActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
     private Account okyLifeAccount;
 
     @Override
@@ -103,13 +105,24 @@ public class MainActivity extends Activity implements AsyncResponse {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
-                Intent intent = new Intent(this, OkyLifeStartActivity.class);
-                startActivity(intent);
-                finish();
+                showLogoutDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void showLogoutDialog() {
+        FragmentManager manager = getFragmentManager();
+        LogoutDialog logoutDialog = new LogoutDialog();
+        logoutDialog.show(manager, "Logout");
+    }
+
+    @Override
+    public void onPositiveLogoutClick(boolean logout) {
+        OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
