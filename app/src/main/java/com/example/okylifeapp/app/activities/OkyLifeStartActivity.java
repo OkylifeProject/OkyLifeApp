@@ -2,9 +2,9 @@ package com.example.okylifeapp.app.activities;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
@@ -17,7 +17,7 @@ import rest.AsyncResponse;
 import java.util.ArrayList;
 
 
-public class OkyLifeStartActivity extends ActionBarActivity implements AsyncResponse {
+public class OkyLifeStartActivity extends Activity implements AsyncResponse {
     AccountManager accountManager;
     Account okyLifeAccount;
 
