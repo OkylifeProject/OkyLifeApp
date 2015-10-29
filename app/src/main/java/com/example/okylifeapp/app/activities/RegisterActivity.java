@@ -1,13 +1,11 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.Window;
+import android.view.*;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -203,6 +201,20 @@ public class RegisterActivity extends Activity implements AsyncResponse {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_oky_life, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+                Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

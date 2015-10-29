@@ -1,5 +1,6 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import rest.AsyncResponse;
 
@@ -83,6 +85,20 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+                Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public class MyAdapter extends ArrayAdapter<String> {
 
         public MyAdapter(Context context, int textViewResourceId, String[] objects) {
@@ -115,6 +131,5 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
             return row;
         }
     }
-
 
 }

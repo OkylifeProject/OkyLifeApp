@@ -1,10 +1,14 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
+import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import rest.AsyncResponse;
 
@@ -26,7 +30,6 @@ public class EatActivity extends Activity implements AsyncResponse {
         super.onStart();
 
 
-
     }
 
 
@@ -40,6 +43,20 @@ public class EatActivity extends Activity implements AsyncResponse {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_oky_life, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+                Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

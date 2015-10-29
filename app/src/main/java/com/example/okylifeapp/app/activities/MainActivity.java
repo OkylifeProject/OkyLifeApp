@@ -1,12 +1,14 @@
 package com.example.okylifeapp.app.activities;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import aplication.OkyLife;
@@ -49,10 +51,12 @@ public class MainActivity extends Activity implements AsyncResponse {
         Intent intent = new Intent(this, ProfileSettingsActivity.class);
         startActivity(intent);
     }
+
     public void startActivity(View view) {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
+
     @Override
     public void onBackPressed() {
 
@@ -93,5 +97,19 @@ public class MainActivity extends Activity implements AsyncResponse {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_oky_life, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+                Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
