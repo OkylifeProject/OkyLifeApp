@@ -6,10 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -40,38 +37,6 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
         typePlace = (Spinner) findViewById(R.id.spinnerTypePlace);
         typePlace.setAdapter(new MyAdapter(this, R.layout.row, strings));
     }
-    public class MyAdapter extends ArrayAdapter<String> {
-
-        public MyAdapter(Context context, int textViewResourceId,String [] objects) {
-            super(context, textViewResourceId, objects);
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView,ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
-        }
-
-        public View getCustomView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater=getLayoutInflater();
-            View row=inflater.inflate(R.layout.row, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.company);
-            label.setText(strings[position]);
-
-            TextView sub=(TextView)row.findViewById(R.id.sub);
-            sub.setText(subs[position]);
-
-            ImageView icon=(ImageView)row.findViewById(R.id.image);
-            icon.setImageResource(arr_images[position]);
-
-            return row;
-        }
-    }
 
     public void renderDialogPlaceCancelConfirmation(View view) {
         new AlertDialog.Builder(this)
@@ -90,12 +55,14 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
     public void renderStartActivity() {
         Intent startActivityIntent = new Intent(this, StartActivity.class);
         finish();
         startActivity(startActivityIntent);
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -104,13 +71,50 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse {
 
     }
 
-
     @Override
     public void processFinish(String result) {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_oky_life, menu);
+        return true;
+    }
 
+    public class MyAdapter extends ArrayAdapter<String> {
+
+        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View row = inflater.inflate(R.layout.row, parent, false);
+            TextView label = (TextView) row.findViewById(R.id.company);
+            label.setText(strings[position]);
+
+            TextView sub = (TextView) row.findViewById(R.id.sub);
+            sub.setText(subs[position]);
+
+            ImageView icon = (ImageView) row.findViewById(R.id.image);
+            icon.setImageResource(arr_images[position]);
+
+            return row;
+        }
+    }
 
 
 }

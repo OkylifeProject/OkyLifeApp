@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 import aplication.OkyLife;
@@ -84,5 +86,12 @@ public class MainActivity extends Activity implements AsyncResponse {
         } else {
             Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_oky_life, menu);
+        return true;
     }
 }

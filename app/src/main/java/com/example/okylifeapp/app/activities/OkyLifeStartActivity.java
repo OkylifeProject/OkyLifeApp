@@ -5,6 +5,8 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
@@ -84,5 +86,12 @@ public class OkyLifeStartActivity extends Activity implements AsyncResponse {
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_oky_life, menu);
+        return true;
     }
 }

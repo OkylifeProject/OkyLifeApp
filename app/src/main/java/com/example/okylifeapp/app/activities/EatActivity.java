@@ -2,11 +2,9 @@ package com.example.okylifeapp.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 import com.example.okylifeapp.app.R;
 import rest.AsyncResponse;
 
@@ -37,7 +35,11 @@ public class EatActivity extends Activity implements AsyncResponse {
 
     }
 
-
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_oky_life, menu);
+        return true;
+    }
 
 }

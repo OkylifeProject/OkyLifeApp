@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -132,5 +134,12 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse {
         params.add(new BasicNameValuePair("age", ageText.getText().toString()));
 
         ((OkyLife) getApplication()).getMasterCaller().postData("User/updateUserByEmail", this, params);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_oky_life, menu);
+        return true;
     }
 }

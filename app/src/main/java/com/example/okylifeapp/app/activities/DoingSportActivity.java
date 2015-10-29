@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.view.*;
 import android.widget.*;
 import com.example.okylifeapp.app.R;
 import rest.AsyncResponse;
@@ -210,10 +207,51 @@ public class DoingSportActivity extends Activity implements AsyncResponse {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_oky_life, menu);
+        return true;
+    }
+
     public  void pause (){
         btnPlay.setBackgroundResource(R.drawable.pause);
     }
-    public  void play (){
+
+    public class MyAdapter extends ArrayAdapter<String> {
+
+        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View row = inflater.inflate(R.layout.row, parent, false);
+            TextView label = (TextView) row.findViewById(R.id.company);
+            label.setText(strings[position]);
+
+            TextView sub = (TextView) row.findViewById(R.id.sub);
+            sub.setText(subs[position]);
+
+            ImageView icon = (ImageView) row.findViewById(R.id.image);
+            icon.setImageResource(arr_images[position]);
+
+            return row;
+        }
+    }
+
+    public void play() {
         btnPlay.setBackgroundResource(R.drawable.play);
     }
 
