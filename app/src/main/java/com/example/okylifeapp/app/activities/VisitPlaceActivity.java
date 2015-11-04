@@ -112,6 +112,12 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public class MyAdapter extends ArrayAdapter<String> {
 
         public MyAdapter(Context context, int textViewResourceId, String[] objects) {

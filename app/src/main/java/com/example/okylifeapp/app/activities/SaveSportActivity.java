@@ -88,10 +88,14 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override

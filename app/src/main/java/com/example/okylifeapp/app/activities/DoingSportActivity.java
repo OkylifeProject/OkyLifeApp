@@ -221,6 +221,12 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         btnPlay.setBackgroundResource(R.drawable.play);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public class MyAdapter extends ArrayAdapter<String> {
 
         public MyAdapter(Context context, int textViewResourceId, String[] objects) {

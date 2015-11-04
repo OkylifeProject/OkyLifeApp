@@ -5,10 +5,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.Window;
+import android.view.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import dialogs.LogoutDialog;
@@ -72,4 +69,12 @@ public class EatActivity extends Activity implements AsyncResponse, LogoutDialog
         finish();
     }
 
+    public void saveEatActivity(View view) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
