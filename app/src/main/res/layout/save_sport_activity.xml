@@ -19,28 +19,30 @@
                   android:orientation="vertical"
                   style="@style/layoutStyle">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:orientation="vertical"
-                    >
-                <EditText android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:background="#fff"
-                          android:textSize="15dp"
-                          android:hint="Titulo"
-                          android:gravity="center"
-                          android:alpha="@string/alpha"
-                        />
-                <EditText android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:lines="3"
-                          android:background="#fff"
-                          android:textSize="15dp"
-                          android:hint="Descripcion/Comentario"
-                          android:gravity="center"
-                          android:alpha="@string/alpha"
-                          android:layout_marginTop="10dp"
-                        />
-            </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                >
+            <EditText android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="#fff"
+                      android:textSize="15dp"
+                      android:hint="Titulo"
+                      android:gravity="center"
+                      android:alpha="@string/alpha"
+                      android:id="@+id/sport_title"
+                    />
+            <EditText android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:lines="3"
+                      android:background="#fff"
+                      android:textSize="15dp"
+                      android:hint="Descripcion/Comentario"
+                      android:gravity="center"
+                      android:alpha="@string/alpha"
+                      android:layout_marginTop="10dp"
+                      android:id="@+id/sport_description"
+                    />
+        </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -53,8 +55,8 @@
                       android:layout_marginTop="5dp"
                       android:layout_marginLeft="1dp"
 
-                                             android:orientation="vertical"
-                                             style="@style/layoutStyle">
+                      android:orientation="vertical"
+                      style="@style/layoutStyle">
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -318,7 +320,8 @@
                 android:text="Aceptar"
                 style="@style/btnStyleGenoa"
                 android:layout_centerHorizontal="true"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="15dp"
+                android:onClick="saveSportActivity"/>
         <Button
                 android:id="@+id/btnCancel"
                 android:layout_width="100dp"
