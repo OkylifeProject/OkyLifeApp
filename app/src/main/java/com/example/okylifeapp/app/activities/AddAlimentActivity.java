@@ -2,7 +2,9 @@ package com.example.okylifeapp.app.activities;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
@@ -15,19 +17,18 @@ import rest.AsyncResponse;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class EatActivity extends Activity implements AsyncResponse{
+public class AddAlimentActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.eat_activity);
+        setContentView(R.layout.add_aliment_activity);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
 
     }
 
@@ -61,20 +62,36 @@ public class EatActivity extends Activity implements AsyncResponse{
         logoutDialog.show(manager, "Logout");
     }
 
-
-
-    public void renderAddAlimentView(View view) {
-
-        Intent saveActivityIntent = new Intent(this, AddAlimentActivity.class);
+    @Override
+    public void onPositiveLogoutClick(boolean logout) {
+        OkyLife.deleteAccount(AccountManager.get(getApplicationContext()), ((OkyLife) getApplication()).getOkyLifeAccount());
+        Intent intent = new Intent(this, OkyLifeStartActivity.class);
+        startActivity(intent);
         finish();
-        startActivity(saveActivityIntent);
     }
 
-    public void renderAddFoodView(View view) {
+    public void renderDialogAlimentCancelConfirmation(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle("Atencion")
+                .setMessage("Esta a punto de cancelar la adicion de un nuevo alimento. \nDesea Continuar?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        renderEatActivity();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
-        Intent saveActivityIntent = new Intent(this, AddFoodActivity.class);
+    public void renderEatActivity() {
+        Intent startActivityIntent = new Intent(this, EatActivity.class);
+        startActivity(startActivityIntent);
         finish();
-        startActivity(saveActivityIntent);
     }
 
     @Override
