@@ -4,4 +4,11 @@
         <item>@string/gender1</item>
         <item>@string/gender2</item>
     </string-array>
+    <string-array name="rationList">
+        <item>@string/ration1</item>
+        <item>@string/ration2</item>
+        <item>@string/ration3</item>
+        <item>@string/ration4</item>
+        <item>@string/ration5</item>
+    </string-array>
 </resources>

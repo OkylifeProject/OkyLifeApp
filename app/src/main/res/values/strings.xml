@@ -12,6 +12,11 @@
     <string name="logIn">LogIn</string>
     <string name="logInWith">LogIn with:</string>
     <string name="password">Password</string>
+    <string name="ration1">Taza(s)</string>
+    <string name="ration2">Cucharada(s)</string>
+    <string name="ration3">Unidad(es)</string>
+    <string name="ration4">g</string>
+    <string name="ration5">ml</string>
     <string name="signUp">SignUp</string>
     <string name="signUpWith">SignUp With:</string>
     <string name="user">User</string>
@@ -20,7 +25,7 @@
     <string name="signUpGoogle">Sign Up with Google</string>
     <string name="prompt">  Select your Favourite  </string>
     <string name="promptTypePlace">  Que Tipo de Lugar Es?:  </string>
-
+    <string name="promptTypeRation">  Tipo de Racion:  </string>
 
     <style name="DefaultButtonText">
         <item name="android:layout_width">fill_parent</item>
