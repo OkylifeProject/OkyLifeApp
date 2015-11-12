@@ -25,9 +25,15 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     Spinner sport;
     EditText distanceObjective;
     String currenTime = "";
+
     //Valores a Guardar//
-    String calories = "0 cal", duration = "00:00", distance = "0 Km",
-            velocity = "0 km/h", rate = "0 min/Km", objective = "0 Km", hydration = "0.00 Lt";
+    double calories = 0;
+    double duration = 0;
+    double distance = 0;
+    double velocity = 0;
+    double rate = 0;
+    double targetDistance = 0;
+    double hydration = 0;
 
     long elapsedTime = 0;
     boolean isPlaying = false, init = true;
@@ -152,21 +158,23 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     }
 
     public void renderSaveSportActivityView(View view) {
-        objective = distanceObjective.getText().toString() + " Km";
-        duration = chronometer.getText().toString();
+        EditText targetDistanceText = (EditText) findViewById(R.id.inputObjective);
+        duration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
+        targetDistance = Double.valueOf(targetDistanceText.getText().toString());
+
         Intent saveActivityIntent = new Intent(this, SaveSportActivity.class);
         Bundle values = new Bundle();
-        values.putString("calories", calories);
-        values.putString("duration", duration);
-        values.putString("distance", distance);
-        values.putString("velocity", velocity);
-        values.putString("rate", rate);
-        values.putString("objective", objective);
-        values.putString("hydration", hydration);
+        values.putDouble("calories", calories);
+        values.putDouble("duration", duration);
+        values.putDouble("distance", distance);
+        values.putDouble("velocity", velocity);
+        values.putDouble("rate", rate);
+        values.putDouble("targetDistance", targetDistance);
+        values.putDouble("hydration", hydration);
         saveActivityIntent.putExtras(values);
+
         finish();
         startActivity(saveActivityIntent);
-
     }
 
     @Override

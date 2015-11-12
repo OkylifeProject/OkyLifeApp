@@ -25,6 +25,17 @@ import java.util.ArrayList;
  */
 public class SaveSportActivity extends Activity implements AsyncResponse {
 
+    /**
+     * ACTIVITY FIELDS
+     **/
+    double calories;
+    double distance;
+    double velocity;
+    double rhythm;
+    double targetDistance;
+    double hydration;
+    double type;
+    double duration;
     private Account okyLifeAccount;
 
     @Override
@@ -33,6 +44,33 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.save_sport_activity);
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
+
+        setFileds();
+    }
+
+    public void setFileds() {
+        TextView caloriesText = (TextView) findViewById(R.id.textCalories);
+        TextView distanceText = (TextView) findViewById(R.id.textDistance);
+        TextView velocityText = (TextView) findViewById(R.id.textVelocity);
+        TextView rhythmText = (TextView) findViewById(R.id.textRhythm);
+        TextView targetDistanceText = (TextView) findViewById(R.id.textObjective);
+        TextView hydrationText = (TextView) findViewById(R.id.textHydration);
+
+        calories = getIntent().getExtras().getDouble("calories");
+        distance = getIntent().getExtras().getDouble("distance");
+        velocity = getIntent().getExtras().getDouble("velocity");
+        rhythm = getIntent().getExtras().getDouble("rhythm");
+        targetDistance = getIntent().getExtras().getDouble("targetDistance");
+        hydration = getIntent().getExtras().getDouble("hydration");
+        type = getIntent().getExtras().getDouble("type");
+        duration = getIntent().getExtras().getDouble("duration");
+
+        caloriesText.setText(String.valueOf(calories));
+        distanceText.setText(String.valueOf(distance));
+        velocityText.setText(String.valueOf(velocity));
+        rhythmText.setText(String.valueOf(rhythm));
+        targetDistanceText.setText(String.valueOf(targetDistance));
+        hydrationText.setText(String.valueOf(hydration));
     }
 
     public void renderDialogCancelConfirmation(View view) {

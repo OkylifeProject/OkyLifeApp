@@ -19,7 +19,7 @@ android {
         config {
             keyAlias 'alejoKey'
             keyPassword 'Lanzarote222'
-            storeFile file('/Users/mordreth/Repository/Moviles/OkyLifeApp/app/keys/AlejoKey.jks')
+            storeFile file('/Users/mordreth/Repos/Moviles/OkyLifeApp/app/keys/AlejoKey.jks')
             storePassword 'Lanzarote222'
         }
         config1 {
@@ -37,7 +37,7 @@ android {
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
-        signingConfig signingConfigs.config1
+        signingConfig signingConfigs.config
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
@@ -50,7 +50,7 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config1
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {
