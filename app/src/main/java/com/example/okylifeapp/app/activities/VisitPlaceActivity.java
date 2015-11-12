@@ -74,7 +74,7 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
         EditText descriptionText = (EditText) findViewById(R.id.vp_description_text);
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTypePlace);
         EditText addressText = (EditText) findViewById(R.id.vp_address_text);
-        EditText caloriesText = (EditText) findViewById(R.id.vp_calories_text);
+        TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
 
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
