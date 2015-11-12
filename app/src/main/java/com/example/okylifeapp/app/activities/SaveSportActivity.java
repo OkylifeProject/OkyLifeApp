@@ -55,6 +55,7 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
         TextView rhythmText = (TextView) findViewById(R.id.textRhythm);
         TextView targetDistanceText = (TextView) findViewById(R.id.textObjective);
         TextView hydrationText = (TextView) findViewById(R.id.textHydration);
+        TextView durationText = (TextView) findViewById(R.id.textDuration);
 
         calories = getIntent().getExtras().getDouble("calories");
         distance = getIntent().getExtras().getDouble("distance");
@@ -65,12 +66,19 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
         type = getIntent().getExtras().getDouble("type");
         duration = getIntent().getExtras().getDouble("duration");
 
+        int hours = (int) (duration / 3600);
+        int minutes = (int) ((duration % 3600) / 60);
+        int seconds = (int) (duration % 60);
+        String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+
         caloriesText.setText(String.valueOf(calories));
         distanceText.setText(String.valueOf(distance));
         velocityText.setText(String.valueOf(velocity));
         rhythmText.setText(String.valueOf(rhythm));
         targetDistanceText.setText(String.valueOf(targetDistance));
         hydrationText.setText(String.valueOf(hydration));
+        durationText.setText(String.valueOf(timeString));
+
     }
 
     public void renderDialogCancelConfirmation(View view) {
