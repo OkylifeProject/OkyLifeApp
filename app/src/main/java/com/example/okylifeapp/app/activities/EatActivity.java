@@ -4,13 +4,20 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.okylifeapp.app.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.plus.Plus;
 import dialogs.LogoutDialog;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,13 +32,19 @@ import java.util.ArrayList;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class EatActivity extends Activity implements AsyncResponse {
+public class EatActivity extends Activity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     static final int ADD_ALIMENT_REQUEST = 1;
-
+    // Request code to use when launching the resolution activity
+    private static final int REQUEST_RESOLVE_ERROR = 1001;
     JSONArray jsonAliments;
     String[] nameAliments;
     String[] descriptionAliments;
+    /* Client used to interact with Google APIs. */
+    private GoogleApiClient mGoogleApiClient;
+    // Bool to track whether the app is already resolving an error
+    private boolean mResolvingError = false;
+    private Location mLastLocation;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -40,15 +53,37 @@ public class EatActivity extends Activity implements AsyncResponse {
         setContentView(R.layout.eat_activity);
         jsonAliments = new JSONArray();
 
-        Intent intent = new Intent(this, getLocationActivity.class);
-        startActivity(intent);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Plus.API)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
     }
 
     @Override
     public void onStart() {
+        Log.v("location", "started");
         super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.v("location", "stopped");
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
 
 
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.v("location", "connected");
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
+        Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
+        finish();
     }
 
 
@@ -103,6 +138,7 @@ public class EatActivity extends Activity implements AsyncResponse {
         startActivity(saveActivityIntent);
     }
     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_ALIMENT_REQUEST) {
@@ -117,6 +153,16 @@ public class EatActivity extends Activity implements AsyncResponse {
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), "Canceled", Toast.LENGTH_LONG).show();
+            }
+        }
+        if (requestCode == REQUEST_RESOLVE_ERROR) {
+            mResolvingError = false;
+            if (resultCode == RESULT_OK) {
+                // Make sure the app is not already connected or attempting to connect
+                if (!mGoogleApiClient.isConnecting() &&
+                        !mGoogleApiClient.isConnected()) {
+                    mGoogleApiClient.connect();
+                }
             }
         }
     }
@@ -142,6 +188,32 @@ public class EatActivity extends Activity implements AsyncResponse {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.v("google", "failed" + connectionResult);
+        if (mResolvingError) {
+            // Already attempting to resolve an error.
+            return;
+        } else if (connectionResult.hasResolution()) {
+            try {
+                mResolvingError = true;
+                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+            } catch (IntentSender.SendIntentException e) {
+                // There was an error with the resolution intent. Try again.
+                mGoogleApiClient.connect();
+            }
+        } else {
+            // Show dialog using GoogleApiAvailability.getErrorDialog()
+            Log.e("google", String.valueOf(connectionResult.getErrorCode()));
+            mResolvingError = true;
+        }
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
