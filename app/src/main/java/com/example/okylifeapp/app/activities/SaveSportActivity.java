@@ -34,8 +34,8 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
     double rhythm;
     double targetDistance;
     double hydration;
-    double type;
     double duration;
+    String type;
     private Account okyLifeAccount;
 
     @Override
@@ -57,13 +57,13 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
         TextView hydrationText = (TextView) findViewById(R.id.textHydration);
         TextView durationText = (TextView) findViewById(R.id.textDuration);
 
+        type = getIntent().getExtras().getString("type");
         calories = getIntent().getExtras().getDouble("calories");
         distance = getIntent().getExtras().getDouble("distance");
         velocity = getIntent().getExtras().getDouble("velocity");
         rhythm = getIntent().getExtras().getDouble("rhythm");
         targetDistance = getIntent().getExtras().getDouble("targetDistance");
         hydration = getIntent().getExtras().getDouble("hydration");
-        type = getIntent().getExtras().getDouble("type");
         duration = getIntent().getExtras().getDouble("duration");
 
         int hours = (int) (duration / 3600);
@@ -108,26 +108,20 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
     public void saveSportActivity(View view) {
         EditText title = (EditText) findViewById(R.id.sport_title);
         EditText description = (EditText) findViewById(R.id.sport_description);
-        String type = "Walk";
-
-        TextView calories = (TextView) findViewById(R.id.textCalories);
-        TextView distance = (TextView) findViewById(R.id.textDistance);
-        TextView velocity = (TextView) findViewById(R.id.textVelocity);
-        TextView rhythm = (TextView) findViewById(R.id.textRhythm);
-        TextView targetDistance = (TextView) findViewById(R.id.textObjective);
-        TextView hydration = (TextView) findViewById(R.id.textHydration);
 
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
         params.add(new BasicNameValuePair("name", title.getText().toString()));
-        params.add(new BasicNameValuePair("type", type));
+        params.add(new BasicNameValuePair("type", String.valueOf(type)));
+
         params.add(new BasicNameValuePair("description", description.getText().toString()));
-        params.add(new BasicNameValuePair("calories", calories.getText().toString()));
-        params.add(new BasicNameValuePair("distance", distance.getText().toString()));
-        params.add(new BasicNameValuePair("velocity", velocity.getText().toString()));
-        params.add(new BasicNameValuePair("rhythm", rhythm.getText().toString()));
-        params.add(new BasicNameValuePair("targetDistance", targetDistance.getText().toString()));
-        params.add(new BasicNameValuePair("hydration", hydration.getText().toString()));
+        params.add(new BasicNameValuePair("calories", String.valueOf(calories)));
+        params.add(new BasicNameValuePair("distance", String.valueOf(distance)));
+        params.add(new BasicNameValuePair("velocity", String.valueOf(velocity)));
+        params.add(new BasicNameValuePair("rhythm", String.valueOf(rhythm)));
+        params.add(new BasicNameValuePair("targetDistance", String.valueOf(targetDistance)));
+        params.add(new BasicNameValuePair("duration", String.valueOf(duration)));
+        params.add(new BasicNameValuePair("hydration", String.valueOf(hydration)));
 
         ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/createSportActivity", this, params);
 
