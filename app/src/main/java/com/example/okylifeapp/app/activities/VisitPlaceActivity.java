@@ -187,7 +187,6 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
                 mGoogleApiClient);
         Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
         Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
-        finish();
     }
 
     @Override

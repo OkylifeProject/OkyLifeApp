@@ -181,7 +181,6 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
                 mGoogleApiClient);
         Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
         Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
-        finish();
     }
 
     @Override

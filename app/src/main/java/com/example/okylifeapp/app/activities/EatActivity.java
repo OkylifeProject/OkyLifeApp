@@ -83,7 +83,6 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
                 mGoogleApiClient);
         Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
         Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
-        finish();
     }
 
 
