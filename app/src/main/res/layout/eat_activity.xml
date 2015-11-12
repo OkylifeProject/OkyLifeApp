@@ -3,157 +3,159 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView"
-                android:src="@drawable/logo"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp" android:layout_gravity="center_horizontal"/>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:layout_marginLeft="20dp"
-                      android:layout_marginRight="20dp"
-                      android:orientation="vertical"
-                      style="@style/layoutStyle">
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp" android:layout_gravity="center_horizontal"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:orientation="vertical"
+                  style="@style/layoutStyle">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:orientation="vertical"
-                        >
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Hoy haz Consumido"
-                                android:id="@+id/textView1"
-                                android:textSize="15dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="#fff"
-                                android:textColor="#000"
-                                android:textAlignment="center"
-                                android:gravity="center"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:alpha="@string/alpha"/>
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="0 Calorias"
-                                android:id="@+id/textCaloriesConsumed"
-                                android:textSize="30dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="#fff"
-                                android:textColor="#000"
-                                android:textAlignment="center"
-                                android:gravity="center"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:alpha="@string/alpha"/>
-                </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hoy haz Consumido"
+                    android:id="@+id/textView1"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#fff"
+                    android:textColor="#000"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="@string/alpha"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 Calorias"
+                    android:id="@+id/textCaloriesConsumed"
+                    android:textSize="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#fff"
+                    android:textColor="#000"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="@string/alpha"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:background="#5FDBFF"
+                android:padding="5dp"
+                android:alpha="0.9"
+        >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:alpha="1"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tus Comidas"
+                        android:id="@+id/textView2"
+                        android:textSize="15dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="#fff"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:layout_below="@+id/linearLayout"
+                        android:layout_centerHorizontal="true"
+                        android:alpha="1"
+                />
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical"
-                        android:background="#5FDBFF"
-                        android:padding="5dp"
-                        android:alpha="0.9"
-                        >
-                    <LinearLayout
+                        android:alpha="1"
+                >
+                    <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:alpha="1"
-                            >
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Tus Comidas"
-                                android:id="@+id/textView2"
-                                android:textSize="15dp"
-                                android:layout_gravity="center_horizontal"
-                                android:background="#fff"
-                                android:textColor="#000"
-                                android:textAlignment="center"
-                                android:gravity="center"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:alpha="1"
-                                />
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical"
-                                android:alpha="1"
-                                >
-                            <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Alimentos"
-                                    android:id="@+id/textView3"
-                                    android:textSize="15dp"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textColor="#FFF"
-                                    android:background="#3C60A6"
-                                    android:textAlignment="center"
-                                    android:gravity="center"
-                                    android:layout_below="@+id/linearLayout"
-                                    android:layout_centerHorizontal="true"
-                                    android:textStyle="bold"/>
-                            <ListView
-                                    android:id="@+id/listAliments"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="80dp"
-                                    android:background="#fff"
-                                    />
-                            <Button
-                                    android:id="@+id/btnAddAliment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:text="Agregar Alimento"
-                                    style="@style/btnStyleGenoa"
-                                    android:layout_centerHorizontal="true"
-                                    android:onClick="renderAddAlimentView"
-                                    />
-                        </LinearLayout>
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical"
-                                android:alpha="1"
-                                >
-                            <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Recetas"
-                                    android:id="@+id/textView4"
-                                    android:textSize="15dp"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textColor="#FFF"
-                                    android:background="#3C60A6"
-                                    android:textAlignment="center"
-                                    android:gravity="center"
-                                    android:layout_below="@+id/linearLayout"
-                                    android:layout_centerHorizontal="true"
-                                    android:textStyle="bold"/>
-                            <ListView
-                                    android:id="@+id/listFoods"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="80dp"
-                                    android:background="#fff"
-                                    />
-                            <Button
-                                    android:id="@+id/btnAddFood"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:text="Agregar Receta"
-                                    style="@style/btnStyleGenoa"
-                                    android:layout_centerHorizontal="true"
-                                    android:onClick="renderAddFoodView"
-                                    />
-                        </LinearLayout>
-                    </LinearLayout>
+                            android:text="Alimentos"
+                            android:id="@+id/textView3"
+                            android:textSize="15dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="#FFF"
+                            android:background="#3C60A6"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:layout_below="@+id/linearLayout"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"/>
+                    <ListView
+                            android:id="@+id/listAliments"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="#fff"
+                    />
+                    <Button
+                            android:id="@+id/btnAddAliment"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Agregar Alimento"
+                            style="@style/btnStyleGenoa"
+                            android:layout_centerHorizontal="true"
+                            android:onClick="renderAddAlimentView"
+                    />
                 </LinearLayout>
+                <!--
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:alpha="1"
+                        >
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Recetas"
+                            android:id="@+id/textView4"
+                            android:textSize="15dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="#FFF"
+                            android:background="#3C60A6"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:layout_below="@+id/linearLayout"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"/>
+                    <ListView
+                            android:id="@+id/listFoods"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="#fff"
+                            />
+                    <Button
+                            android:id="@+id/btnAddFood"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Agregar Receta"
+                            style="@style/btnStyleGenoa"
+                            android:layout_centerHorizontal="true"
+                            android:onClick="renderAddFoodView"
+                            />
+                </LinearLayout>
+                -->
+            </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
