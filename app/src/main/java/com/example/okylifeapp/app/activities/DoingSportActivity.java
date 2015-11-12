@@ -53,7 +53,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
-        sport = (Spinner) findViewById(R.id.spinner);
+        sport = (Spinner) findViewById(R.id.sportSpinner);
         btnPlay = (Button) findViewById(R.id.btnPlay);
         btnStop = (Button) findViewById(R.id.btnStop);
         btnSave = (Button) findViewById(R.id.btnSaveActivity);
@@ -159,6 +159,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     public void renderSaveSportActivityView(View view) {
         EditText targetDistanceText = (EditText) findViewById(R.id.inputObjective);
+        Spinner sportTypeSpinner = (Spinner) findViewById(R.id.sportSpinner);
         duration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
         targetDistance = Double.valueOf(targetDistanceText.getText().toString());
 
@@ -173,8 +174,10 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         values.putDouble("hydration", hydration);
         saveActivityIntent.putExtras(values);
 
-        finish();
+        /*
         startActivity(saveActivityIntent);
+        finish();
+        */
     }
 
     @Override

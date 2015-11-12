@@ -4,7 +4,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="#fff"
-        >
+>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,23 +30,23 @@
                   android:orientation="vertical"
                   style="@style/layoutStyle">
         <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/sportSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:prompt="@string/prompt"
                 android:background="#FFF"
                 android:alpha="@string/alpha"
-                />
+        />
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:layout_marginTop="15dp"
                       android:layout_marginLeft="10dp"
                       android:layout_marginRight="10dp"
                       android:orientation="vertical"
-                      >
+        >
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical"
-                    >
+            >
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                                   android:inputType="date|datetime"
                                   android:maxLength="2"
                                   android:alpha="@string/alpha"
-                                />
+                        />
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                           android:gravity="center"
                           android:layout_marginLeft="5dp"
                           android:layout_marginTop="15dp"
-                          >
+            >
                 <Button
                         android:id="@+id/btnPlay"
                         android:layout_width="wrap_content"
@@ -211,14 +211,14 @@
                         android:background="@drawable/play"
                         android:gravity="center"
                         android:layout_marginRight="25dp"
-                        />
+                />
                 <Button
                         android:id="@+id/btnStop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stop"
                         android:layout_gravity="center_horizontal"
-                        />
+                />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -227,7 +227,7 @@
                   android:gravity="center"
                   android:layout_marginLeft="5dp"
                   android:layout_marginTop="10dp"
-                 >
+    >
         <Button
                 android:id="@+id/btnSaveActivity"
                 android:layout_width="200dp"
