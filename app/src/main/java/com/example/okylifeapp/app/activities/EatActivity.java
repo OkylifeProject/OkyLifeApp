@@ -39,6 +39,9 @@ public class EatActivity extends Activity implements AsyncResponse {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.eat_activity);
         jsonAliments = new JSONArray();
+
+        Intent intent = new Intent(this, getLocationActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -88,6 +91,8 @@ public class EatActivity extends Activity implements AsyncResponse {
         //TODO add the default EAT acitivity fields
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("ingredients", jsonAliments.toString()));
+
+
     }
 
     /*
