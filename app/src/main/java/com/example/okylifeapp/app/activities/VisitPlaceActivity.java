@@ -9,10 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import dialogs.LogoutDialog;
@@ -59,6 +56,10 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void saveVisitPlaceActivity(View view) {
+        EditText title = (EditText) findViewById(R.id.vp_title_text);
     }
 
     public void renderStartActivity() {
