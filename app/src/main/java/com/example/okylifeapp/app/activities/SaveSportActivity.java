@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -13,6 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.plus.Plus;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import rest.AsyncResponse;
@@ -23,8 +30,10 @@ import java.util.ArrayList;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class SaveSportActivity extends Activity implements AsyncResponse {
+public class SaveSportActivity extends Activity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    // Request code to use when launching the resolution activity
+    private static final int REQUEST_RESOLVE_ERROR = 1001;
     /**
      * ACTIVITY FIELDS
      **/
@@ -36,6 +45,11 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
     double hydration;
     double duration;
     String type;
+    /* Client used to interact with Google APIs. */
+    private GoogleApiClient mGoogleApiClient;
+    // Bool to track whether the app is already resolving an error
+    private boolean mResolvingError = false;
+    private Location mLastLocation;
     private Account okyLifeAccount;
 
     @Override
@@ -44,6 +58,13 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.save_sport_activity);
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Plus.API)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
         setFileds();
     }
@@ -134,14 +155,72 @@ public class SaveSportActivity extends Activity implements AsyncResponse {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void processFinish(String result) {
         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onStart() {
+        Log.v("location", "started");
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
 
+    @Override
+    protected void onStop() {
+        Log.v("location", "stopped");
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.v("location", "connected");
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
+        Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
+        finish();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.v("google", "failed" + connectionResult);
+        if (mResolvingError) {
+            // Already attempting to resolve an error.
+            return;
+        } else if (connectionResult.hasResolution()) {
+            try {
+                mResolvingError = true;
+                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+            } catch (IntentSender.SendIntentException e) {
+                // There was an error with the resolution intent. Try again.
+                mGoogleApiClient.connect();
+            }
+        } else {
+            // Show dialog using GoogleApiAvailability.getErrorDialog()
+            Log.e("google", String.valueOf(connectionResult.getErrorCode()));
+            mResolvingError = true;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_RESOLVE_ERROR) {
+            mResolvingError = false;
+            if (resultCode == RESULT_OK) {
+                // Make sure the app is not already connected or attempting to connect
+                if (!mGoogleApiClient.isConnecting() &&
+                        !mGoogleApiClient.isConnected()) {
+                    mGoogleApiClient.connect();
+                }
+            }
+        }
+    }
 }
