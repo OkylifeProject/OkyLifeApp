@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="#fff"
+        >
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp" android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
+                      android:orientation="vertical"
+                      android:layout_marginBottom="20dp"
+                      android:layout_marginTop="20dp"
+                      style="@style/layoutStyle">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                        >
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¿Que estas Pensando?"
+                            android:id="@+id/textView2"
+                            android:textSize="15dp"
+                            android:layout_gravity="center"
+                            android:textColor="#FFF"
+                            android:textAlignment="center"
+                            android:gravity="left"
+                            android:alpha="@string/alpha"
+                            android:layout_below="@+id/linearLayout"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"/>
+                    <EditText android:layout_width="fill_parent"
+                              android:layout_height="wrap_content"
+                              android:lines="10"
+                              android:background="#fff"
+                              android:textSize="15dp"
+                              android:gravity="center"
+                              android:alpha="@string/alpha"
+                              android:layout_marginTop="10dp"
+                              android:id="@+id/note_content"
+                            />
+                </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:gravity="center"
+                      android:layout_marginLeft="5dp"
+                      android:layout_marginTop="5dp"
+                >
+                <Button
+                        android:id="@+id/btnPublic"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Publicar"
+                        style="@style/btnStyleGenoa"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="15dp"
+                        android:onClick="publicNote"
+                        />
+                <Button
+                        android:id="@+id/btnErase"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Cancelar"
+                        style="@style/btnStyleGenoa"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="15dp"
+                        android:onClick="eraseTextNote"
+                        />
+        </LinearLayout>
+</LinearLayout>

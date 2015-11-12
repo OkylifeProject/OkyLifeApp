@@ -54,6 +54,11 @@ public class MainActivity extends Activity implements AsyncResponse, LogoutDialo
         startActivity(intent);
     }
 
+    public void writeNote(View view) {
+        Intent intent = new Intent(this, WriteNoteActivity.class);
+        startActivity(intent);
+    }
+
     public void startActivity(View view) {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
