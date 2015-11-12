@@ -37,7 +37,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     long elapsedTime = 0;
     boolean isPlaying = false, init = true;
-    String[] strings = {"Correr", "Ciclismo", "Caminar"};
+    String[] strings = {"Run", "Biking", "Walk"};
 
     String[] subs = {"\"Hay gente que corre mas rapido que tu, pero no lo disfruta tanto\"",
             "\"No se deja de pedalear cuando se envejece. Se envejece cuando se deja de pedalear\"",
@@ -172,12 +172,12 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         values.putDouble("rate", rate);
         values.putDouble("targetDistance", targetDistance);
         values.putDouble("hydration", hydration);
+        values.putString("type", strings[sportTypeSpinner.getSelectedItemPosition()]);
         saveActivityIntent.putExtras(values);
 
-        /*
         startActivity(saveActivityIntent);
         finish();
-        */
+
     }
 
     @Override
