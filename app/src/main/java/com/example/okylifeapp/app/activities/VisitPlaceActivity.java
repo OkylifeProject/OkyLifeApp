@@ -1,5 +1,6 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +14,11 @@ import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import dialogs.LogoutDialog;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import rest.AsyncResponse;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,7 +26,7 @@ import rest.AsyncResponse;
  */
 public class VisitPlaceActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
     Spinner typePlace;
-    String[] strings = {"Parque", "Museo", "Centro Comercial", "Hospital", "Restaurante"};
+    String[] strings = {"Park", "Museum", "Store", "Hospital", "Restaurant"};
 
     String[] subs = {"", "", "", "", ""};
 
@@ -30,14 +35,20 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
             R.drawable.mall,
             R.drawable.hospital,
             R.drawable.restaurant};
+    double distance;
+    private Account okyLifeAccount;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.visit_place_activity);
+        okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
+
         typePlace = (Spinner) findViewById(R.id.spinnerTypePlace);
         typePlace.setAdapter(new MyAdapter(this, R.layout.row, strings));
+
+        distance = 0;
     }
 
     public void renderDialogPlaceCancelConfirmation(View view) {
@@ -59,7 +70,21 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
     }
 
     public void saveVisitPlaceActivity(View view) {
-        EditText title = (EditText) findViewById(R.id.vp_title_text);
+        EditText titleText = (EditText) findViewById(R.id.vp_title_text);
+        EditText descriptionText = (EditText) findViewById(R.id.vp_description_text);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerTypePlace);
+        EditText addressText = (EditText) findViewById(R.id.vp_address_text);
+        EditText caloriesText = (EditText) findViewById(R.id.vp_calories_text);
+
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email", okyLifeAccount.name));
+        params.add(new BasicNameValuePair("name", titleText.getText().toString()));
+        params.add(new BasicNameValuePair("description", descriptionText.getText().toString()));
+
+        params.add(new BasicNameValuePair("type", strings[spinner.getSelectedItemPosition()]));
+        params.add(new BasicNameValuePair("address", addressText.getText().toString()));
+        params.add(new BasicNameValuePair("calories", caloriesText.getText().toString()));
+        params.add(new BasicNameValuePair("distance", String.valueOf(distance)));
     }
 
     public void renderStartActivity() {

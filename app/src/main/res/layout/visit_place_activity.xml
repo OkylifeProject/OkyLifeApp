@@ -61,6 +61,7 @@
                       android:background="#fff"
                       android:textSize="15dp"
                       android:hint="Direccion de Ubicacion del Sitio"
+                      android:id="@+id/vp_address_text"
                       android:gravity="center"
                       android:alpha="@string/alpha"
 
