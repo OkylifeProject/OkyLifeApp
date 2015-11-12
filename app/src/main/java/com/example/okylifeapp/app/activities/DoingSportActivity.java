@@ -163,6 +163,10 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         duration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
         targetDistance = Double.valueOf(targetDistanceText.getText().toString());
 
+
+        //TODO calculate calories, rate, velocity;
+        //TODO add a field for hydration;
+        
         Intent saveActivityIntent = new Intent(this, SaveSportActivity.class);
         Bundle values = new Bundle();
         values.putDouble("calories", calories);
