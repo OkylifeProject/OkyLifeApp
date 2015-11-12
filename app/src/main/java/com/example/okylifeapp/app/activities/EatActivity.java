@@ -68,7 +68,7 @@ public class EatActivity extends Activity implements AsyncResponse {
 
 
     public void renderAddAlimentView(View view) {
-        Intent addAliment = new Intent(getApplicationContext(), AddFoodActivity.class);
+        Intent addAliment = new Intent(getApplicationContext(), AddAlimentActivity.class);
         startActivityForResult(addAliment, ADD_ALIMENT_REQUEST);
     }
 
@@ -85,6 +85,9 @@ public class EatActivity extends Activity implements AsyncResponse {
         if (requestCode == ADD_ALIMENT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(getApplicationContext(), data.getStringExtra("result"), Toast.LENGTH_LONG).show();
+            }
+            if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), "Canceled", Toast.LENGTH_LONG).show();
             }
         }
     }

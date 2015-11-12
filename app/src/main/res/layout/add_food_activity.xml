@@ -131,7 +131,6 @@
                 style="@style/btnStyleGenoa"
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="15dp"
-                android:onClick="returnAlimentToEatActivity"
         />
         <Button
                 android:id="@+id/btnCancel"

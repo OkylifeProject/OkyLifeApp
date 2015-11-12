@@ -95,13 +95,6 @@ public class AddFoodActivity extends Activity implements AsyncResponse, LogoutDi
         finish();
     }
 
-    public void returnAlimentToEatActivity(View view) {
-        Intent startActivityIntent = new Intent();
-        startActivityIntent.putExtra("result", "Hola");
-        setResult(Activity.RESULT_OK, startActivityIntent);
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

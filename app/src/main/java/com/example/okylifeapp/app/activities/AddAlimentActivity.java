@@ -89,8 +89,15 @@ public class AddAlimentActivity extends Activity implements AsyncResponse, Logou
     }
 
     public void renderEatActivity() {
-        Intent startActivityIntent = new Intent(this, EatActivity.class);
-        startActivity(startActivityIntent);
+        Intent startActivityIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, startActivityIntent);
+        finish();
+    }
+
+    public void returnAlimentToEatActivity(View view) {
+        Intent startActivityIntent = new Intent();
+        startActivityIntent.putExtra("result", "Hola");
+        setResult(Activity.RESULT_OK, startActivityIntent);
         finish();
     }
 
