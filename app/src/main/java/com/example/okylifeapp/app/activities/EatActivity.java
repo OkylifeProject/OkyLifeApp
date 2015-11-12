@@ -8,7 +8,14 @@ import android.view.*;
 import android.widget.Toast;
 import com.example.okylifeapp.app.R;
 import dialogs.LogoutDialog;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import rest.AsyncResponse;
+
+import java.util.ArrayList;
 
 
 /**
@@ -18,15 +25,14 @@ public class EatActivity extends Activity implements AsyncResponse {
 
     static final int ADD_ALIMENT_REQUEST = 1;
 
-    String[] jsonIngredients;
+    JSONArray jsonAliments;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.eat_activity);
-
-
+        jsonAliments = new JSONArray();
     }
 
     @Override
@@ -72,6 +78,12 @@ public class EatActivity extends Activity implements AsyncResponse {
         startActivityForResult(addAliment, ADD_ALIMENT_REQUEST);
     }
 
+    public void saveEatActivity(View view) {
+        //TODO add the default EAT acitivity fields
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("ingredients", jsonAliments.toString()));
+    }
+
     /*
     public void renderAddFoodView(View view) {
 
@@ -84,7 +96,13 @@ public class EatActivity extends Activity implements AsyncResponse {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_ALIMENT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(getApplicationContext(), data.getStringExtra("result"), Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject jsonAliment = new JSONObject(data.getStringExtra("jsonAliment"));
+                    jsonAliments.put(jsonAliment);
+                    Toast.makeText(getApplicationContext(), jsonAliments.toString(), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), "Canceled", Toast.LENGTH_LONG).show();
