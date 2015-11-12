@@ -8,9 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.EditText;
+import android.widget.Spinner;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import dialogs.LogoutDialog;
+import org.json.JSONException;
+import org.json.JSONObject;
 import rest.AsyncResponse;
 
 
@@ -95,8 +99,32 @@ public class AddAlimentActivity extends Activity implements AsyncResponse, Logou
     }
 
     public void returnAlimentToEatActivity(View view) {
+        JSONObject jsonAliment = new JSONObject();
+
+        EditText titleText = (EditText) findViewById(R.id.aliment_title);
+        EditText descriptionText = (EditText) findViewById(R.id.aliment_description);
+        EditText rationSizeText = (EditText) findViewById(R.id.aliment_size_ration);
+        Spinner rationTypeSpinner = (Spinner) findViewById(R.id.aliment_spinnerTypeRation);
+        EditText caloriesText = (EditText) findViewById(R.id.aliment_calories);
+        EditText fatText = (EditText) findViewById(R.id.aliment_total_fat);
+        EditText carbohydratesText = (EditText) findViewById(R.id.aliment_total_carbohydrates);
+        EditText proteinsText = (EditText) findViewById(R.id.aliment_protein);
+
+        try {
+            jsonAliment.put("name", titleText.getText().toString());
+            jsonAliment.put("description", descriptionText.getText().toString());
+            jsonAliment.put("number", rationSizeText.getText().toString());
+            jsonAliment.put("fat", fatText.getText().toString());
+            jsonAliment.put("carbohydrates", carbohydratesText.getText().toString());
+            jsonAliment.put("proteins", proteinsText.getText().toString());
+            jsonAliment.put("calories", caloriesText.getText().toString());
+            jsonAliment.put("rationType", String.valueOf(rationTypeSpinner.getSelectedItem()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Intent startActivityIntent = new Intent();
-        startActivityIntent.putExtra("result", "Hola");
+        startActivityIntent.putExtra("jsonAliment", jsonAliment.toString());
         setResult(Activity.RESULT_OK, startActivityIntent);
         finish();
     }
