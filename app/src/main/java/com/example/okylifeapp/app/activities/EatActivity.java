@@ -1,12 +1,11 @@
 package com.example.okylifeapp.app.activities;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
-import aplication.OkyLife;
+import android.widget.Toast;
 import com.example.okylifeapp.app.R;
 import dialogs.LogoutDialog;
 import rest.AsyncResponse;
@@ -15,13 +14,19 @@ import rest.AsyncResponse;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class EatActivity extends Activity implements AsyncResponse{
+public class EatActivity extends Activity implements AsyncResponse {
+
+    static final int ADD_ALIMENT_REQUEST = 1;
+
+    String[] jsonIngredients;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.eat_activity);
+
+
     }
 
     @Override
@@ -62,19 +67,26 @@ public class EatActivity extends Activity implements AsyncResponse{
     }
 
 
-
     public void renderAddAlimentView(View view) {
-
-        Intent saveActivityIntent = new Intent(this, AddAlimentActivity.class);
-        finish();
-        startActivity(saveActivityIntent);
+        Intent addAliment = new Intent(getApplicationContext(), AddFoodActivity.class);
+        startActivityForResult(addAliment, ADD_ALIMENT_REQUEST);
     }
 
+    /*
     public void renderAddFoodView(View view) {
 
         Intent saveActivityIntent = new Intent(this, AddFoodActivity.class);
         finish();
         startActivity(saveActivityIntent);
+    }
+    */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_ALIMENT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(getApplicationContext(), data.getStringExtra("result"), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
