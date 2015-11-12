@@ -35,7 +35,14 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
             R.drawable.mall,
             R.drawable.hospital,
             R.drawable.restaurant};
+
+    /**
+     * Activity fields
+     **/
     double distance;
+    double calories;
+
+
     private Account okyLifeAccount;
 
     @Override
@@ -49,6 +56,7 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
         typePlace.setAdapter(new MyAdapter(this, R.layout.row, strings));
 
         distance = 0;
+        calories = 0;
     }
 
     public void renderDialogPlaceCancelConfirmation(View view) {
@@ -76,6 +84,8 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
         EditText addressText = (EditText) findViewById(R.id.vp_address_text);
         TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
 
+
+        //TODO calculate calorries and distance
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
         params.add(new BasicNameValuePair("name", titleText.getText().toString()));
@@ -83,8 +93,10 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
 
         params.add(new BasicNameValuePair("type", strings[spinner.getSelectedItemPosition()]));
         params.add(new BasicNameValuePair("address", addressText.getText().toString()));
-        params.add(new BasicNameValuePair("calories", caloriesText.getText().toString()));
+        params.add(new BasicNameValuePair("calories", String.valueOf(calories)));
         params.add(new BasicNameValuePair("distance", String.valueOf(distance)));
+
+        ((OkyLife) getApplication()).getMasterCaller().postData("VisitPlaceActivity/createVisitPlaceActivity", this, params);
     }
 
     public void renderStartActivity() {
@@ -103,7 +115,7 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
 
     @Override
     public void processFinish(String result) {
-
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
     }
 
     @Override
