@@ -130,10 +130,16 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     }
 
     public void saveEatActivity(View view) throws JSONException {
-        //TODO add the default EAT acitivity fields
         String jsonQuery = "{ingredients:" + jsonAliments.toString() + "}";
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("ingredients", jsonQuery));
+
+        //TODO add the default EAT acitivity fields
+
+        if (mLastLocation != null) {
+            params.add(new BasicNameValuePair("latitude", String.valueOf(mLastLocation.getLatitude())));
+            params.add(new BasicNameValuePair("longitude", String.valueOf(mLastLocation.getLongitude())));
+        }
         Log.v("ingredients", params.toString());
     }
 

@@ -144,6 +144,11 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
         params.add(new BasicNameValuePair("duration", String.valueOf(duration)));
         params.add(new BasicNameValuePair("hydration", String.valueOf(hydration)));
 
+        if (mLastLocation != null) {
+            params.add(new BasicNameValuePair("latitude", String.valueOf(mLastLocation.getLatitude())));
+            params.add(new BasicNameValuePair("longitude", String.valueOf(mLastLocation.getLongitude())));
+        }
+        
         ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/createSportActivity", this, params);
 
     }
@@ -179,8 +184,6 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
         Log.v("location", "connected");
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
-        Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
     }
 
     @Override

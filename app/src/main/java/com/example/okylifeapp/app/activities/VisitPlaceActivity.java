@@ -113,6 +113,11 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
         params.add(new BasicNameValuePair("calories", String.valueOf(calories)));
         params.add(new BasicNameValuePair("distance", String.valueOf(distance)));
 
+        if (mLastLocation != null) {
+            params.add(new BasicNameValuePair("latitude", String.valueOf(mLastLocation.getLatitude())));
+            params.add(new BasicNameValuePair("longitude", String.valueOf(mLastLocation.getLongitude())));
+        }
+
         ((OkyLife) getApplication()).getMasterCaller().postData("VisitPlaceActivity/createVisitPlaceActivity", this, params);
     }
 
