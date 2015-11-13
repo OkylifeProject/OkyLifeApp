@@ -2,15 +2,15 @@ package com.example.okylifeapp.app.activities;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
@@ -19,6 +19,8 @@ import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.plus.Plus;
 import dialogs.LogoutDialog;
 import org.apache.http.NameValuePair;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class VisitPlaceActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class VisitPlaceActivity extends FragmentActivity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -46,27 +48,28 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
     /**
      * Activity fields
      **/
-    double distance;
-    double calories;
+    double distance = 0;
+    double calories = 0;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
+    private GoogleMap mMap;
     // Bool to track whether the app is already resolving an error
     private boolean mResolvingError = false;
     private Location mLastLocation;
     private Account okyLifeAccount;
+
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.visit_place_activity);
+
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
 
         typePlace = (Spinner) findViewById(R.id.spinnerTypePlace);
         typePlace.setAdapter(new MyAdapter(this, R.layout.row, strings));
 
-        distance = 0;
-        calories = 0;
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
@@ -74,6 +77,10 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+        FragmentManager fmanager = getSupportFragmentManager();
+        mMap = ((SupportMapFragment) fmanager.findFragmentById(R.id.visit_place_map)).getMap();
+
     }
 
     public void renderDialogPlaceCancelConfirmation(View view) {
@@ -152,7 +159,7 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
     }
 
     public void showLogoutDialog() {
-        FragmentManager manager = getFragmentManager();
+        android.app.FragmentManager manager = getFragmentManager();
         LogoutDialog logoutDialog = new LogoutDialog();
         logoutDialog.show(manager, "Logout");
     }
@@ -190,8 +197,11 @@ public class VisitPlaceActivity extends Activity implements AsyncResponse, Logou
         Log.v("location", "connected");
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
-        Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
+        setMap();
+    }
+
+    public void setMap() {
+
     }
 
     @Override
