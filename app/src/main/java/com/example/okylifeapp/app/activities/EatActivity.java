@@ -38,6 +38,7 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     JSONArray jsonAliments;
+
     String[] nameAliments;
     String[] descriptionAliments;
     /* Client used to interact with Google APIs. */
@@ -78,11 +79,13 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
 
     @Override
     public void onConnected(Bundle bundle) {
+        /*
         Log.v("location", "connected");
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         Log.v("locationLatitude", String.valueOf(mLastLocation.getLatitude()));
         Log.v("locationLongitude", String.valueOf(mLastLocation.getLongitude()));
+        */
     }
 
 
@@ -121,11 +124,12 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
         startActivityForResult(addAliment, ADD_ALIMENT_REQUEST);
     }
 
-    public void saveEatActivity(View view) {
+    public void saveEatActivity(View view) throws JSONException {
         //TODO add the default EAT acitivity fields
+        String jsonQuery = "{ingredients:" + jsonAliments.toString() + "}";
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("ingredients", jsonAliments.toString()));
-
+        params.add(new BasicNameValuePair("ingredients", jsonQuery));
+        Log.v("ingredients", params.toString());
 
     }
 
