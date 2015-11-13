@@ -23,11 +23,36 @@ import rest.AsyncResponse;
  */
 public class AddAlimentActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
 
+    /**
+     * EAT ALIMENT FIELDS
+     **/
+    double rationSize = 0;
+    double fat = 0;
+    double carbohydrates = 0;
+    double calories = 0;
+    double proteins = 0;
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_aliment_activity);
+
+        setFields();
+    }
+
+    public void setFields() {
+        EditText caloriesText = (EditText) findViewById(R.id.aliment_calories);
+        EditText fatText = (EditText) findViewById(R.id.aliment_total_fat);
+        EditText carbohydratesText = (EditText) findViewById(R.id.aliment_total_carbohydrates);
+        EditText proteinsText = (EditText) findViewById(R.id.aliment_protein);
+        EditText rationSizeText = (EditText) findViewById(R.id.aliment_size_ration);
+
+        caloriesText.setText(String.valueOf(calories));
+        fatText.setText(String.valueOf(fat));
+        carbohydratesText.setText(String.valueOf(carbohydrates));
+        proteinsText.setText(String.valueOf(proteins));
+        rationSizeText.setText(String.valueOf(rationSize));
     }
 
     @Override
@@ -118,7 +143,7 @@ public class AddAlimentActivity extends Activity implements AsyncResponse, Logou
             jsonAliment.put("carbohydrates", carbohydratesText.getText().toString());
             jsonAliment.put("proteins", proteinsText.getText().toString());
             jsonAliment.put("calories", caloriesText.getText().toString());
-            jsonAliment.put("rationType", String.valueOf(rationTypeSpinner.getSelectedItem()));
+            jsonAliment.put("rationType", rationTypeSpinner.getSelectedItem());
         } catch (JSONException e) {
             e.printStackTrace();
         }

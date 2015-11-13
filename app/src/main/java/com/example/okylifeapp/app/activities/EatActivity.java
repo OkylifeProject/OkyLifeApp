@@ -47,12 +47,14 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     private boolean mResolvingError = false;
     private Location mLastLocation;
 
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.eat_activity);
         jsonAliments = new JSONArray();
+        setFields();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
@@ -60,6 +62,9 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+    }
+
+    public void setFields() {
     }
 
     @Override
@@ -130,7 +135,6 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("ingredients", jsonQuery));
         Log.v("ingredients", params.toString());
-
     }
 
     /*
