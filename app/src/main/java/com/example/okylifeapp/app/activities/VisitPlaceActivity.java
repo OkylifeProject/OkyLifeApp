@@ -161,6 +161,10 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
 
     }
 
+    public void calculateCalories() {
+
+    }
+
     @Override
     public void processFinish(String result) {
         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
@@ -235,6 +239,7 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
                 mMap.clear();
                 mMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Destino"));
                 calculateDistance();
+                calculateCalories();
                 Log.v("distance", String.valueOf(distance));
             }
         });

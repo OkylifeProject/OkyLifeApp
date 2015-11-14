@@ -165,8 +165,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
 
         //TODO calculate calories, rate, velocity;
-        //TODO add a field for hydration;
-        
+
         Intent saveActivityIntent = new Intent(this, SaveSportActivity.class);
         Bundle values = new Bundle();
         values.putDouble("calories", calories);
@@ -175,7 +174,6 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         values.putDouble("velocity", velocity);
         values.putDouble("rate", rate);
         values.putDouble("targetDistance", targetDistance);
-        values.putDouble("hydration", hydration);
         values.putString("type", strings[sportTypeSpinner.getSelectedItemPosition()]);
         saveActivityIntent.putExtras(values);
 

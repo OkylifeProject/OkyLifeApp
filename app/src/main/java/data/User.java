@@ -11,8 +11,10 @@ public class User {
     private String registerType;
     private String age;
     private String id;
+    private String weight;
+    private String height;
 
-    public User(String firstName, String id, String age, String registerType, String email, String imageBytes, String sex, String lastName) {
+    public User(String firstName, String id, String age, String registerType, String email, String imageBytes, String sex, String weight, String height) {
         this.firstName = firstName;
         this.id = id;
         this.age = age;
@@ -20,6 +22,8 @@ public class User {
         this.email = email;
         this.imageBytes = imageBytes;
         this.sex = sex;
+        this.weight = weight;
+        this.height = height;
     }
 
     public User(String firstName, String email, String registerType, String id) {
@@ -27,6 +31,22 @@ public class User {
         this.email = email;
         this.registerType = registerType;
         this.id = id;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
     }
 
     public String getFirstName() {

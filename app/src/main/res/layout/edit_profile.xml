@@ -45,13 +45,49 @@
                   android:background="@drawable/apptheme_textfield_activated_holo_light"
                   android:textColor="#ff000000"
                   android:textColorHighlight="#ff000000"/>
-        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:inputType="number" android:ems="5" android:id="@+id/ageText"
-                  android:layout_column="1" android:gravity="center_horizontal" android:hint="Edad"
-                  android:textColorHint="#ff000000"
-                  android:background="@drawable/apptheme_textfield_activated_holo_light"
-                  android:textColor="#ff000000"
-                  android:textColorHighlight="#ff000000"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center">
+            <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Edad:"
+                      android:textColorHint="#ff000000"
+                      android:textSize="20dp"
+                      android:textColor="#ff000000"
+                      android:textColorHighlight="#ff000000" android:ems="5"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:inputType="number" android:ems="5" android:id="@+id/ageText"
+                      android:layout_column="1" android:gravity="center_horizontal" android:hint="0"
+                      android:textColorHint="#ff000000"
+                      android:background="@drawable/apptheme_textfield_activated_holo_light"
+                      android:textColor="#ff000000"
+                      android:textColorHighlight="#ff000000"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:layout_width="101dp" android:layout_height="wrap_content" android:text="Peso(kg):"
+                      android:textColorHint="#ff000000"
+                      android:textSize="20dp"
+                      android:textColor="#ff000000"
+                      android:textColorHighlight="#ff000000" android:ems="5"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:inputType="numberDecimal" android:ems="5" android:id="@+id/weightText"
+                      android:layout_column="1" android:gravity="center_horizontal" android:hint="0"
+                      android:textColorHint="#ff000000"
+                      android:background="@drawable/apptheme_textfield_activated_holo_light"
+                      android:textColor="#ff000000"
+                      android:textColorHighlight="#ff000000"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:layout_width="101dp" android:layout_height="wrap_content" android:text="Altura(cm):"
+                      android:textColorHint="#ff000000"
+                      android:textSize="20dp"
+                      android:textColor="#ff000000"
+                      android:textColorHighlight="#ff000000" android:ems="5"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:inputType="numberDecimal" android:ems="5" android:id="@+id/heightText"
+                      android:layout_column="1" android:gravity="center_horizontal" android:hint="0"
+                      android:textColorHint="#ff000000"
+                      android:background="@drawable/apptheme_textfield_activated_holo_light"
+                      android:textColor="#ff000000"
+                      android:textColorHighlight="#ff000000"/>
+        </LinearLayout>
+
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

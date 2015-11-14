@@ -73,6 +73,8 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
         EditText passwordText = (EditText) findViewById(R.id.password1Text);
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
         ImageButton photoSelectorButton = (ImageButton) findViewById(R.id.photoSelectorButton);
+        EditText weightText = (EditText) findViewById(R.id.weightText);
+        EditText heightText = (EditText) findViewById(R.id.heightText);
         if (user != null) {
             ageText.setText(user.getAge());
             nameText.setText(user.getFirstName());
@@ -80,6 +82,8 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
                 passwordText.setVisibility(View.GONE);
                 password2Text.setVisibility(View.GONE);
             }
+            weightText.setText(user.getWeight());
+            heightText.setText(user.getHeight());
         }
         if (selectedImage != null) {
             photoSelectorButton.setImageBitmap(selectedImage);
@@ -92,6 +96,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
     public void processFinish(String result) {
         Log.v("update", "arrived response");
         Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_LONG).show();
+        Log.v("profile", result);
         if (result.equals("Success, password changed")) {
             OkyLife.deleteAccount(accountManager, okyLifeAccount);
         }
@@ -108,7 +113,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageStream = data.getData();
-                selectedImage = app.decodeSampledBitmapFromUri(selectedImageStream, getContentResolver(), 200, 200);
+                selectedImage = OkyLife.decodeSampledBitmapFromUri(selectedImageStream, getContentResolver(), 200, 200);
             }
         }
     }
@@ -120,6 +125,8 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
         EditText password1Text = (EditText) findViewById(R.id.password1Text);
         EditText password2Text = (EditText) findViewById(R.id.password2Text);
         EditText ageText = (EditText) findViewById(R.id.ageText);
+        EditText weightText = (EditText) findViewById(R.id.weightText);
+        EditText heightText = (EditText) findViewById(R.id.heightText);
         String email = okyLifeAccount.name;
 
 
@@ -135,6 +142,8 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
         params.add(new BasicNameValuePair("password1", password1Text.getText().toString()));
         params.add(new BasicNameValuePair("password2", password2Text.getText().toString()));
         params.add(new BasicNameValuePair("age", ageText.getText().toString()));
+        params.add(new BasicNameValuePair("weight", weightText.getText().toString()));
+        params.add(new BasicNameValuePair("height", heightText.getText().toString()));
 
         ((OkyLife) getApplication()).getMasterCaller().postData("User/updateUserByEmail", this, params);
     }

@@ -94,6 +94,12 @@ public class MainActivity extends Activity implements AsyncResponse, LogoutDialo
                 if (jsonObject.has("sex") && !jsonObject.isNull("sex")) {
                     user.setSex(jsonObject.getString("sex"));
                 }
+                if (jsonObject.has("height") && !jsonObject.isNull("height")) {
+                    user.setHeight(jsonObject.getString("height"));
+                }
+                if (jsonObject.has("weight") && !jsonObject.isNull("weight")) {
+                    user.setWeight(jsonObject.getString("weight"));
+                }
                 ((OkyLife) getApplication()).setUser(user);
                 Log.v("user", "Success");
             } catch (JSONException e) {
