@@ -1,5 +1,6 @@
 package com.example.okylifeapp.app.activities;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -54,6 +56,7 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
             R.drawable.snack,
             R.drawable.aperitif
     };
+    private Account okyLifeAccount;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     // Bool to track whether the app is already resolving an error
@@ -68,6 +71,8 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
         jsonAliments = new JSONArray();
         setFields();
 
+        okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
                 .addApi(LocationServices.API)
@@ -77,8 +82,8 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     }
 
     public void setFields() {
-        Spinner FoodSpinner = (Spinner) findViewById(R.id.food_spinner);
-        FoodSpinner.setAdapter(new MyAdapter(getApplicationContext(), R.layout.row, strings));
+        Spinner foodSpinner = (Spinner) findViewById(R.id.food_spinner);
+        foodSpinner.setAdapter(new MyAdapter(getApplicationContext(), R.layout.row, strings));
     }
 
     @Override
@@ -110,7 +115,7 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
 
     @Override
     public void processFinish(String result) {
-
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -144,17 +149,20 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     }
 
     public void saveEatActivity(View view) throws JSONException {
+        Spinner foodSpinner = (Spinner) findViewById(R.id.food_spinner);
         String jsonQuery = "{ingredients:" + jsonAliments.toString() + "}";
+
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email", okyLifeAccount.name));
         params.add(new BasicNameValuePair("ingredients", jsonQuery));
-
-        //TODO add the default EAT acitivity fields
-
+        params.add(new BasicNameValuePair("type", strings[foodSpinner.getSelectedItemPosition()]));
+        params.add(new BasicNameValuePair("name", strings[foodSpinner.getSelectedItemPosition()]));
         if (mLastLocation != null) {
             params.add(new BasicNameValuePair("latitude", String.valueOf(mLastLocation.getLatitude())));
             params.add(new BasicNameValuePair("longitude", String.valueOf(mLastLocation.getLongitude())));
         }
         Log.v("ingredients", params.toString());
+        ((OkyLife) getApplication()).getMasterCaller().postData("EatActivity/createEatActivity", this, params);
     }
 
     /*
