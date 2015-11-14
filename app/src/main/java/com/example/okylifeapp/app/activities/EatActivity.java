@@ -9,10 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,12 +38,27 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
 
     String[] nameAliments;
     String[] descriptionAliments;
+    /**
+     * SPINNER OPTIONS
+     **/
+    String[] strings = {"Breakfast", "Lunch", "Dinner", "Snack", "Aperitif"};
+    String[] subs = {"\"Empieza el dia con un buen desayudo\"",
+            "\"Almuerza como principe\"",
+            "\"Date gusto con una rica cena\"",
+            "\"No te quedes con las ganas\"",
+            "\"Que sirva como abrebocas\""
+    };
+    int arr_images[] = {R.drawable.breakfast,
+            R.drawable.lunch,
+            R.drawable.dinner,
+            R.drawable.snack,
+            R.drawable.aperitif
+    };
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     // Bool to track whether the app is already resolving an error
     private boolean mResolvingError = false;
     private Location mLastLocation;
-
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -65,6 +77,8 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     }
 
     public void setFields() {
+        Spinner FoodSpinner = (Spinner) findViewById(R.id.food_spinner);
+        FoodSpinner.setAdapter(new MyAdapter(getApplicationContext(), R.layout.row, strings));
     }
 
     @Override
@@ -194,7 +208,7 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
                 e.printStackTrace();
             }
         }
-        alimentList.setAdapter(new MyAdapter(this, R.layout.row, nameAliments));
+        alimentList.setAdapter(new MyAlimentsAdapter(this, R.layout.row, nameAliments));
     }
 
     @Override
@@ -229,9 +243,9 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
         }
     }
 
-    public class MyAdapter extends ArrayAdapter<String> {
+    public class MyAlimentsAdapter extends ArrayAdapter<String> {
 
-        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+        public MyAlimentsAdapter(Context context, int textViewResourceId, String[] objects) {
             super(context, textViewResourceId, objects);
         }
 
@@ -253,6 +267,39 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
             TextView descriptionText = (TextView) row.findViewById(R.id.aliment_description);
             nameText.setText(nameAliments[position]);
             descriptionText.setText(descriptionAliments[position]);
+            return row;
+        }
+    }
+
+    public class MyAdapter extends ArrayAdapter<String> {
+
+        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View row = inflater.inflate(R.layout.row, parent, false);
+            TextView label = (TextView) row.findViewById(R.id.company);
+            label.setText(strings[position]);
+
+            TextView sub = (TextView) row.findViewById(R.id.sub);
+            sub.setText(subs[position]);
+
+            ImageView icon = (ImageView) row.findViewById(R.id.image);
+            icon.setImageResource(arr_images[position]);
+
             return row;
         }
     }

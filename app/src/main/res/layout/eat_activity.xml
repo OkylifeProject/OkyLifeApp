@@ -18,40 +18,36 @@
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical"
+                      android:background="#5FDBFF"
+                      android:padding="5dp"
         >
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hoy haz Consumido"
+                    android:text="¿Que vas a comer?"
                     android:id="@+id/textView1"
                     android:textSize="15dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="#fff"
+                    android:background="#ffffff"
                     android:textColor="#000"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_below="@+id/linearLayout"
-                    android:layout_centerHorizontal="true"
-                    android:alpha="@string/alpha"/>
-            <TextView
-                    android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"/>
+            <Spinner
+                    android:id="@+id/food_spinner"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="0 Calorias"
-                    android:id="@+id/textCaloriesConsumed"
-                    android:textSize="30dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="#fff"
-                    android:textColor="#000"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_centerHorizontal="true"
-                    android:alpha="@string/alpha"/>
+                    android:drawSelectorOnTop="true"
+                    android:prompt="@string/prompt"
+                    android:background="#FFF"
+                    android:layout_marginTop="10dp"
+            />
         </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:background="#5FDBFF"
                 android:padding="5dp"
@@ -102,14 +98,14 @@
                     <ListView
                             android:id="@+id/listAliments"
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
+                            android:layout_height="150dp"
                             android:background="#fff"
                     />
                     <Button
                             android:id="@+id/btnAddAliment"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:text="Agregar Alimento"
+                            android:text="Agregar Comida"
                             style="@style/btnStyleGenoa"
                             android:layout_centerHorizontal="true"
                             android:onClick="renderAddAlimentView"
