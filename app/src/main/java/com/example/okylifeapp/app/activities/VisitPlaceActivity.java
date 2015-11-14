@@ -21,6 +21,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.Plus;
 import dialogs.LogoutDialog;
 import org.apache.http.NameValuePair;
@@ -50,6 +53,7 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
      **/
     double distance = 0;
     double calories = 0;
+    Marker mMarker;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
@@ -57,7 +61,6 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
     private boolean mResolvingError = false;
     private Location mLastLocation;
     private Account okyLifeAccount;
-
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -77,10 +80,7 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
-        FragmentManager fmanager = getSupportFragmentManager();
-        mMap = ((SupportMapFragment) fmanager.findFragmentById(R.id.visit_place_map)).getMap();
-
+        setMap();
     }
 
     public void renderDialogPlaceCancelConfirmation(View view) {
@@ -101,6 +101,11 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
                 .show();
     }
 
+    public double calculateDistance() {
+
+        return 0;
+    }
+
     public void saveVisitPlaceActivity(View view) {
         EditText titleText = (EditText) findViewById(R.id.vp_title_text);
         EditText descriptionText = (EditText) findViewById(R.id.vp_description_text);
@@ -109,7 +114,9 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
         TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
 
 
-        //TODO calculate calorries and distance
+        //TODO calculate calories and
+        calculateDistance();
+
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
         params.add(new BasicNameValuePair("name", titleText.getText().toString()));
@@ -197,11 +204,20 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
         Log.v("location", "connected");
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        setMap();
     }
 
     public void setMap() {
-
+        FragmentManager fmanager = getSupportFragmentManager();
+        mMap = ((SupportMapFragment) fmanager.findFragmentById(R.id.visit_place_map)).getMap();
+        mMap.setMyLocationEnabled(true);
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mMap.clear();
+                mMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Destino"));
+                mMap.getMyLocation();
+            }
+        });
     }
 
     @Override
