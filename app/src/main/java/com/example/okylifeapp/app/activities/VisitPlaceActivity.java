@@ -53,6 +53,8 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
      **/
     double distance = 0;
     double calories = 0;
+
+
     Marker mMarker;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
@@ -101,9 +103,26 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
                 .show();
     }
 
-    public double calculateDistance() {
+    public void calculateDistance() {
 
-        return 0;
+        if (mMarker != null) {
+            final Location targetLocation = new Location("targetLocation");
+            targetLocation.setLatitude(mMarker.getPosition().latitude);
+            targetLocation.setLongitude(mMarker.getPosition().longitude);
+
+            Thread distanceTask = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    distance = mLastLocation.distanceTo(targetLocation);
+                }
+            });
+            distanceTask.start();
+            try {
+                distanceTask.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void saveVisitPlaceActivity(View view) {
@@ -114,8 +133,8 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
         TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
 
 
-        //TODO calculate calories and
-        calculateDistance();
+        //TODO calculate calories
+
 
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
@@ -215,7 +234,8 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
                 mMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Destino"));
-                mMap.getMyLocation();
+                calculateDistance();
+                Log.v("distance", String.valueOf(distance));
             }
         });
     }
