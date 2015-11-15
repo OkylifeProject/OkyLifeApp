@@ -4,30 +4,20 @@ package data;
  * Created by mordreth on 11/15/15.
  */
 public class Location {
-    private double longitude;
-    private double latitude;
+    private android.location.Location location;
     private double time;
 
-    public Location(double latitude, double longitude, double time) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    public Location(android.location.Location location, double time) {
+        this.location = location;
         this.time = time;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public android.location.Location getLocation() {
+        return location;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLocation(android.location.Location location) {
+        this.location = location;
     }
 
     public double getTime() {

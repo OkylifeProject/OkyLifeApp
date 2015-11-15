@@ -33,6 +33,8 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     Chronometer chronometer;
     Spinner sport;
     EditText distanceObjective;
+    TextView velocityText;
+    TextView traveledDistanceText;
     String currenTime = "";
 
     //Valores a Guardar//
@@ -88,6 +90,8 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         btnSave = (Button) findViewById(R.id.btnSaveActivity);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         distanceObjective = (EditText) findViewById(R.id.inputObjective);
+        velocityText = (TextView) findViewById(R.id.textVelocitySport);
+        traveledDistanceText = (TextView) findViewById(R.id.textDistanceSport);
         btnStop.setEnabled(false);
         btnSave.setEnabled(false);
     }
@@ -336,9 +340,23 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     @Override
     public void onLocationChanged(Location location) {
         Log.v("locationUp", "changed");
-        data.Location obtainedLocation = new data.Location(location.getLatitude(), location.getLongitude(),
+
+        data.Location obtainedLocation = new data.Location(location,
                 ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000));
         locations.add(obtainedLocation);
+        updateActivityFields();
+    }
+
+    public void updateActivityFields() {
+        if (locations.size() > 1) {
+            data.Location locationA = locations.get(locations.size() - 2);
+            data.Location locationB = locations.get(locations.size() - 1);
+            double localDistance = locationA.getLocation().distanceTo(locationB.getLocation());
+            double localTime = locationB.getTime() - locationA.getTime();
+            velocity = localDistance / localTime;
+            traveledDistanceText.setText(String.valueOf(localDistance));
+            velocityText.setText(String.valueOf(velocity));
+        }
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
