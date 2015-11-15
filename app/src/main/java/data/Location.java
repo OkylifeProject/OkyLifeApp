@@ -6,10 +6,12 @@ package data;
 public class Location {
     private double longitude;
     private double latitude;
+    private double time;
 
-    public Location(double latitude, double longitude) {
-        this.latitude = latitude;
+    public Location(double latitude, double longitude, double time) {
         this.longitude = longitude;
+        this.latitude = latitude;
+        this.time = time;
     }
 
     public double getLongitude() {
@@ -26,5 +28,13 @@ public class Location {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
     }
 }

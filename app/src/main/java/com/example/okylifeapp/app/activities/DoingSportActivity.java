@@ -21,8 +21,7 @@ import com.google.android.gms.location.LocationServices;
 import dialogs.LogoutDialog;
 import rest.AsyncResponse;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Cristian Parada on 18/10/2015.
@@ -44,6 +43,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     double rate = 0;
     double targetDistance = 0;
     double hydration = 0;
+    ArrayList<data.Location> locations;
 
     long elapsedTime = 0;
     boolean isPlaying = false, init = true;
@@ -67,10 +67,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
-
-
         setFields();
-
         createLocationRequest();
         buildGoogleApiClient();
     }
@@ -84,6 +81,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     }
 
     public void setFields() {
+        locations = new ArrayList<data.Location>();
         sport = (Spinner) findViewById(R.id.sportSpinner);
         btnPlay = (Button) findViewById(R.id.btnPlay);
         btnStop = (Button) findViewById(R.id.btnStop);
@@ -337,9 +335,10 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.v("locationUp", "changed");
-        mCurrentLocation = location;
-        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        Log.v("locationUp", "changed";
+        data.Location obtainedLocation = new data.Location(location.getLatitude(), location.getLongitude(),
+                ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000));
+        locations.add(obtainedLocation);
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
