@@ -67,6 +67,8 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
+
+
         setFields();
 
         createLocationRequest();
@@ -234,6 +236,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     protected void stopLocationUpdates() {
         Log.v("locationUp", "stopped");
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(
                     mGoogleApiClient, this);
@@ -324,6 +327,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     }
 
     protected void startLocationUpdates() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Log.v("locationUp", "service-started");
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.requestLocationUpdates(
