@@ -5,19 +5,29 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import dialogs.LogoutDialog;
 import rest.AsyncResponse;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class DoingSportActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
+public class DoingSportActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     Button btnPlay;
     Button btnStop;
     Button btnSave;
@@ -46,6 +56,10 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     int arr_images[] = {R.drawable.run,
             R.drawable.cycling,
             R.drawable.walk};
+    private Location mCurrentLocation;
+    private String mLastUpdateTime;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
 
     @Override
@@ -53,6 +67,21 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
+        setFields();
+
+        createLocationRequest();
+        buildGoogleApiClient();
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    public void setFields() {
         sport = (Spinner) findViewById(R.id.sportSpinner);
         btnPlay = (Button) findViewById(R.id.btnPlay);
         btnStop = (Button) findViewById(R.id.btnStop);
@@ -61,7 +90,9 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         distanceObjective = (EditText) findViewById(R.id.inputObjective);
         btnStop.setEnabled(false);
         btnSave.setEnabled(false);
+    }
 
+    public void setChronometer() {
         sport.setAdapter(new MyAdapter(this, R.layout.row, strings));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -75,12 +106,14 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
                         chronometer.setBase(SystemClock.elapsedRealtime());
                     }
                     chronometer.start();
+                    startLocationUpdates();
                     pause();
                 } else {
                     init = false;
                     chronometer.stop();
                     chronometer.setText(currenTime);
                     btnSave.setEnabled(true);
+                    stopLocationUpdates();
                     play();
                 }
             }
@@ -98,6 +131,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
                 btnSave.setEnabled(false);
                 sport.setEnabled(true);
                 distanceObjective.setEnabled(true);
+                stopLocationUpdates();
             }
         });
 
@@ -184,8 +218,26 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     @Override
     public void onStart() {
+        Log.v("locationUp", "failed");
         super.onStart();
+        mGoogleApiClient.connect();
 
+    }
+
+    @Override
+    public void onStop() {
+        Log.v("locationUp", "failed");
+        super.onStop();
+        stopLocationUpdates();
+        mGoogleApiClient.disconnect();
+    }
+
+    protected void stopLocationUpdates() {
+        Log.v("locationUp", "stopped");
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(
+                    mGoogleApiClient, this);
+        }
     }
 
     @Override
@@ -200,6 +252,10 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -238,6 +294,48 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.v("locationUp", "failed");
+        mGoogleApiClient.connect();
+    }
+
+    protected void createLocationRequest() {
+        Log.v("locationUp", "service-created");
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.v("locationUp", "connected");
+        //startLocationUpdates();
+        setChronometer();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.v("locationUp", "suspended");
+
+    }
+
+    protected void startLocationUpdates() {
+        Log.v("locationUp", "service-started");
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.v("locationUp", "changed");
+        mCurrentLocation = location;
+        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
