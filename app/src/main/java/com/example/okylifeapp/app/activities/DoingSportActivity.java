@@ -335,7 +335,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.v("locationUp", "changed";
+        Log.v("locationUp", "changed");
         data.Location obtainedLocation = new data.Location(location.getLatitude(), location.getLongitude(),
                 ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000));
         locations.add(obtainedLocation);
