@@ -152,8 +152,6 @@ public class OkyLife extends Application {
         return BitmapFactory.decodeByteArray(res, 0, length, options);
     }
 
-    //Tools and Other Algorithms
-
     public static Bitmap decodeSampledBitmapFromUri(Uri imageUri, ContentResolver resolver, int reqWidth, int reqHeight) {
 
         InputStream stream = null;
@@ -185,6 +183,33 @@ public class OkyLife extends Application {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeStream(buffer, null, options);
+    }
+
+    //Tools and Other Algorithms
+
+    /**
+     * Segun formula de Harris-Benedict
+     **/
+    public double calculateCaloriesHB(String sex, double age, double height, double weight, double distance, String effort) {
+        double TMB = 0;
+        double calories = 0;
+        if (sex == "Male") {
+            TMB = 66.4730 + (13.7516 * weight) + (5.0033 * height) - (6.7550 * age);
+        } else if (sex == "Female") {
+            TMB = 655.0955 + (9.5634 * weight) + (1.8449 * height) - (4.6756 * age);
+        }
+        if (effort == "Low") {
+            calories = TMB * 1.375;
+        } else if (effort == "High") {
+            calories = TMB * 1.725;
+        } else if (effort == "Medium") {
+            calories = TMB * 1.55;
+        } else if (effort == "VeryLow") {
+            calories = TMB * 1.2;
+        } else if (effort == "VeryHigh") {
+            calories = TMB * 1.9;
+        }
+        return calories;
     }
 
     public RequestCaller getMasterCaller() {

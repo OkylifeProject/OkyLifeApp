@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.Plus;
+import data.User;
 import dialogs.LogoutDialog;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -37,7 +38,6 @@ import java.util.ArrayList;
  * Created by Cristian Parada on 18/10/2015.
  */
 public class VisitPlaceActivity extends FragmentActivity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     Spinner typePlace;
@@ -51,11 +51,11 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
     /**
      * Activity fields
      **/
+    String effort = "Low";
     double distance = 0;
     double calories = 0;
-
-
     Marker mMarker;
+    private User user;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
@@ -71,6 +71,7 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
         setContentView(R.layout.visit_place_activity);
 
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
+        user = ((OkyLife) getApplication()).getUser();
 
         typePlace = (Spinner) findViewById(R.id.spinnerTypePlace);
         typePlace.setAdapter(new MyAdapter(this, R.layout.row, strings));
@@ -162,6 +163,11 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
     }
 
     public void calculateCalories() {
+        calories = ((OkyLife) getApplication()).calculateCaloriesHB(user.getSex(),
+                Double.valueOf(user.getAge()),
+                Double.valueOf(user.getHeight()),
+                Double.valueOf(user.getWeight()),
+                distance, effort);
 
     }
 
