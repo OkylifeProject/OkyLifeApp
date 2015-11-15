@@ -98,7 +98,7 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0.00 Km"
+                            android:text="0.00 m"
                             android:id="@+id/textDistanceSport"
                             android:textSize="20dp"
                             android:layout_gravity="center_horizontal"
@@ -134,7 +134,7 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text=" 0.00 Km/h"
+                            android:text=" 0.00 m/s"
                             android:id="@+id/textVelocitySport"
                             android:textSize="20dp"
                             android:layout_gravity="center_horizontal"
@@ -184,7 +184,7 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Km"
+                                android:text="m"
                                 android:id="@+id/textView6"
                                 android:textSize="20dp"
                                 android:layout_gravity="right"
