@@ -56,6 +56,16 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
             R.drawable.snack,
             R.drawable.aperitif
     };
+
+    /**
+     * ACTIVITY FIELDS
+     **/
+    double totalFat = 0;
+    double totalCarbohydrates = 0;
+    double totalProteins = 0;
+    double totalCalories = 0;
+
+
     private Account okyLifeAccount;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
@@ -82,6 +92,11 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
     }
 
     public void setFields() {
+        totalFat = 0;
+        totalCarbohydrates = 0;
+        totalProteins = 0;
+        totalCalories = 0;
+
         Spinner foodSpinner = (Spinner) findViewById(R.id.food_spinner);
         foodSpinner.setAdapter(new MyAdapter(getApplicationContext(), R.layout.row, strings));
     }
@@ -148,15 +163,34 @@ public class EatActivity extends Activity implements AsyncResponse, GoogleApiCli
         startActivityForResult(addAliment, ADD_ALIMENT_REQUEST);
     }
 
+    public void calculateNutritionParams() {
+        for (int i = 0; i < jsonAliments.length(); i++) {
+            try {
+                JSONObject jsonAliment = (JSONObject) jsonAliments.get(i);
+                totalCarbohydrates += jsonAliment.getDouble("carbohydrates") * jsonAliment.getDouble("number");
+                totalFat += jsonAliment.getDouble("fat") * jsonAliment.getDouble("number");
+                totalProteins += jsonAliment.getDouble("proteins") * jsonAliment.getDouble("number");
+                totalCalories += jsonAliment.getDouble("calories") * jsonAliment.getDouble("number");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     public void saveEatActivity(View view) throws JSONException {
         Spinner foodSpinner = (Spinner) findViewById(R.id.food_spinner);
         String jsonQuery = "{ingredients:" + jsonAliments.toString() + "}";
-
+        calculateNutritionParams();
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
         params.add(new BasicNameValuePair("ingredients", jsonQuery));
         params.add(new BasicNameValuePair("type", strings[foodSpinner.getSelectedItemPosition()]));
         params.add(new BasicNameValuePair("name", strings[foodSpinner.getSelectedItemPosition()]));
+        params.add(new BasicNameValuePair("totalFat", String.valueOf(totalFat)));
+        params.add(new BasicNameValuePair("totalCarbohydrates", String.valueOf(totalCarbohydrates)));
+        params.add(new BasicNameValuePair("totalProteins", String.valueOf(totalProteins)));
+        params.add(new BasicNameValuePair("totalCalories", String.valueOf(totalCalories)));
         if (mLastLocation != null) {
             params.add(new BasicNameValuePair("latitude", String.valueOf(mLastLocation.getLatitude())));
             params.add(new BasicNameValuePair("longitude", String.valueOf(mLastLocation.getLongitude())));
