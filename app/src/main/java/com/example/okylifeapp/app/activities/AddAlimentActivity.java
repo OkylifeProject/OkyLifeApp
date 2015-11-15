@@ -26,7 +26,7 @@ public class AddAlimentActivity extends Activity implements AsyncResponse, Logou
     /**
      * EAT ALIMENT FIELDS
      **/
-    double rationSize = 0;
+    double rationSize = 1;
     double fat = 0;
     double carbohydrates = 0;
     double calories = 0;
