@@ -131,11 +131,6 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
         EditText descriptionText = (EditText) findViewById(R.id.vp_description_text);
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTypePlace);
         EditText addressText = (EditText) findViewById(R.id.vp_address_text);
-        TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
-
-
-        //TODO calculate calories
-
 
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
@@ -163,12 +158,10 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
     }
 
     public void calculateCalories() {
-        calories = ((OkyLife) getApplication()).calculateCaloriesHB(user.getSex(),
-                Double.valueOf(user.getAge()),
-                Double.valueOf(user.getHeight()),
-                Double.valueOf(user.getWeight()),
-                distance, effort);
+        TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
 
+        calories = OkyLife.calculateCaloriesByDistance(effort, distance, Double.valueOf(user.getWeight()));
+        caloriesText.setText(String.valueOf(calories));
     }
 
     @Override

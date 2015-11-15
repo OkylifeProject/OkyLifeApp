@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import data.User;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +48,16 @@ public class OkyLife extends Application {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static double calculateCaloriesByDistance(String effort, double distance, double weight) {
+        double velocity = 0;
+        if (effort.equals("Low")) {
+            //meters per minute
+            velocity = 90;
+        }
+        double time = distance / velocity;
+        return 0.029 * weight * 2.2 * time;
     }
 
     public static boolean isJSON(String test) {
@@ -190,23 +201,26 @@ public class OkyLife extends Application {
     /**
      * Segun formula de Harris-Benedict
      **/
-    public double calculateCaloriesHB(String sex, double age, double height, double weight, double distance, String effort) {
+    public static double calculateCaloriesHB(String sex, double age, double height, double weight, double distance, String effort) {
         double TMB = 0;
         double calories = 0;
-        if (sex == "Male") {
+        if (sex.equals("Male")) {
+            Log.v("calories", String.valueOf("llego"));
             TMB = 66.4730 + (13.7516 * weight) + (5.0033 * height) - (6.7550 * age);
-        } else if (sex == "Female") {
+        } else if (sex.equals("Female")) {
             TMB = 655.0955 + (9.5634 * weight) + (1.8449 * height) - (4.6756 * age);
         }
-        if (effort == "Low") {
+        Log.v("calories", String.valueOf(TMB));
+        if (effort.equals("Low")) {
             calories = TMB * 1.375;
-        } else if (effort == "High") {
+            Log.v("calories", String.valueOf("llego"));
+        } else if (effort.equals("High")) {
             calories = TMB * 1.725;
-        } else if (effort == "Medium") {
+        } else if (effort.equals("Medium")) {
             calories = TMB * 1.55;
-        } else if (effort == "VeryLow") {
+        } else if (effort.equals("VeryLow")) {
             calories = TMB * 1.2;
-        } else if (effort == "VeryHigh") {
+        } else if (effort.equals("VeryHigh")) {
             calories = TMB * 1.9;
         }
         return calories;
