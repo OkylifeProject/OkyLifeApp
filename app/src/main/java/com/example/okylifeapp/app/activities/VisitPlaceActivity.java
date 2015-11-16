@@ -160,7 +160,7 @@ public class VisitPlaceActivity extends FragmentActivity implements AsyncRespons
     public void calculateCalories() {
         TextView caloriesText = (TextView) findViewById(R.id.vp_calories_text);
 
-        calories = OkyLife.calculateCaloriesByDistance(effort, distance, Double.valueOf(user.getWeight()));
+        calories = OkyLife.calculateCaloriesByDistance(effort, distance, Double.valueOf(user.getWeight()), 0);
         caloriesText.setText(String.valueOf(calories));
     }
 

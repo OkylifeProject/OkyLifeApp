@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import data.User;
 import dialogs.LogoutDialog;
 import rest.AsyncResponse;
 
@@ -37,6 +38,8 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     TextView traveledDistanceText;
     String currenTime = "";
 
+    User user;
+
     //Valores a Guardar//
     double calories = 0;
     double duration = 0;
@@ -46,6 +49,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     double targetDistance = 0;
     double hydration = 0;
     ArrayList<data.Location> locations;
+    String[] effortType = {"Low", "High", "Medium",};
 
     long elapsedTime = 0;
     boolean isPlaying = false, init = true;
@@ -69,6 +73,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         super.onCreate(savedInstance);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
+        user = ((OkyLife) getApplication()).getUser();
         setFields();
         createLocationRequest();
         buildGoogleApiClient();
@@ -200,9 +205,6 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         Spinner sportTypeSpinner = (Spinner) findViewById(R.id.sportSpinner);
         duration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
         targetDistance = Double.valueOf(targetDistanceText.getText().toString());
-
-
-        //TODO calculate calories, rate, velocity;
 
         Intent saveActivityIntent = new Intent(this, SaveSportActivity.class);
         Bundle values = new Bundle();
@@ -349,13 +351,20 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
 
     public void updateActivityFields() {
         if (locations.size() > 1) {
+            switch (sport.getSelectedItemPosition()) {
+                case 0:
+
+            }
             data.Location locationA = locations.get(locations.size() - 2);
             data.Location locationB = locations.get(locations.size() - 1);
+            data.Location firstLocation = locations.get(0);
             double localDistance = locationA.getLocation().distanceTo(locationB.getLocation());
             double localTime = locationB.getTime() - locationA.getTime();
+            distance = firstLocation.getLocation().distanceTo(locationB.getLocation());
             velocity = localDistance / localTime;
             traveledDistanceText.setText(String.format("%.2f", localDistance) + "m");
             velocityText.setText(String.format("%.2f", velocity) + " m/s");
+            calories = OkyLife.calculateCaloriesByDistance("", distance, Double.valueOf(user.getWeight()), velocity);
         }
     }
 
