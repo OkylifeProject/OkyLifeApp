@@ -4,7 +4,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="#fff"
-        >
+>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical"
-                >
+        >
             <EditText android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:background="#fff"
@@ -30,7 +30,7 @@
                       android:gravity="center"
                       android:alpha="@string/alpha"
                       android:id="@+id/sport_title"
-                    />
+            />
             <EditText android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:lines="3"
@@ -41,15 +41,19 @@
                       android:alpha="@string/alpha"
                       android:layout_marginTop="10dp"
                       android:id="@+id/sport_description"
-                    />
+            />
         </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
-                >
-            //Mapa de Google Maps con Recorrido Realizado
+        >
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:name="com.google.android.gms.maps.SupportMapFragment"
+                      android:id="@+id/save_sport_map"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:layout_marginTop="5dp"
@@ -311,7 +315,7 @@
                   android:gravity="center"
                   android:layout_marginLeft="5dp"
                   android:layout_marginTop="5dp"
-            >
+    >
         <Button
                 android:id="@+id/btnAccept"
                 android:layout_width="100dp"

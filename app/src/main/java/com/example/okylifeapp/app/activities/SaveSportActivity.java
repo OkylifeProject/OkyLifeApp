@@ -1,13 +1,14 @@
 package com.example.okylifeapp.app.activities;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,8 @@ import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.plus.Plus;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -32,7 +35,7 @@ import java.util.ArrayList;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class SaveSportActivity extends Activity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class SaveSportActivity extends FragmentActivity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -55,6 +58,10 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
     private Location mLastLocation;
     private Account okyLifeAccount;
 
+
+    private GoogleMap mMap;
+
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -69,7 +76,15 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
                 .build();
 
         setFileds();
+        setMap();
     }
+
+    public void setMap() {
+        FragmentManager fmanager = getSupportFragmentManager();
+        mMap = ((SupportMapFragment) fmanager.findFragmentById(R.id.save_sport_map)).getMap();
+        mMap.setMyLocationEnabled(true);
+    }
+
 
     public void setFileds() {
         TextView caloriesText = (TextView) findViewById(R.id.textCalories);
