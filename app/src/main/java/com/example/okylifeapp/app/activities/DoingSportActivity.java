@@ -20,6 +20,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import data.User;
 import dialogs.LogoutDialog;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import rest.AsyncResponse;
 
 import java.util.ArrayList;
@@ -49,6 +52,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
     double targetDistance = 0;
     double hydration = 0;
     ArrayList<data.Location> locations;
+    JSONArray jsonLocations;
     String[] effortType = {"Low", "High", "Medium",};
 
     long elapsedTime = 0;
@@ -74,6 +78,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.doing_sports_activity);
         user = ((OkyLife) getApplication()).getUser();
+        jsonLocations = new JSONArray();
         setFields();
         createLocationRequest();
         buildGoogleApiClient();
@@ -215,6 +220,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         values.putDouble("rhythm", rate);
         values.putDouble("targetDistance", targetDistance);
         values.putString("type", strings[sportTypeSpinner.getSelectedItemPosition()]);
+        values.putString("locations", jsonLocations.toString());
         saveActivityIntent.putExtras(values);
 
         startActivity(saveActivityIntent);
@@ -346,6 +352,14 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         data.Location obtainedLocation = new data.Location(location,
                 ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000));
         locations.add(obtainedLocation);
+        JSONObject jsonLocaton = new JSONObject();
+        try {
+            jsonLocaton.put("latitude", location.getLatitude());
+            jsonLocaton.put("longitude", location.getLongitude());
+            jsonLocations.put(jsonLocaton);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         updateActivityFields();
     }
 

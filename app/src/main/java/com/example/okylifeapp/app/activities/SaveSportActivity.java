@@ -22,6 +22,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.plus.Plus;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
 import rest.AsyncResponse;
 
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
     double hydration;
     double duration;
     String type;
+    JSONArray locations;
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     // Bool to track whether the app is already resolving an error
@@ -58,7 +61,6 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.save_sport_activity);
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)
                 .addApi(LocationServices.API)
@@ -86,6 +88,11 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
         targetDistance = getIntent().getExtras().getDouble("targetDistance");
         hydration = getIntent().getExtras().getDouble("hydration");
         duration = getIntent().getExtras().getDouble("duration");
+        try {
+            locations = new JSONArray(getIntent().getExtras().getString("locations"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         int hours = (int) (duration / 3600);
         int minutes = (int) ((duration % 3600) / 60);
