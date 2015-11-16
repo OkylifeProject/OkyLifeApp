@@ -92,12 +92,12 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
         int seconds = (int) (duration % 60);
         String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
 
-        caloriesText.setText(String.valueOf(calories));
-        distanceText.setText(String.valueOf(distance));
-        velocityText.setText(String.valueOf(velocity));
-        rhythmText.setText(String.valueOf(rhythm));
-        targetDistanceText.setText(String.valueOf(targetDistance));
-        hydrationText.setText(String.valueOf(hydration));
+        caloriesText.setText(String.format("%.2f", calories));
+        distanceText.setText(String.format("%.2f", distance));
+        velocityText.setText(String.format("%.2f", velocity));
+        rhythmText.setText(String.format("%.2f", rhythm));
+        targetDistanceText.setText(String.format("%.2f", targetDistance));
+        hydrationText.setText(String.format("%.2f", hydration));
         durationText.setText(String.valueOf(timeString));
 
     }
@@ -148,7 +148,7 @@ public class SaveSportActivity extends Activity implements AsyncResponse, Google
             params.add(new BasicNameValuePair("latitude", String.valueOf(mLastLocation.getLatitude())));
             params.add(new BasicNameValuePair("longitude", String.valueOf(mLastLocation.getLongitude())));
         }
-        
+
         ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/createSportActivity", this, params);
 
     }

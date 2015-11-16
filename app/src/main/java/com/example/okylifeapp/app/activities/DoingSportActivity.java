@@ -212,7 +212,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
         values.putDouble("duration", duration);
         values.putDouble("distance", distance);
         values.putDouble("velocity", velocity);
-        values.putDouble("rate", rate);
+        values.putDouble("rhythm", rate);
         values.putDouble("targetDistance", targetDistance);
         values.putString("type", strings[sportTypeSpinner.getSelectedItemPosition()]);
         saveActivityIntent.putExtras(values);
@@ -365,6 +365,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
             traveledDistanceText.setText(String.format("%.2f", localDistance) + "m");
             velocityText.setText(String.format("%.2f", velocity) + " m/s");
             calories = OkyLife.calculateCaloriesByDistance("", distance, Double.valueOf(user.getWeight()), velocity);
+            rate = velocity / distance;
         }
     }
 
