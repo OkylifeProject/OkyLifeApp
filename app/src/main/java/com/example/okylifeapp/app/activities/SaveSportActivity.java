@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -22,11 +23,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.plus.Plus;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import rest.AsyncResponse;
 
 import java.util.ArrayList;
@@ -83,6 +87,22 @@ public class SaveSportActivity extends FragmentActivity implements AsyncResponse
         FragmentManager fmanager = getSupportFragmentManager();
         mMap = ((SupportMapFragment) fmanager.findFragmentById(R.id.save_sport_map)).getMap();
         mMap.setMyLocationEnabled(true);
+
+        PolylineOptions rectLine = new PolylineOptions().width(3).color(
+                Color.RED);
+
+        for (int i = 0; i < locations.length(); i++) {
+            try {
+                JSONObject jsonLocation = (JSONObject) locations.get(i);
+                LatLng point = new LatLng(jsonLocation.getDouble("latitude"), jsonLocation.getDouble("longitude"));
+                rectLine.add(point);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.v("dibujo", "Error");
+            }
+
+        }
+        mMap.addPolyline(rectLine);
     }
 
 
