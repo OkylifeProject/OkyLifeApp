@@ -50,14 +50,15 @@ public class OkyLife extends Application {
         return "";
     }
 
-    public static double calculateCaloriesByDistance(String effort, double distance, double weight, double velocity) {
-        double absoluteVelocity = 0;
-        if (velocity != 0) {
-            absoluteVelocity = velocity;
-        }
-        if (effort.equals("Low") && velocity == 0) {
-            //meters per minute
-            absoluteVelocity = 90;
+    public static double calculateCaloriesByDistance(double distance, double weight, double velocity) {
+        double time = distance / velocity;
+        return 0.029 * weight * 2.2 * time;
+    }
+
+    public static double calculateCaloriesByDistance(String effort, double distance, double weight) {
+        double velocity = 0;
+        if (effort.equals("Low")) {
+            velocity = 90;
         }
         double time = distance / velocity;
         return 0.029 * weight * 2.2 * time;
@@ -208,7 +209,6 @@ public class OkyLife extends Application {
         double TMB = 0;
         double calories = 0;
         if (sex.equals("Male")) {
-            Log.v("calories", String.valueOf("llego"));
             TMB = 66.4730 + (13.7516 * weight) + (5.0033 * height) - (6.7550 * age);
         } else if (sex.equals("Female")) {
             TMB = 655.0955 + (9.5634 * weight) + (1.8449 * height) - (4.6756 * age);

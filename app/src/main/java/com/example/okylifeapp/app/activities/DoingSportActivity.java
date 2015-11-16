@@ -378,7 +378,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
             velocity = localDistance / localTime;
             traveledDistanceText.setText(String.format("%.2f", localDistance) + "m");
             velocityText.setText(String.format("%.2f", velocity) + " m/s");
-            calories = OkyLife.calculateCaloriesByDistance("", distance, Double.valueOf(user.getWeight()), velocity);
+            calories = OkyLife.calculateCaloriesByDistance(distance, Double.valueOf(user.getWeight()), velocity);
             rate = velocity / distance;
         }
     }
