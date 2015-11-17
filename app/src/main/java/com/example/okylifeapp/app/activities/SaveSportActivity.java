@@ -192,8 +192,8 @@ public class SaveSportActivity extends FragmentActivity implements AsyncResponse
         }
 
         String locationQuery = "{locations:" + locations.toString() + "}";
-        params.add(new BasicNameValuePair("locations", locationQuery));
-        
+        params.add(new BasicNameValuePair("locationsSet", locationQuery));
+
         ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/createSportActivity", this, params);
 
     }
