@@ -7,13 +7,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
+                android:src="@drawable/logo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp" android:layout_gravity="center_horizontal"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ultimas Noticias"
+            android:text="Mis Actividades"
             android:id="@+id/textView1"
             android:textSize="20dp"
             android:layout_gravity="center_horizontal"
@@ -27,7 +28,7 @@
                       android:layout_marginRight="20dp"
                       style="@style/btnStyleGenoa">
                 <ListView
-                        android:id="@+id/listNews"
+                        android:id="@+id/listActivities"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

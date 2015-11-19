@@ -25,13 +25,16 @@
             <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Escribir Nota"
                     android:id="@+id/writeNoteButton" android:onClick="writeNote"
                     style="@style/btnStyleGenoa"/>
-        </LinearLayout>
+            </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Noticias"
                     android:id="@+id/newsButton" android:onClick="viewNews"
+                    style="@style/btnStyleGenoa"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mis Actividades"
+                    android:id="@+id/writeHistoryActivitiesButton" android:onClick="viewHistoryActivities"
                     style="@style/btnStyleGenoa"/>
         </LinearLayout>
     </LinearLayout>

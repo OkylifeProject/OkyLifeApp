@@ -68,6 +68,10 @@ public class MainActivity extends Activity implements AsyncResponse, LogoutDialo
         Intent intent = new Intent(this, ViewNewsActivity.class);
         startActivity(intent);
     }
+    public void viewHistoryActivities(View view) {
+        Intent intent = new Intent(this, ViewHistoryActivitiesActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {
