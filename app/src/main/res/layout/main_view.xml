@@ -16,26 +16,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Editar Perfil"
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:id="@+id/editProfileButton" android:onClick="editProfile"
-                    style="@style/btnStyleGenoa"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Iniciar Actividad"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/edit_profile_icon"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:id="@+id/startActivityButton" android:onClick="startActivity"
-                    style="@style/btnStyleGenoa"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Escribir Nota"
+                    android:background="@drawable/start_activity_icon"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:id="@+id/writeNoteButton" android:onClick="writeNote"
-                    style="@style/btnStyleGenoa"/>
+                    android:background="@drawable/write_note_icon"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"/>
             </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Noticias"
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:id="@+id/newsButton" android:onClick="viewNews"
+                    android:background="@drawable/news_icon"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     style="@style/btnStyleGenoa"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mis Actividades"
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:id="@+id/writeHistoryActivitiesButton" android:onClick="viewHistoryActivities"
-                    style="@style/btnStyleGenoa"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/my_activities_icon"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
