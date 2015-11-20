@@ -25,6 +25,10 @@
         </activity>
         <activity android:name=".activities.RegisterActivity">
         </activity>
+        <activity android:name=".activities.FriendsActivity">
+        </activity>
+        <activity android:name=".activities.MSNActivity">
+        </activity>
         <activity android:name=".activities.RegisterWithGoogleActivity">
         </activity>
         <activity android:name=".activities.LoginActivity">

@@ -37,7 +37,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"/>
-            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,6 +57,13 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/my_activities_icon"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/FriendsButton" android:onClick="viewFriends"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/friends_icon"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
