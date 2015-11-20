@@ -4,6 +4,7 @@ package data;
  * Created by mordreth on 10/14/15.
  */
 public class User {
+    boolean isFriend;
     private String firstName;
     private String sex;
     private String imageBytes;
@@ -26,11 +27,27 @@ public class User {
         this.height = height;
     }
 
-    public User(String firstName, String imageBytes, String email, String id) {
+    public User(String firstName, String imageBytes, String email, String id, Boolean isFriend) {
         this.firstName = firstName;
         this.imageBytes = imageBytes;
         this.email = email;
         this.id = id;
+        this.isFriend = isFriend;
+    }
+
+    public User(String firstName, String email, String registerType, String id) {
+        this.firstName = firstName;
+        this.email = email;
+        this.registerType = registerType;
+        this.id = id;
+    }
+
+    public boolean isFriend() {
+        return isFriend;
+    }
+
+    public void setFriend(boolean friend) {
+        isFriend = friend;
     }
 
     public String getWeight() {

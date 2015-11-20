@@ -20,11 +20,11 @@ import java.util.ArrayList;
  */
 public class MyFriendAdapter extends ArrayAdapter<User> {
     // declaring our ArrayList of items
-    private ArrayList<User> friends;
+    private ArrayList<User> users;
 
-    public MyFriendAdapter(Context context, int textViewResourceId, ArrayList<User> friends) {
-        super(context, textViewResourceId, friends);
-        this.friends = friends;
+    public MyFriendAdapter(Context context, int textViewResourceId, ArrayList<User> users) {
+        super(context, textViewResourceId, users);
+        this.users = users;
     }
 
     /*
@@ -51,9 +51,9 @@ public class MyFriendAdapter extends ArrayAdapter<User> {
 		 *
 		 * Therefore, i refers to the current Item object.
 		 */
-        User friend = friends.get(position);
+        User user = users.get(position);
 
-        if (friend != null) {
+        if (user != null) {
 
             // This is how you obtain a reference to the TextViews.
             // These TextViews are created in the XML files we defined.
@@ -66,12 +66,12 @@ public class MyFriendAdapter extends ArrayAdapter<User> {
             // check to see if each individual textview is null.
             // if not, assign some text!
             if (nameText != null) {
-                nameText.setText(friend.getFirstName());
+                nameText.setText(user.getFirstName());
             }
             if (profileImage != null) {
                 Bitmap bitmap = null;
-                if (friend.getImageBytes() != null) {
-                    byte[] imageBytes = Base64.decode(friend.getImageBytes(), Base64.DEFAULT);
+                if (user.getImageBytes() != null) {
+                    byte[] imageBytes = Base64.decode(user.getImageBytes(), Base64.DEFAULT);
                     bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
                 } else {
@@ -81,7 +81,9 @@ public class MyFriendAdapter extends ArrayAdapter<User> {
                 profileImage.setImageBitmap(bitmap);
             }
             if (addButton != null) {
-
+                if (user.isFriend()) {
+                    addButton.setVisibility(View.GONE);
+                }
             }
             if (msnButton != null) {
 

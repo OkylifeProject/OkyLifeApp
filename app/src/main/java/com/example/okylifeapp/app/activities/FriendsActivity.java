@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class FriendsActivity extends Activity implements AsyncResponse {
     JSONArray jsonFriends;
-    ArrayList<User> userFriends;
+    ArrayList<User> users;
     private Account okyLifeAccount;
     private ListView friendList;
 
@@ -31,7 +31,7 @@ public class FriendsActivity extends Activity implements AsyncResponse {
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.friends_view);
-        userFriends = new ArrayList<User>();
+        users = new ArrayList<User>();
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
         getFriends();
     }
@@ -52,7 +52,7 @@ public class FriendsActivity extends Activity implements AsyncResponse {
     private void setListAdapter() {
         // instantiate our ItemAdapter class
         friendList = (ListView) findViewById(R.id.friend_list);
-        MyFriendAdapter serviceAdapter = new MyFriendAdapter(this, R.layout.friend_row, userFriends);
+        MyFriendAdapter serviceAdapter = new MyFriendAdapter(this, R.layout.friend_row, users);
         friendList.setAdapter(serviceAdapter);
     }
 
@@ -78,15 +78,15 @@ public class FriendsActivity extends Activity implements AsyncResponse {
                     imageBytes = null;
                 }
                 try {
-                    userFriends.add(new User(friend.getString("name"),
+                    users.add(new User(friend.getString("name"),
                             imageBytes,
                             friend.getString("email"),
-                            friend.getString("id")));
+                            friend.getString("id"), true));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            Log.v("friends", String.valueOf(userFriends.size()));
+            Log.v("friends", String.valueOf(users.size()));
         }
     }
 }
