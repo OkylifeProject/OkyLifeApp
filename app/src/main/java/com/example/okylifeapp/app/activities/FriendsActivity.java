@@ -4,8 +4,10 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import data.MyFriendAdapter;
 import data.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,6 +25,7 @@ public class FriendsActivity extends Activity implements AsyncResponse {
     JSONArray jsonFriends;
     ArrayList<User> userFriends;
     private Account okyLifeAccount;
+    private ListView friendList;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -43,6 +46,14 @@ public class FriendsActivity extends Activity implements AsyncResponse {
     @Override
     public void processFinish(String result) {
         setFriends(result);
+        setListAdapter();
+    }
+
+    private void setListAdapter() {
+        // instantiate our ItemAdapter class
+        friendList = (ListView) findViewById(R.id.friend_list);
+        MyFriendAdapter serviceAdapter = new MyFriendAdapter(this, R.layout.friend_row, userFriends);
+        friendList.setAdapter(serviceAdapter);
     }
 
     private void setFriends(String result) {
@@ -53,29 +64,29 @@ public class FriendsActivity extends Activity implements AsyncResponse {
             e.printStackTrace();
         }
         String imageBytes;
-        for (int i = 0; i < jsonFriends.length(); i++) {
-            JSONObject friend = null;
-            try {
-                friend = (JSONObject) jsonFriends.get(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if (jsonFriends != null) {
+            for (int i = 0; i < jsonFriends.length(); i++) {
+                JSONObject friend = null;
+                try {
+                    friend = (JSONObject) jsonFriends.get(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    imageBytes = friend.getString("imageBytes");
+                } catch (JSONException e) {
+                    imageBytes = null;
+                }
+                try {
+                    userFriends.add(new User(friend.getString("name"),
+                            imageBytes,
+                            friend.getString("email"),
+                            friend.getString("id")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                imageBytes = friend.getString("imageBytes");
-            } catch (JSONException e) {
-                imageBytes = null;
-            }
-            try {
-                userFriends.add(new User(friend.getString("name"),
-                        imageBytes,
-                        friend.getString("email"),
-                        friend.getString("id")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Log.v("friends", String.valueOf(userFriends.size()));
         }
-        Log.v("friends", String.valueOf(userFriends.size()));
     }
-
-
 }
