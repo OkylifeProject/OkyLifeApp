@@ -26,10 +26,10 @@ public class User {
         this.height = height;
     }
 
-    public User(String firstName, String email, String registerType, String id) {
+    public User(String firstName, String imageBytes, String email, String id) {
         this.firstName = firstName;
+        this.imageBytes = imageBytes;
         this.email = email;
-        this.registerType = registerType;
         this.id = id;
     }
 
