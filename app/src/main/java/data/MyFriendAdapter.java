@@ -1,6 +1,9 @@
 package data;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +69,16 @@ public class MyFriendAdapter extends ArrayAdapter<User> {
                 nameText.setText(friend.getFirstName());
             }
             if (profileImage != null) {
-                //.setText(String.valueOf(service.getNit()));
+                Bitmap bitmap = null;
+                if (friend.getImageBytes() != null) {
+                    byte[] imageBytes = Base64.decode(friend.getImageBytes(), Base64.DEFAULT);
+                    bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                } else {
+                    bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.default_image);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                }
+                profileImage.setImageBitmap(bitmap);
             }
             if (addButton != null) {
 
