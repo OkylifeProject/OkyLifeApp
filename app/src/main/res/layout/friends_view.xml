@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_below="@+id/textView10"
             android:layout_centerHorizontal="true" android:id="@+id/linearLayout2">
-        <EditText android:id="@+id/search_friend_box" android:layout_width="280dp" android:hint="Buscar Amigo"
+        <EditText android:id="@+id/search_friend_box" android:layout_width="280dp" android:hint="Buscar Usuario"
                   android:layout_height="wrap_content"/>
         <Button android:layout_marginLeft="10dp" android:layout_width="40dp" android:layout_height="40dp"
                 android:background="@drawable/search_icon" android:onClick="searchUsers"/>

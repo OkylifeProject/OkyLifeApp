@@ -4,13 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import rest.AsyncResponse;
 
 import java.util.ArrayList;
@@ -58,6 +56,7 @@ public class MyMessageAdapter extends ArrayAdapter<Message> implements AsyncResp
             // This is how you obtain a reference to the TextViews.
             // These TextViews are created in the XML files we defined.
 
+            ImageButton msnImage = (ImageButton) view.findViewById(R.id.msn_image);
             TextView remitentText = (TextView) view.findViewById(R.id.remitent_name);
             TextView subjectText = (TextView) view.findViewById(R.id.subject_name);
             Button msnDeleteButton = (Button) view.findViewById(R.id.delete_msn_btn);
@@ -71,21 +70,32 @@ public class MyMessageAdapter extends ArrayAdapter<Message> implements AsyncResp
                 subjectText.setText(message.getSubject());
             }
             if (msnDeleteButton != null) {
+                final ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        params.add(new BasicNameValuePair("msnId", message.getId()));
+                        deleteMessage(params);
+                    }
+                };
+                msnDeleteButton.setOnClickListener(onClickListener);
+            }
+            if (msnImage != null) {
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "Hola", Toast.LENGTH_LONG).show();
                     }
                 };
-                msnDeleteButton.setOnClickListener(onClickListener);
+                msnImage.setOnClickListener(onClickListener);
             }
         }
         // the view must be returned to our activity
         return view;
     }
 
-    public void addFriend(ArrayList<NameValuePair> params) {
-        ((OkyLife) getContext().getApplicationContext()).getMasterCaller().postData("Messages/addFriend", this, params);
+    private void deleteMessage(ArrayList<NameValuePair> params) {
+        ((OkyLife) getContext().getApplicationContext()).getMasterCaller().postData("Message/deleteMessage", this, params);
     }
 
     @Override
