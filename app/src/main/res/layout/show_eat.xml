@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                >
+
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/layoutInfo"
+                    >
+        <TextView
+                android:layout_marginTop="2dip"
+                android:textColor="#308d9e"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:id="@+id/name_eat"
+                android:text="Nombre De La Comida"
+                android:layout_marginLeft="5dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:layout_below="@+id/name_eat"
+                android:textColor="#000"
+                android:textStyle="italic"
+                android:id="@+id/date_eat"
+                android:text="Fecha De La Comida"
+                android:textSize="10dp"
+                android:layout_marginLeft="5dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutInfo"
+                    android:layout_marginTop="15dp"
+            >
+        <TextView
+                android:layout_marginTop="2dip"
+                android:textColor="#308d9e"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:id="@+id/ingedients_text"
+                android:gravity="center_horizontal"
+                android:text="Ingredientes"
+                android:layout_marginLeft="5dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <ListView
+                android:layout_below="@+id/ingedients_text"
+                android:id="@+id/list_ingredients_eat"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="#fff"
+                />
+        <RelativeLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/list_ingredients_eat"
+                        android:layout_marginTop="15dp"
+                >
+            <RelativeLayout android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/relative1"
+                            android:layout_marginTop="15dp"
+                    >
+                <TextView
+
+                        android:padding="1dip"
+                        android:textSize="15dp"
+                        android:layout_marginTop="2dip"
+                        android:textColor="#308d9e"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/Label_proteins"
+                        android:text="Total Proteinas"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_below="@+id/Label_proteins"
+                        android:textSize="13dp"
+                        android:textColor="#000"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/total_proteins"
+                        android:text="Proteinas"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_below="@+id/total_proteins"
+                        android:padding="1dip"
+                        android:textSize="15dp"
+                        android:layout_marginTop="10dip"
+                        android:textColor="#308d9e"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/Label_calories"
+                        android:text="Total Calorias"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_below="@+id/Label_calories"
+                        android:textSize="13dp"
+                        android:textColor="#000"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/total_calories"
+                        android:text="Total Grasas"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/relative2"
+                            android:layout_toRightOf="@+id/relative1"
+                            android:layout_marginTop="15dp"
+                    >
+                <TextView
+
+                        android:padding="1dip"
+                        android:textSize="15dp"
+                        android:layout_marginTop="2dip"
+                        android:textColor="#308d9e"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/Label_carbohydrates"
+                        android:text="Total Carbohidratos"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_below="@+id/Label_carbohydrates"
+                        android:textSize="13dp"
+                        android:textColor="#000"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/total_carbohydrates"
+                        android:text="Carbohidratos"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_below="@+id/total_carbohydrates"
+                        android:padding="1dip"
+                        android:textSize="15dp"
+                        android:layout_marginTop="10dip"
+                        android:textColor="#308d9e"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/Label_fat"
+                        android:text="Total Grasas"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_below="@+id/Label_fat"
+                        android:textSize="13dp"
+                        android:textColor="#000"
+                        android:textStyle="bold|italic"
+                        android:id="@+id/total_fat"
+                        android:text="Total Grasas"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
