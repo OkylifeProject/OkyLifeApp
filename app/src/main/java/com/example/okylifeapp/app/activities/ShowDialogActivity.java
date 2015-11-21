@@ -3,6 +3,7 @@ package com.example.okylifeapp.app.activities;
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -12,11 +13,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -46,24 +47,74 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
     private static String VISIT_PLACE = "okylifeapi.VisitPlaceActivity";
     private String classActivity;
     private String idActivity;
+    private String[] i_name,i_description,i_calories,i_carbohydrates,i_fat,i_proteins,i_number,i_rationType;
+    private TextView name,date,total_proteins,total_calories,total_carbohydrates,total_fat;
+    private ListView listIngredients;
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        //setContentView(R.layout.view_history_activities_activity);
+
         classActivity = getIntent().getExtras().getString("class");
         idActivity = getIntent().getExtras().getString("id");
+        Log.v("id recibido",idActivity);
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("id", idActivity));
         if(classActivity.equals(SPORT)){
             Log.v("Es un Sport:",classActivity);
-            //Hacer llamado a api para traer actividad por ID
+            ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/getSportActivityById", this, params);
+
         }
         else if(classActivity.equals(EAT)){
             Log.v("Es una Comida:",classActivity);
-            //Hacer llamado a api para traer actividad por ID
+            ((OkyLife) getApplication()).getMasterCaller().postData("EatActivity/getEatActivityById", this, params);
+            setContentView(R.layout.show_eat);
+            name = (TextView)findViewById(R.id.name_eat);
+            date = (TextView)findViewById(R.id.date_eat);
+            total_proteins = (TextView)findViewById(R.id.total_proteins);
+            total_calories = (TextView)findViewById(R.id.total_calories);
+            total_carbohydrates = (TextView)findViewById(R.id.total_carbohydrates);
+            total_fat = (TextView)findViewById(R.id.total_fat);
+            listIngredients = (ListView)findViewById(R.id.list_ingredients_eat);
+
         }
         else{
             Log.v("Es visitar un lugar:",classActivity);
-            //Hacer llamado a api para traer actividad por ID
+            ((OkyLife) getApplication()).getMasterCaller().postData("VisitPlaceActivity/getVisitPlaceActivityById", this, params);
         }
+
+    }
+
+    public void showEat(JSONObject eat){
+        try {
+            name.setText(eat.getString("name"));
+            date.setText(eat.getString("creationDate").split("T")[0]);
+            total_proteins.setText(eat.getString("totalProteins"));
+            total_calories.setText(eat.getString("totalCalories"));
+            total_carbohydrates.setText(eat.getString("totalCarbohydrates"));
+            total_fat.setText(eat.getString("totalFat"));
+            JSONArray ingredients =eat.getJSONArray("ingredients");
+            i_name = new String[ingredients.length()];
+            i_description = new String[ingredients.length()];
+            i_calories  = new String[ingredients.length()];
+            i_carbohydrates  = new String[ingredients.length()];
+            i_fat = new String[ingredients.length()];
+            i_proteins = new String[ingredients.length()];
+            i_number = new String[ingredients.length()];
+            i_rationType = new String[ingredients.length()];
+            for (int i = 0; i <ingredients.length() ; i++) {
+                i_name[i] = ingredients.getJSONObject(i).getString("name");
+                i_description[i] = ingredients.getJSONObject(i).getString("description");
+                i_calories[i] = ingredients.getJSONObject(i).getString("calories");
+                i_carbohydrates[i]= ingredients.getJSONObject(i).getString("carbohydrates");
+                i_fat[i]= ingredients.getJSONObject(i).getString("fat");
+                i_proteins[i]= ingredients.getJSONObject(i).getString("proteins");
+                i_number[i]= ingredients.getJSONObject(i).getString("number");
+                i_rationType[i]= ingredients.getJSONObject(i).getString("rationType");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        listIngredients.setAdapter(new MyAdapter(this, R.layout.list_ingredients_row, i_name));
 
     }
 
@@ -73,20 +124,81 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         finish();
     }
 
+    public class MyAdapter extends ArrayAdapter<String> {
+
+        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View row = inflater.inflate(R.layout.list_ingredients_row, parent, false);
+
+
+            TextView name = (TextView) row.findViewById(R.id.name_ingredient);
+            name.setText(i_name[position]);
+
+            TextView description = (TextView) row.findViewById(R.id.description_ingredient);
+            description.setText("\""+i_description[position]+"\"");
+
+            TextView num = (TextView) row.findViewById(R.id.number_rates);
+            num.setText(i_number[position]);
+
+            TextView rat = (TextView) row.findViewById(R.id.type_rate);
+            rat.setText(i_rationType[position]);
+
+            TextView cal = (TextView) row.findViewById(R.id.cal_i);
+            cal.setText(i_calories[position]);
+
+            TextView car = (TextView) row.findViewById(R.id.car_i);
+            car.setText(i_carbohydrates[position]);
+
+            TextView fat = (TextView) row.findViewById(R.id.fat_i);
+            fat.setText(i_fat[position]);
+
+            TextView prot = (TextView) row.findViewById(R.id.prot_i);
+            prot.setText(i_proteins[position]);
+
+            return row;
+        }
+    }
+
+
     @Override
     public void processFinish(String result) {
-        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-        if (OkyLife.isJSON(result)) {
-            if(classActivity.equals(SPORT)){
-                //Hacer tratamiento de Objeto que se retorna
-            }
-            else if(classActivity.equals(EAT)){
-                //Hacer tratamiento de Objeto que se retorna
-            }
-            else{
-                //Hacer tratamiento de Objeto que se retorna
+        //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        try{
+            if (OkyLife.isJSON(result)) {
+                JSONObject activity = new JSONObject(result);
+
+                if(classActivity.equals(SPORT)){
+                    Log.v("Deporte: ", result);
+
+                }
+                else if(classActivity.equals(EAT)){
+                    Log.v("Comida: ",result);
+                    showEat(activity);
+                }
+                else{
+                    Log.v("Eat: ",result);
+                }
             }
         }
+        catch(Exception e){
+            Log.v("Ninguno de los 3: ",result);
+        }
+
     }
 
     @Override
