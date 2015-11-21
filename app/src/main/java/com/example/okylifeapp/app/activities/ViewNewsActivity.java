@@ -27,9 +27,10 @@ import java.util.ArrayList;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
+public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener, ShowDialogNote.AlertPositiveExitListener {
     private Account okyLifeAccount;
     String[] contentNotes;
+    String[] namePersons;
     String[] date;
     int arr_images[];
     ListView listNews;
@@ -41,6 +42,22 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
         listNews = (ListView)findViewById(R.id.listNews);
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
         getNotesUsers();
+        listNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                showDialogNote(position);
+                //Toast.makeText(getApplicationContext(),"Ha pulsado el item " + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+    public void showDialogNote(int position){
+        FragmentManager manager = getFragmentManager();
+        ShowDialogNote showDetailsNote = new ShowDialogNote(getApplicationContext(),namePersons[position],contentNotes[position],date[position]);
+        showDetailsNote.show(manager, "show");
+
     }
     public void getNotesUsers(){
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -49,12 +66,14 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
     }
 
     public void publicNotes(JSONArray arrayNotes){
+        namePersons = new String[arrayNotes.length()];
         contentNotes = new String[arrayNotes.length()];
         date = new String[arrayNotes.length()];
         arr_images = new int[arrayNotes.length()];
         for (int i = 0; i <arrayNotes.length() ; i++) {
             try {
                 JSONObject note = (JSONObject) arrayNotes.get(i);
+                namePersons[i] = note.getString("ownerEmail");
                 contentNotes[i] = note.getString("content");
                 date[i] = note.getString("publicationDate");
                 arr_images[i] = R.drawable.default_image_40_40;
@@ -132,6 +151,11 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
         finish();
     }
 
+    @Override
+    public void onPositiveExitClick(boolean exit) {
+
+    }
+
     public class MyAdapter extends ArrayAdapter<String> {
 
         public MyAdapter(Context context, int textViewResourceId, String[] objects) {
@@ -153,10 +177,15 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
             LayoutInflater inflater = getLayoutInflater();
             View row = inflater.inflate(R.layout.row, parent, false);
             TextView label = (TextView) row.findViewById(R.id.company);
-            label.setText(contentNotes[position]);
+            label.setText(namePersons[position]);
 
             TextView sub = (TextView) row.findViewById(R.id.sub);
-            sub.setText(date[position]);
+            if(contentNotes[position].length()>50){
+                sub.setText(contentNotes[position].substring(0,50)+"...");
+            }
+            else{
+                sub.setText(contentNotes[position]);
+            }
 
             ImageView icon = (ImageView) row.findViewById(R.id.image);
             icon.setImageResource(arr_images[position]);
@@ -164,4 +193,5 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
             return row;
         }
     }
+
 }

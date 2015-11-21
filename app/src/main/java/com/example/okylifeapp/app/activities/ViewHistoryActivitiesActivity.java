@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import aplication.OkyLife;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
  */
 public class ViewHistoryActivitiesActivity extends Activity implements AsyncResponse, LogoutDialog.AlertPositiveLogoutListener {
     private Account okyLifeAccount;
+    String[] idActivity;
+    String[] classActivity;
     String[] nameActivity;
     String[] creationDate;
     int arr_images[];
@@ -39,7 +42,29 @@ public class ViewHistoryActivitiesActivity extends Activity implements AsyncResp
         listHistoryActivities = (ListView)findViewById(R.id.listActivities);
         okyLifeAccount = ((OkyLife) getApplication()).getOkyLifeAccount();
         getNotesUsers();
+        listHistoryActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                showDialogActivity(position);
+                //Toast.makeText(getApplicationContext(),"Ha pulsado el item " + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
+
+    public void showDialogActivity(int position){
+        Intent showDialogActivity = new Intent(this, ShowDialogActivity.class);
+        Bundle values = new Bundle();
+        Log.v("Class enviando:",classActivity[position]);
+        values.putString("class", classActivity[position]);
+        values.putString("id", idActivity[position]);
+        showDialogActivity.putExtras(values);
+        startActivity(showDialogActivity);
+        finish();
+    }
+
     public void getNotesUsers(){
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email", okyLifeAccount.name));
@@ -47,12 +72,16 @@ public class ViewHistoryActivitiesActivity extends Activity implements AsyncResp
     }
 
     public void publicHistoryActivities(JSONArray arrayActivities){
+        classActivity = new String[arrayActivities.length()];
+        idActivity = new String[arrayActivities.length()];
         nameActivity = new String[arrayActivities.length()];
         creationDate = new String[arrayActivities.length()];
         arr_images = new int[arrayActivities.length()];
         for (int i = 0; i <arrayActivities.length() ; i++) {
             try {
                 JSONObject note = (JSONObject) arrayActivities.get(i);
+                classActivity[i] = note.getString("class");
+                idActivity[i] = note.getString("id");
                 nameActivity[i] = note.getString("name");
                 creationDate[i] = note.getString("creationDate");
                 arr_images[i] = R.drawable.activity_icon;
