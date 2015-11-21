@@ -48,7 +48,8 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
     private String classActivity;
     private String idActivity;
     private String[] i_name,i_description,i_calories,i_carbohydrates,i_fat,i_proteins,i_number,i_rationType;
-    private TextView name,date,total_proteins,total_calories,total_carbohydrates,total_fat;
+    private TextView name,date,description,total_proteins,total_calories,total_carbohydrates,total_fat,total_distance,
+            total_hydration,total_duration, total_rhythm,total_velocity;
     private ListView listIngredients;
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -62,7 +63,16 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         if(classActivity.equals(SPORT)){
             Log.v("Es un Sport:",classActivity);
             ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/getSportActivityById", this, params);
-
+            setContentView(R.layout.show_sport);
+            name = (TextView)findViewById(R.id.name_sport);
+            date = (TextView)findViewById(R.id.date_sport);
+            description = (TextView)findViewById(R.id.description_sport);
+            total_calories = (TextView)findViewById(R.id.total_cal);
+            total_distance = (TextView)findViewById(R.id.total_dis);
+            total_hydration = (TextView)findViewById(R.id.total_hid);
+            total_duration = (TextView)findViewById(R.id.total_dur);
+            total_rhythm = (TextView)findViewById(R.id.rhythm);
+            total_velocity = (TextView)findViewById(R.id.vel);
         }
         else if(classActivity.equals(EAT)){
             Log.v("Es una Comida:",classActivity);
@@ -80,6 +90,23 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         else{
             Log.v("Es visitar un lugar:",classActivity);
             ((OkyLife) getApplication()).getMasterCaller().postData("VisitPlaceActivity/getVisitPlaceActivityById", this, params);
+        }
+
+    }
+
+    public void showSport(JSONObject sport){
+        try {
+            name.setText(sport.getString("name"));
+            date.setText(sport.getString("creationDate").split("T")[0]);
+            description.setText("\""+sport.getString("description")+"\"");
+            total_calories.setText(sport.getString("calories"));
+            total_distance.setText(sport.getString("distance"));
+            total_hydration.setText(sport.getString("hydration"));
+            total_duration.setText(sport.getString("duration"));
+            total_rhythm.setText(sport.getString("rhythm"));
+            total_velocity.setText(sport.getString("velocity"));
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
@@ -117,6 +144,7 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         listIngredients.setAdapter(new MyAdapter(this, R.layout.list_ingredients_row, i_name));
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -184,6 +212,7 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
 
                 if(classActivity.equals(SPORT)){
                     Log.v("Deporte: ", result);
+                    showSport(activity);
 
                 }
                 else if(classActivity.equals(EAT)){
