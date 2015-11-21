@@ -40,6 +40,7 @@
             android:padding="1dip"
             android:layout_marginTop="2dip"
             android:text="Eliminar"
+            android:id="@+id/delete_msn_btn"
             android:textSize="18dp"
             android:layout_marginLeft="5dip"
             android:layout_width="90dp"
