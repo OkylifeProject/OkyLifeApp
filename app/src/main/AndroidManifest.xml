@@ -59,6 +59,8 @@
         </activity>
         <activity android:name=".activities.ViewNewsActivity">
         </activity>
+        <activity android:name=".activities.ViewMessageActivity">
+        </activity>
         <activity android:name=".activities.ViewHistoryActivitiesActivity">
         </activity>
         <activity android:name=".activities.getLocationActivity">

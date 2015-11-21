@@ -1,12 +1,15 @@
 package data;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import com.example.okylifeapp.app.activities.ViewMessageActivity;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import rest.AsyncResponse;
@@ -84,7 +87,13 @@ public class MyMessageAdapter extends ArrayAdapter<Message> implements AsyncResp
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Hola", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), ViewMessageActivity.class);
+                        Bundle values = new Bundle();
+                        values.putString("subject", message.getSubject());
+                        values.putString("remitent", message.getRemitentEmail());
+                        values.putString("content", message.getContent());
+                        intent.putExtras(values);
+                        getContext().startActivity(intent);
                     }
                 };
                 msnImage.setOnClickListener(onClickListener);
