@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
+        <activity android:name=".activities.InboxActivity">
+        </activity>
         <activity android:name=".activities.LoginWithGoogleActivity">
         </activity>
         <activity android:name=".activities.MainActivity">
