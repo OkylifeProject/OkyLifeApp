@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:weightSum="1" android:padding="20dp">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar Mensaje"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/textView12" android:layout_gravity="center_horizontal" android:textSize="30dp"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Asunto"
+            android:id="@+id/subject_text" android:layout_gravity="center_horizontal" android:textSize="20dp"/>
+    <EditText
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            style="@style/layoutStyle"
+            android:alpha="0.3"
+            android:id="@+id/msn_txt" android:layout_weight="0.61"/>
+    <LinearLayout android:layout_marginTop="10dp" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:gravity="center">
+        <Button android:layout_width="100dp" android:layout_height="wrap_content" android:text="Enviar"
+                android:layout_marginRight="10dp" android:id="@+id/button2" android:layout_gravity="right"
+                style="@style/btnStyleGenoa" android:onClick="sendMessage"/>
+        <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:id="@+id/button" style="@style/btnStyleGenoa" android:onClick="cancelMessage"/>
+    </LinearLayout>
+
+</LinearLayout>

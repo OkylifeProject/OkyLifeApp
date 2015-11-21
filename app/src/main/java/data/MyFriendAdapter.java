@@ -2,8 +2,10 @@ package data;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
+import com.example.okylifeapp.app.activities.MSNActivity;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import rest.AsyncResponse;
@@ -100,7 +103,17 @@ public class MyFriendAdapter extends ArrayAdapter<User> implements AsyncResponse
                 }
             }
             if (msnButton != null) {
-
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), MSNActivity.class);
+                        Bundle values = new Bundle();
+                        values.putString("emailRecipient", user.getEmail());
+                        intent.putExtras(values);
+                        getContext().startActivity(intent);
+                    }
+                };
+                msnButton.setOnClickListener(onClickListener);
             }
         }
 
