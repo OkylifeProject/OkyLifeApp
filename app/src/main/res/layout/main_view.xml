@@ -65,5 +65,17 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/friends_icon"/>
         </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/msnButton" android:onClick="viewInbox"
+                    android:background="@drawable/msn_image"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/btnStyleGenoa"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
