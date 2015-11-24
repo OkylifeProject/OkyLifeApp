@@ -48,7 +48,7 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
     private String classActivity;
     private String idActivity;
     private String[] i_name,i_description,i_calories,i_carbohydrates,i_fat,i_proteins,i_number,i_rationType;
-    private TextView name,date,description,total_proteins,total_calories,total_carbohydrates,total_fat,total_distance,
+    private TextView name,date,description,total_proteins,total_calories,total_carbohydrates,total_fat,total_distance,address,
             total_hydration,total_duration, total_rhythm,total_velocity;
     private ListView listIngredients;
     @Override
@@ -90,6 +90,13 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         else{
             Log.v("Es visitar un lugar:",classActivity);
             ((OkyLife) getApplication()).getMasterCaller().postData("VisitPlaceActivity/getVisitPlaceActivityById", this, params);
+            setContentView(R.layout.show_visit_place);
+            name = (TextView)findViewById(R.id.name_place);
+            date = (TextView)findViewById(R.id.date_visit_place);
+            address = (TextView)findViewById(R.id.address_place);
+            description = (TextView)findViewById(R.id.description_visit_place);
+            total_calories = (TextView)findViewById(R.id.total_cal);
+            total_distance = (TextView)findViewById(R.id.total_dis);
         }
 
     }
@@ -143,6 +150,19 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         }
         listIngredients.setAdapter(new MyAdapter(this, R.layout.list_ingredients_row, i_name));
 
+    }
+
+    public void showVisitPlace(JSONObject place){
+        try {
+            name.setText(place.getString("name"));
+            date.setText(place.getString("creationDate").split("T")[0]);
+            description.setText(place.getString("description"));
+            address.setText(place.getString("address"));
+            total_distance.setText(place.getString("distance"));
+            total_calories.setText(place.getString("calories"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -220,7 +240,8 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
                     showEat(activity);
                 }
                 else{
-                    Log.v("Eat: ",result);
+                    Log.v("Visitar un lugar: ",result);
+                    showVisitPlace(activity);
                 }
             }
         }
