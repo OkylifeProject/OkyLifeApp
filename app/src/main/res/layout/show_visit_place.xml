@@ -43,10 +43,9 @@
     <RelativeLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layoutInfo"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
             >
         <TextView
-                android:layout_marginTop="2dip"
                 android:textColor="#000"
                 android:textStyle="bold|italic"
                 android:textSize="15dp"
@@ -60,13 +59,13 @@
         <RelativeLayout android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/description_visit_place"
-                        android:layout_marginTop="13dp"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
                 >
             <RelativeLayout android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/relative1"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="2dp"
                     >
                 <TextView
 
@@ -94,7 +93,7 @@
             <RelativeLayout android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/relative2"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="2dp"
                             android:layout_marginLeft="100dp"
                             android:layout_toRightOf="@id/relative1"
                     >
@@ -120,6 +119,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </RelativeLayout>
+            <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/relative2"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="300dp"
+                        android:layout_margin="10dp" />
+                <TextView
+                        android:textStyle="bold|italic"
+                        android:textSize="15dp"
+                        android:textColor="#308d9e"
+                        android:id="@+id/title_graph"
+                        android:gravity="center_horizontal"
+                        android:text="Titulo de la Grafica"
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
