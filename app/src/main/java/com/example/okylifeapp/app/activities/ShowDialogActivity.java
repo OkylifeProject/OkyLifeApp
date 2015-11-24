@@ -105,6 +105,10 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
             total_duration.setText(sport.getString("duration"));
             total_rhythm.setText(sport.getString("rhythm"));
             total_velocity.setText(sport.getString("velocity"));
+            allowGetCalUser = true;
+            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("email", okyLifeAccount.name));
+            ((OkyLife) getApplication()).getMasterCaller().postData("User/getUserByEmail", this, params);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -131,18 +135,23 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
             for (int i = 0; i <ingredients.length() ; i++) {
                 i_name[i] = ingredients.getJSONObject(i).getString("name");
                 i_description[i] = ingredients.getJSONObject(i).getString("description");
-                infoCal = Float.parseFloat(ingredients.getJSONObject(i).getString("calories"));
+                infoCal += Float.parseFloat(ingredients.getJSONObject(i).getString("calories"));
                 i_calories[i] = ingredients.getJSONObject(i).getString("calories");
                 i_carbohydrates[i]= ingredients.getJSONObject(i).getString("carbohydrates");
                 i_fat[i]= ingredients.getJSONObject(i).getString("fat");
                 i_proteins[i]= ingredients.getJSONObject(i).getString("proteins");
                 i_number[i]= ingredients.getJSONObject(i).getString("number");
                 i_rationType[i]= ingredients.getJSONObject(i).getString("rationType");
+
             }
+            listIngredients.setAdapter(new MyAdapter(this, R.layout.list_ingredients_row, i_name));
+            allowGetCalUser = true;
+            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("email", okyLifeAccount.name));
+            ((OkyLife) getApplication()).getMasterCaller().postData("User/getUserByEmail", this, params);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        listIngredients.setAdapter(new MyAdapter(this, R.layout.list_ingredients_row, i_name));
 
     }
 

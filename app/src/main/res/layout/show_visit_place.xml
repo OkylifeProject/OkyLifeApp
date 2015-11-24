@@ -119,20 +119,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </RelativeLayout>
-            <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/relative2"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/relative2"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center">
 
                 <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/pieChart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="300dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
                         android:layout_margin="10dp" />
                 <TextView
+                        android:layout_below="@id/pieChart"
                         android:textStyle="bold|italic"
                         android:textSize="15dp"
                         android:textColor="#308d9e"
@@ -142,7 +141,7 @@
                         android:layout_marginLeft="5dip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
