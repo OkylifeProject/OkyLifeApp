@@ -22,6 +22,7 @@
               android:text="Asunto del mensaje" android:layout_marginBottom="10dp"
               android:id="@+id/subject_name_show"/>
     <TextView android:layout_width="fill_parent"
+              android:textColor="#000"
               android:textSize="20dp" android:layout_height="300dp"
               style="@style/layoutStyle"
               android:alpha="0.3"

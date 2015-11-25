@@ -78,10 +78,10 @@ public class MyFriendAdapter extends ArrayAdapter<User> implements AsyncResponse
                 if (user.getImageBytes() != null) {
                     byte[] imageBytes = Base64.decode(user.getImageBytes(), Base64.DEFAULT);
                     bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
                 } else {
                     bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.default_image);
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
                 }
                 profileImage.setImageBitmap(bitmap);
             }
