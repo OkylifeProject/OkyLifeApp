@@ -8,8 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -64,7 +62,7 @@ public class SplashScreenActivity extends Activity {
 
                 // RunSportActivity next activity
                 Intent intent = new Intent();
-                intent.setClass(sPlashScreen, OkyLifeStartActivity.class);
+                intent.setClass(sPlashScreen, VerifyAccountActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -85,7 +83,7 @@ public class SplashScreenActivity extends Activity {
         }
         return true;
     }
-
+    /*
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -99,4 +97,5 @@ public class SplashScreenActivity extends Activity {
         }
         frameAnimation.setCallback(null);
     }
+    */
 }

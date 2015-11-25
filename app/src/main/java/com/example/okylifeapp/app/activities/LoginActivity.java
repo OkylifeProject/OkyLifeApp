@@ -138,7 +138,7 @@ public class LoginActivity extends Activity implements AsyncResponse {
                 JSONObject jsonObject = new JSONObject(response);
                 OkyLife.createAccountFirstTime(accountManager, jsonObject);
                 Log.v("response", "success register");
-                Intent intent = new Intent(this, OkyLifeStartActivity.class);
+                Intent intent = new Intent(this, VerifyAccountActivity.class);
                 finish();
                 startActivity(intent);
             } catch (JSONException e) {

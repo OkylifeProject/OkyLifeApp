@@ -13,7 +13,6 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
                    android:value="AIzaSyAhn-5hPcnAvBMGhxYXu86BXXGusQcu4Z4"></meta-data>
         <activity
-                android:theme="@style/Theme.Transparent"
                 android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -57,13 +56,16 @@
         </activity>
         <activity android:name=".activities.AddAlimentActivity">
         </activity>
+        <activity android:name=".activities.VerifyAccountActivity">
+        </activity>
         <activity android:name=".activities.AddFoodActivity">
         </activity>
         <activity android:name=".activities.WriteNoteActivity">
         </activity>
         <activity android:name=".activities.ViewNewsActivity">
         </activity>
-        <activity android:name=".activities.ViewMessageActivity">
+        <activity android:name=".activities.ViewMessageActivity"
+                  android:theme="@android:style/Theme.NoDisplay">
         </activity>
         <activity android:name=".activities.ViewHistoryActivitiesActivity">
         </activity>
