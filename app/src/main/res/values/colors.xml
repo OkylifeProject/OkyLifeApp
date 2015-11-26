@@ -2,4 +2,6 @@
 <resources>
     <color name="blue_flat">#308d9e</color>
     <color name="red_flat">#e74c3c</color>
+    <color name="orange_flat">#FD7B0A</color>
+    <color name="gree_flat">#37DB0F</color>
 </resources>
