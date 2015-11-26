@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 import aplication.OkyLife;
 import com.google.android.gms.common.ConnectionResult;
@@ -45,7 +46,7 @@ public class RegisterWithGoogleActivity extends Activity implements AsyncRespons
     public void onCreate(Bundle savedInstance) {
         Log.v("google", "created");
         super.onCreate(savedInstance);
-
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Plus.API)

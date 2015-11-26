@@ -374,7 +374,7 @@ public class DoingSportActivity extends Activity implements AsyncResponse, Logou
             data.Location firstLocation = locations.get(0);
             double localDistance = locationA.getLocation().distanceTo(locationB.getLocation());
             double localTime = locationB.getTime() - locationA.getTime();
-            distance = firstLocation.getLocation().distanceTo(locationB.getLocation());
+            distance += firstLocation.getLocation().distanceTo(locationB.getLocation());
             velocity = localDistance / localTime;
             traveledDistanceText.setText(String.format("%.2f", localDistance) + "m");
             velocityText.setText(String.format("%.2f", velocity) + " m/s");

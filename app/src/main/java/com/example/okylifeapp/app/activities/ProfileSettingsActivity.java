@@ -136,6 +136,11 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
         myImage.compress(Bitmap.CompressFormat.JPEG, 95, bao);
         imageBytes = bao.toByteArray();
 
+        double calories = OkyLife.calculateCaloriesHB(user.getSex(),
+                Double.valueOf(ageText.getText().toString()),
+                Double.valueOf(heightText.getText().toString()),
+                Double.valueOf(weightText.getText().toString()), "Medium");
+
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("image", Base64.encodeToString(imageBytes, Base64.DEFAULT)));
         params.add(new BasicNameValuePair("firstName", nameText.getText().toString()));
@@ -144,6 +149,7 @@ public class ProfileSettingsActivity extends Activity implements AsyncResponse, 
         params.add(new BasicNameValuePair("age", ageText.getText().toString()));
         params.add(new BasicNameValuePair("weight", weightText.getText().toString()));
         params.add(new BasicNameValuePair("height", heightText.getText().toString()));
+        params.add(new BasicNameValuePair("calories", String.valueOf(calories)));
 
         ((OkyLife) getApplication()).getMasterCaller().postData("User/updateUserByEmail", this, params);
     }

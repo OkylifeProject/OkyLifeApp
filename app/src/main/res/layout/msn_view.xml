@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
+            android:textColor="#000"
             style="@style/layoutStyle"
             android:alpha="0.3"
             android:id="@+id/msn_txt" android:layout_weight="0.61"/>

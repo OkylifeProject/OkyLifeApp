@@ -205,7 +205,7 @@ public class OkyLife extends Application {
     /**
      * Segun formula de Harris-Benedict
      **/
-    public static double calculateCaloriesHB(String sex, double age, double height, double weight, double distance, String effort) {
+    public static double calculateCaloriesHB(String sex, double age, double height, double weight, String effort) {
         double TMB = 0;
         double calories = 0;
         if (sex.equals("Male")) {
