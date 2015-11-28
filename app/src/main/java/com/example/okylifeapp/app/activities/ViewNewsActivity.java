@@ -6,7 +6,10 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
@@ -32,7 +35,7 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
     String[] contentNotes;
     String[] namePersons;
     String[] date;
-    int arr_images[];
+    Bitmap arr_images[];
     ListView listNews;
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -55,7 +58,7 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
     }
     public void showDialogNote(int position){
         FragmentManager manager = getFragmentManager();
-        ShowDialogNote showDetailsNote = new ShowDialogNote(getApplicationContext(),namePersons[position],contentNotes[position],date[position]);
+        ShowDialogNote showDetailsNote = new ShowDialogNote(getApplicationContext(),namePersons[position],contentNotes[position],date[position],arr_images[position]);
         showDetailsNote.show(manager, "show");
 
     }
@@ -69,21 +72,25 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
         namePersons = new String[arrayNotes.length()];
         contentNotes = new String[arrayNotes.length()];
         date = new String[arrayNotes.length()];
-        arr_images = new int[arrayNotes.length()];
+        arr_images = new Bitmap[arrayNotes.length()];
         for (int i = 0; i <arrayNotes.length() ; i++) {
             try {
                 JSONObject note = (JSONObject) arrayNotes.get(i);
                 namePersons[i] = note.getString("ownerEmail");
                 contentNotes[i] = note.getString("content");
                 date[i] = note.getString("publicationDate");
-                arr_images[i] = R.drawable.default_image_40_40;
-//                if(note.getString("imageHash").equals("")){
-//                    arr_images[i] = R.drawable.default_image_40_40;
-//                }
-//                else{
-//                    //TODO set imageProfile User
-//                    arr_images[i] = R.drawable.default_image_40_40;
-//                }
+                if(note.getString("ownerImageBytes").equals("")){
+                    Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.default_image);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
+                    arr_images[i] = bitmap;
+                }
+                else{
+                    byte[] imageBytes = Base64.decode((note.getString("ownerImageBytes")), Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
+                    arr_images[i] = bitmap;
+
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -188,7 +195,7 @@ public class ViewNewsActivity extends Activity implements AsyncResponse, LogoutD
             }
 
             ImageView icon = (ImageView) row.findViewById(R.id.image);
-            icon.setImageResource(arr_images[position]);
+            icon.setImageBitmap(arr_images[position]);
 
             return row;
         }

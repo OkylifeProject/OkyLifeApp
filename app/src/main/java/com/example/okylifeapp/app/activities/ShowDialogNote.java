@@ -8,11 +8,13 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import aplication.OkyLife;
@@ -38,12 +40,15 @@ public class ShowDialogNote extends DialogFragment implements AsyncResponse{
     private String [] date;
     private TextView namePerson,contentNote,dateNote;
     private Context context;
+    private ImageButton image;
+    private Bitmap imageProfile;
 
-    public ShowDialogNote(Context context,String name,String content, String date) {
+    public ShowDialogNote(Context context,String name,String content, String date, Bitmap imageProfile) {
         this.name = name;
         this.context = context;
         this.content = content;
         this.date = date.split("T");
+        this.imageProfile = Bitmap.createScaledBitmap(imageProfile, 350, 350, true);
     }
 
     public void onAttach(Activity activity) {
@@ -65,8 +70,10 @@ public class ShowDialogNote extends DialogFragment implements AsyncResponse{
         namePerson = (TextView) view.findViewById(R.id.name_person);
         contentNote = (TextView) view.findViewById(R.id.content_note);
         dateNote = (TextView) view.findViewById(R.id.date_note);
+        image = (ImageButton) view.findViewById(R.id.image_person);
         namePerson.setText(name);
         dateNote.setText(date[0]);
+        image.setImageBitmap(imageProfile);
         contentNote.setText("\""+content+"\"");
         builder.setView(view);
 

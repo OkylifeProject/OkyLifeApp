@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,7 @@ import com.example.okylifeapp.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -87,7 +89,10 @@ public class SaveSportActivity extends FragmentActivity implements AsyncResponse
         FragmentManager fmanager = getSupportFragmentManager();
         mMap = ((SupportMapFragment) fmanager.findFragmentById(R.id.save_sport_map)).getMap();
         mMap.setMyLocationEnabled(true);
-
+        //double lat = mMap.getMyLocation().getLatitude();
+        //double lng = mMap.getMyLocation().getLongitude();
+        //LatLng lastLatLng = new LatLng(lat, lng);
+        //mMap.animateCamera(CameraUpdateFactory.newLatLng(lastLatLng), 3000, null);
         PolylineOptions rectLine = new PolylineOptions().width(3).color(
                 Color.RED);
 
