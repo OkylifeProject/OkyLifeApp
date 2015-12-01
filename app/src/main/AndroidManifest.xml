@@ -66,8 +66,7 @@
         </activity>
         <activity android:name=".activities.ViewNewsActivity">
         </activity>
-        <activity android:name=".activities.ViewMessageActivity"
-                  android:theme="@android:style/Theme.NoDisplay">
+        <activity android:name=".activities.ViewMessageActivity">
         </activity>
         <activity android:name=".activities.ViewHistoryActivitiesActivity">
         </activity>
