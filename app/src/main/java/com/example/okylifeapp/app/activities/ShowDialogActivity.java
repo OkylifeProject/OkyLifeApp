@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import aplication.OkyLife;
 import com.example.okylifeapp.app.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -28,20 +30,21 @@ import java.util.ArrayList;
 /**
  * Created by Cristian Parada on 18/10/2015.
  */
-public class ShowDialogActivity   extends Activity implements AsyncResponse{
+public class ShowDialogActivity extends Activity implements AsyncResponse {
     private static String SPORT = "okylifeapi.SportActivity";
     private static String EAT = "okylifeapi.EatActivity";
     private static String VISIT_PLACE = "okylifeapi.VisitPlaceActivity";
     private String classActivity;
     private String idActivity;
-    private String[] i_name,i_description,i_calories,i_carbohydrates,i_fat,i_proteins,i_number,i_rationType;
-    private TextView name,date,description,total_proteins,total_calories,total_carbohydrates,total_fat,total_distance,address,
-            total_hydration,total_duration, total_rhythm,total_velocity,title_graph;
+    private String[] i_name, i_description, i_calories, i_carbohydrates, i_fat, i_proteins, i_number, i_rationType;
+    private TextView name, date, description, total_proteins, total_calories, total_carbohydrates, total_fat, total_distance, address,
+            total_hydration, total_duration, total_rhythm, total_velocity, title_graph;
     private PieChart pieChart;
     private ListView listIngredients;
-    private  float infoCal;
+    private float infoCal;
     private boolean allowGetCalUser = false;
     private Account okyLifeAccount;
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -51,53 +54,55 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         Log.v("id recibido", idActivity);
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("id", idActivity));
-        if(classActivity.equals(SPORT)){
-            Log.v("Es un Sport:",classActivity);
+        if (classActivity.equals(SPORT)) {
+            Log.v("Es un Sport:", classActivity);
             ((OkyLife) getApplication()).getMasterCaller().postData("SportActivity/getSportActivityById", this, params);
             setContentView(R.layout.show_sport);
-            name = (TextView)findViewById(R.id.name_sport);
-            date = (TextView)findViewById(R.id.date_sport);
-            description = (TextView)findViewById(R.id.description_sport);
-            total_calories = (TextView)findViewById(R.id.total_cal);
-            total_distance = (TextView)findViewById(R.id.total_dis);
-            total_hydration = (TextView)findViewById(R.id.total_hid);
-            total_duration = (TextView)findViewById(R.id.total_dur);
-            total_rhythm = (TextView)findViewById(R.id.rhythm);
-            total_velocity = (TextView)findViewById(R.id.vel);
-        }
-        else if(classActivity.equals(EAT)){
-            Log.v("Es una Comida:",classActivity);
+            name = (TextView) findViewById(R.id.name_sport);
+            date = (TextView) findViewById(R.id.date_sport);
+            description = (TextView) findViewById(R.id.description_sport);
+            total_calories = (TextView) findViewById(R.id.total_cal);
+            total_distance = (TextView) findViewById(R.id.total_dis);
+            total_hydration = (TextView) findViewById(R.id.total_hid);
+            total_duration = (TextView) findViewById(R.id.total_dur);
+            total_rhythm = (TextView) findViewById(R.id.rhythm);
+            total_velocity = (TextView) findViewById(R.id.vel);
+        } else if (classActivity.equals(EAT)) {
+            Log.v("Es una Comida:", classActivity);
             ((OkyLife) getApplication()).getMasterCaller().postData("EatActivity/getEatActivityById", this, params);
             setContentView(R.layout.show_eat);
-            name = (TextView)findViewById(R.id.name_eat);
-            date = (TextView)findViewById(R.id.date_eat);
-            total_proteins = (TextView)findViewById(R.id.total_proteins);
-            total_calories = (TextView)findViewById(R.id.total_calories);
-            total_carbohydrates = (TextView)findViewById(R.id.total_carbohydrates);
-            total_fat = (TextView)findViewById(R.id.total_fat);
-            listIngredients = (ListView)findViewById(R.id.list_ingredients_eat);
+            name = (TextView) findViewById(R.id.name_eat);
+            date = (TextView) findViewById(R.id.date_eat);
+            total_proteins = (TextView) findViewById(R.id.total_proteins);
+            total_calories = (TextView) findViewById(R.id.total_calories);
+            total_carbohydrates = (TextView) findViewById(R.id.total_carbohydrates);
+            total_fat = (TextView) findViewById(R.id.total_fat);
+            listIngredients = (ListView) findViewById(R.id.list_ingredients_eat);
 
-        }
-        else{
+        } else {
             Log.v("Es visitar un lugar:", classActivity);
             ((OkyLife) getApplication()).getMasterCaller().postData("VisitPlaceActivity/getVisitPlaceActivityById", this, params);
             setContentView(R.layout.show_visit_place);
-            name = (TextView)findViewById(R.id.name_place);
-            date = (TextView)findViewById(R.id.date_visit_place);
-            address = (TextView)findViewById(R.id.address_place);
-            description = (TextView)findViewById(R.id.description_visit_place);
-            total_calories = (TextView)findViewById(R.id.total_cal);
-            total_distance = (TextView)findViewById(R.id.total_dis);
+            name = (TextView) findViewById(R.id.name_place);
+            date = (TextView) findViewById(R.id.date_visit_place);
+            address = (TextView) findViewById(R.id.address_place);
+            description = (TextView) findViewById(R.id.description_visit_place);
+            total_calories = (TextView) findViewById(R.id.total_cal);
+            total_distance = (TextView) findViewById(R.id.total_dis);
         }
 
 
     }
 
-    public void showSport(JSONObject sport){
+    public void showSport(JSONObject sport) {
+        try {
+            description.setText("\"" + sport.getString("description") + "\"");
+        } catch (Exception ex) {
+            description.setText("");
+        }
         try {
             name.setText(sport.getString("name"));
             date.setText(sport.getString("creationDate").split("T")[0]);
-            description.setText("\""+sport.getString("description")+"\"");
             infoCal = Float.parseFloat(sport.getString("calories"));
             total_calories.setText(sport.getString("calories"));
             total_distance.setText(sport.getString("distance"));
@@ -115,7 +120,7 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
 
     }
 
-    public void showEat(JSONObject eat){
+    public void showEat(JSONObject eat) {
         try {
             name.setText(eat.getString("name"));
             date.setText(eat.getString("creationDate").split("T")[0]);
@@ -123,25 +128,25 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
             total_calories.setText(eat.getString("totalCalories"));
             total_carbohydrates.setText(eat.getString("totalCarbohydrates"));
             total_fat.setText(eat.getString("totalFat"));
-            JSONArray ingredients =eat.getJSONArray("ingredients");
+            JSONArray ingredients = eat.getJSONArray("ingredients");
             i_name = new String[ingredients.length()];
             i_description = new String[ingredients.length()];
-            i_calories  = new String[ingredients.length()];
-            i_carbohydrates  = new String[ingredients.length()];
+            i_calories = new String[ingredients.length()];
+            i_carbohydrates = new String[ingredients.length()];
             i_fat = new String[ingredients.length()];
             i_proteins = new String[ingredients.length()];
             i_number = new String[ingredients.length()];
             i_rationType = new String[ingredients.length()];
-            for (int i = 0; i <ingredients.length() ; i++) {
+            for (int i = 0; i < ingredients.length(); i++) {
                 i_name[i] = ingredients.getJSONObject(i).getString("name");
                 i_description[i] = ingredients.getJSONObject(i).getString("description");
                 infoCal += Float.parseFloat(ingredients.getJSONObject(i).getString("calories"));
                 i_calories[i] = ingredients.getJSONObject(i).getString("calories");
-                i_carbohydrates[i]= ingredients.getJSONObject(i).getString("carbohydrates");
-                i_fat[i]= ingredients.getJSONObject(i).getString("fat");
-                i_proteins[i]= ingredients.getJSONObject(i).getString("proteins");
-                i_number[i]= ingredients.getJSONObject(i).getString("number");
-                i_rationType[i]= ingredients.getJSONObject(i).getString("rationType");
+                i_carbohydrates[i] = ingredients.getJSONObject(i).getString("carbohydrates");
+                i_fat[i] = ingredients.getJSONObject(i).getString("fat");
+                i_proteins[i] = ingredients.getJSONObject(i).getString("proteins");
+                i_number[i] = ingredients.getJSONObject(i).getString("number");
+                i_rationType[i] = ingredients.getJSONObject(i).getString("rationType");
 
             }
             listIngredients.setAdapter(new MyAdapter(this, R.layout.list_ingredients_row, i_name));
@@ -157,10 +162,18 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
 
     public void showVisitPlace(JSONObject place) {
         try {
+            description.setText("\"" + place.getString("description") + "\"");
+        } catch (Exception e) {
+            description.setText("");
+        }
+        try {
+            address.setText(place.getString("address"));
+        } catch (Exception e) {
+            address.setText("");
+        }
+        try {
             name.setText(place.getString("name"));
             date.setText(place.getString("creationDate").split("T")[0]);
-            description.setText("\""+place.getString("description")+"\"");
-            address.setText(place.getString("address"));
             total_distance.setText(place.getString("distance"));
             infoCal = Float.parseFloat(place.getString("calories"));
             total_calories.setText(place.getString("calories"));
@@ -173,9 +186,9 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         }
     }
 
-    public void showGraphic(float calUser){
+    public void showGraphic(float calUser) {
 
-        title_graph=(TextView)findViewById(R.id.title_graph);
+        title_graph = (TextView) findViewById(R.id.title_graph);
         pieChart = (PieChart) findViewById(R.id.pieChart);
         /*definimos algunos atributos*/
         pieChart.setHoleRadius(40f);
@@ -186,14 +199,13 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
 
             /*creamos una lista para los valores Y*/
         ArrayList<Entry> valsY = new ArrayList<Entry>();
-        float porcent = ((calUser-infoCal)*100)/calUser;
-        if(calUser-infoCal>0){
-            valsY.add(new Entry(infoCal*100/calUser, 1));
+        float porcent = ((calUser - infoCal) * 100) / calUser;
+        if (calUser - infoCal > 0) {
+            valsY.add(new Entry(infoCal * 100 / calUser, 1));
             valsY.add(new Entry(porcent, 0));
-            title_graph.setText("Has consumido el "+(100-porcent)+"% de tus calorias meta");
-        }
-        else{
-            valsY.add(new Entry(calUser*100/calUser, 1));
+            title_graph.setText("Has consumido el " + (100 - porcent) + "% de tus calorias meta");
+        } else {
+            valsY.add(new Entry(calUser * 100 / calUser, 1));
             valsY.add(new Entry(0, 0));
             title_graph.setText("Haz alcanzado la meta con esta actividad");
         }
@@ -219,10 +231,50 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
         pieChart.highlightValues(null);
         pieChart.invalidate();
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void processFinish(String result) {
+        try {
+            if (OkyLife.isJSON(result)) {
+                JSONObject activity = new JSONObject(result);
+
+                if (classActivity.equals(SPORT) && !allowGetCalUser) {
+                    Log.v("Deporte: ", result);
+                    showSport(activity);
+
+                } else if (classActivity.equals(EAT) && !allowGetCalUser) {
+                    Log.v("Comida: ", result);
+                    showEat(activity);
+                } else if (classActivity.equals(VISIT_PLACE) && !allowGetCalUser) {
+                    Log.v("Visitar un lugar: ", result);
+                    showVisitPlace(activity);
+                } else if (allowGetCalUser) {
+                    Log.v("Calorias Usuario:", result);
+                    showGraphic(Float.parseFloat(activity.getString("calories")));
+                }
+            }
+        } catch (Exception e) {
+            Log.v("Ninguno de los 3: ", result);
+        }
+
+    }
+
+    @Override
+    public void onStart() {
+        Log.v("location", "started");
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.v("location", "stopped");
+        super.onStop();
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
@@ -251,7 +303,7 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
             name.setText(i_name[position]);
 
             TextView description = (TextView) row.findViewById(R.id.description_ingredient);
-            description.setText("\""+i_description[position]+"\"");
+            description.setText("\"" + i_description[position] + "\"");
 
             TextView num = (TextView) row.findViewById(R.id.number_rates);
             num.setText(i_number[position]);
@@ -273,50 +325,6 @@ public class ShowDialogActivity   extends Activity implements AsyncResponse{
 
             return row;
         }
-    }
-
-
-    @Override
-    public void processFinish(String result) {
-        try{
-            if (OkyLife.isJSON(result)) {
-                JSONObject activity = new JSONObject(result);
-
-                if(classActivity.equals(SPORT)&&!allowGetCalUser){
-                    Log.v("Deporte: ", result);
-                    showSport(activity);
-
-                }
-                else if(classActivity.equals(EAT)&&!allowGetCalUser){
-                    Log.v("Comida: ",result);
-                    showEat(activity);
-                }
-                else if (classActivity.equals(VISIT_PLACE)&&!allowGetCalUser){
-                    Log.v("Visitar un lugar: ",result);
-                    showVisitPlace(activity);
-                }
-                else if(allowGetCalUser){
-                    Log.v("Calorias Usuario:",result);
-                    showGraphic(Float.parseFloat(activity.getString("calories")));
-                }
-            }
-        }
-        catch(Exception e){
-            Log.v("Ninguno de los 3: ",result);
-        }
-
-    }
-
-    @Override
-    public void onStart() {
-        Log.v("location", "started");
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.v("location", "stopped");
-        super.onStop();
     }
 
 
